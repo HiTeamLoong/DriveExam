@@ -170,7 +170,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
 
         knobSwitch.onChangeLevel = OnChangeKnobLevel;
         knobSwitch.onChangeSwitch = OnChangeKnobSwitch;
-        btnControlLeft.onClick.AddListener(() => { Debug.Log("left"); LeftIndicatorSwitch = true; });
+        btnControlLeft.onClick.AddListener(() => { LeftIndicatorSwitch = true; });
         btnControlClose.onClick.AddListener(() => { LeftIndicatorSwitch = false;RightIndicatorSwitch = false; });
         btnControlRigth.onClick.AddListener(() => { RightIndicatorSwitch = true; });
         btsCantrolForward.button.onClick.AddListener(() => { FarHeadlightSwitch = true; });

@@ -11,7 +11,8 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     {
         GlobalManager.Instance.isLogin = false;
         UIManager.Instance.CloseAllWindow();
-        
+
+        Input.multiTouchEnabled = false;
         SceneManager.LoadScene("MainScene");
     }
 }

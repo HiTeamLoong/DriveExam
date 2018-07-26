@@ -429,7 +429,7 @@ public abstract class UIExamWindowBase : UIWindow
     {
         StopAllCoroutines();
         AudioSystemMgr.Instance.StopSoundByAudio(audioObject);
-        imgResult.gameObject.SetActive(false);
+        //imgResult.gameObject.SetActive(false);
     }
 
     /// <summary>

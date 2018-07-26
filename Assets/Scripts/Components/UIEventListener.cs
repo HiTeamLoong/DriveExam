@@ -16,7 +16,7 @@ public class UIEventListener : MonoBehaviour, IPointerClickHandler,
 
 {
     public delegate void VoidDelegate(GameObject go);
-    public delegate void VoidDelegate_Vector2(GameObject go, PointerEventData pos);
+    public delegate void VoidDelegate_Vector2(GameObject go, PointerEventData eventData);
     public delegate void VoidDelegate_Bool_Vector2(GameObject go,bool state, Vector2 pos);
 
     public VoidDelegate onClick;
