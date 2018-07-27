@@ -178,6 +178,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
         UIEventListener.Get(btsControlBackward.button.gameObject).onDown += (go) => { ToggleHeadlightSwitch = true; FarHeadlightSwitch = true; };
         UIEventListener.Get(btsControlBackward.button.gameObject).onUp += (go) => { ToggleHeadlightSwitch = false; FarHeadlightSwitch = false; };
         btsDoubleJump.button.onClick.AddListener(() => { DoubleJumpSwitch = !DoubleJumpSwitch; });
+
     }
     void OnChangeKnobLevel(int value)
     {
@@ -197,7 +198,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
     }
     void OnChangeKnobSwitch(bool value)
     {
-        FrontFogSwitch = true;
-        RearFogSwitch = true;
+        FrontFogSwitch = value;
+        RearFogSwitch = value;
     }
 }

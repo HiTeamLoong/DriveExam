@@ -3,6 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface ILightController
+{
+    /// <summary>
+    /// 设置示廓灯
+    /// </summary>
+    /// <param name="show">If set to <c>true</c> show.</param>
+    void SetClearanc(bool show);
+    /// <summary>
+    /// 设置近光灯
+    /// </summary>
+    /// <param name="show">If set to <c>true</c> show.</param>
+    void SetHeadNear(bool show);
+    /// <summary>
+    /// 设置远光灯
+    /// </summary>
+    /// <param name="show">If set to <c>true</c> show.</param>
+    void SetHeadFar(bool show);
+    /// <summary>
+    /// 设置前雾灯
+    /// </summary>
+    /// <param name="show">If set to <c>true</c> show.</param>
+    void SetFogLight(bool show);
+}
+
 public abstract class UIExamWindowBase : UIWindow
 {
     [System.Serializable]
@@ -99,6 +123,8 @@ public abstract class UIExamWindowBase : UIWindow
         }
     }
 
+    private LightController lightController;
+
     public override void OnCreate()
     {
         base.OnCreate();
@@ -109,6 +135,12 @@ public abstract class UIExamWindowBase : UIWindow
         btsRules.button.onClick.AddListener(OnClickRules);
 
         btsNext.button.onClick.AddListener(OnClickNext);
+
+        lightController = FindObjectOfType<LightController>();
+        if (lightController==null)
+        {
+            Debug.LogError("ERROR:ILightController is lost");
+        }
     }
 
     #region BaseFunction
@@ -197,6 +229,8 @@ public abstract class UIExamWindowBase : UIWindow
             {
                 HeadlightSwitch = false;
             }
+            lightController.SetClearanc(ClearanceLamp);
+            lightController.SetFogLight(FrontFogLamp);
         }
     }
     /// <summary>
@@ -213,6 +247,10 @@ public abstract class UIExamWindowBase : UIWindow
             {
                 ClearanceSwitch = false;
             }
+            lightController.SetClearanc(ClearanceLamp);
+            lightController.SetHeadFar(HigBeamLight);
+            lightController.SetHeadNear(LowBeamLight);
+            lightController.SetFogLight(FrontFogLamp);
         }
     }
     /// <summary>
@@ -225,6 +263,7 @@ public abstract class UIExamWindowBase : UIWindow
         set
         {
             frontFogSwitch = value;
+            lightController.SetFogLight(FrontFogLamp);
         }
     }
     /// <summary>
@@ -304,10 +343,9 @@ public abstract class UIExamWindowBase : UIWindow
         get { return farHeadlightSwitch; }
         set
         {
-            if (value != farHeadlightSwitch)
-            {
-                farHeadlightSwitch = value;
-            }
+            farHeadlightSwitch = value;
+            lightController.SetHeadFar(HigBeamLight);
+            lightController.SetHeadNear(LowBeamLight);
         }
     }
     /// <summary>
@@ -445,7 +483,7 @@ public abstract class UIExamWindowBase : UIWindow
         examList.Add(2);
         StartCoroutine(_BeginLightExam());
 
-         }
+    }
 
     IEnumerator _BeginLightExam()
     {

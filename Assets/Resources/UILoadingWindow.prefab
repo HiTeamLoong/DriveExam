@@ -467,7 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2547173cb3cfc46a7bf7a7b369e4aea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMain: 0
   progressBar: {fileID: 114366121168361360}
 --- !u!114 &114378089182002542
 MonoBehaviour:
@@ -580,7 +579,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!114 &114661304237856594
@@ -782,7 +781,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u52A0\u8F7D\u4E2D  40%"
+  m_Text: "\u52A0\u8F7D\u4E2D  0%"
 --- !u!222 &222041519257114334
 CanvasRenderer:
   m_ObjectHideFlags: 1

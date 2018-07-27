@@ -14,7 +14,6 @@ public class UILoginWindow : UIWindow
         public InputField iptAccount;
         public InputField iptPassword;
         public Button btnLogin;
-        public Button btnRegister;
         public Button btnWechat;
     }
     public LoginGroup loginGroup;
@@ -65,7 +64,6 @@ public class UILoginWindow : UIWindow
         base.OnCreate();
         loginGroup.btnLogin.onClick.AddListener(OnClickLogin);
         loginGroup.btnWechat.onClick.AddListener(OnClickWechat);
-        loginGroup.btnRegister.onClick.AddListener(OnClickRegister);
     }
 
 
@@ -93,9 +91,5 @@ public class UILoginWindow : UIWindow
     void OnClickWechat()
     {
         UITipsDialog.ShowTips("此接口当前未开放");
-    }
-    void OnClickRegister()
-    {
-
     }
 }

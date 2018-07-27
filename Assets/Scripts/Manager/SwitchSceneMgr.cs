@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
 {
     public void SwitchToExam(){
-        AsyncOperation async = SceneManager.LoadSceneAsync("ExamScene");
         UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
+        AsyncOperation async = SceneManager.LoadSceneAsync("ExamSceneTest");
         uiLoadingWindow.InitWith(async);
     }
 }
