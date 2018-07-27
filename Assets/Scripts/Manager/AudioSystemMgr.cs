@@ -5,10 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class AudioObject
 {
-    public AudioObject()
-    {
-        //flagController = ControlAudioFlag();
-    }
     public IEnumerator flagController;
 
     public AudioSource source;
@@ -28,20 +24,17 @@ public class AudioObject
             }
         }
     }
+
     public IEnumerator ControlAudioFlag()
     {
-        // Debug.Log("开始");
-        //此处时间缩放貌似是在不好用
         isUsed = true;
         source.spatialBlend = 0;
         yield return new WaitForEndOfFrame();
         source.Play();
-        yield return new WaitForSeconds(playTime
-                                        + 0.2f);
+        yield return new WaitForSeconds(playTime + 0.2f);
 
         source.clip = null;
         isUsed = false;
-        //  Debug.Log("结束");
     }
 }
 public class AudioSystemMgr : MonoBehaviour
@@ -211,7 +204,7 @@ public class AudioSystemMgr : MonoBehaviour
     }
 
     /********************************播放效果音效*********************************************/
-    public AudioObject PlaySoundByClip(AudioClip audioClip)
+    public AudioObject PlaySoundByClip(AudioClip audioClip, bool loop = false)
     {
         AudioObject audioObj = getUnUseAudio(audioSounds);
         if (audioObj != null)
@@ -224,7 +217,16 @@ public class AudioSystemMgr : MonoBehaviour
             {
                 audioObj.source.clip = audioClip;
                 audioObj.flagController = audioObj.ControlAudioFlag();
-                StartCoroutine(audioObj.flagController);
+                if (loop)
+                {
+                    audioObj.source.loop = true;
+                    audioObj.isUsed = true;
+                    audioObj.source.Play();
+                }
+                else
+                {
+                    StartCoroutine(audioObj.flagController);
+                }
                 return audioObj;
             }
         }
@@ -237,9 +239,16 @@ public class AudioSystemMgr : MonoBehaviour
 
     public void StopSoundByAudio(AudioObject audioObj)
     {
-        if (audioObj!=null&&audioObj.isUsed)
+        if (audioObj != null && audioObj.isUsed)
         {
-            StopCoroutine(audioObj.flagController);
+            if (audioObj.source.loop)
+            {
+                audioObj.source.loop = false;
+            }
+            else
+            {
+                StopCoroutine(audioObj.flagController);
+            }
             audioObj.isUsed = false;
             audioObj.source.Stop();
             audioObj.source.clip = null;
@@ -252,6 +261,7 @@ public class AudioSystemMgr : MonoBehaviour
             if (audioSounds[i].isUsed)
             {
                 audioSounds[i].source.clip = null;
+                audioSounds[i].source.loop = false;
                 audioSounds[i].source.Stop();
             }
         }

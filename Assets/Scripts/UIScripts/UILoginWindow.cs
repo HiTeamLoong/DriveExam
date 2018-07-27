@@ -88,8 +88,20 @@ public class UILoginWindow : UIWindow
         //AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithStr(ConfigDataMgr.ExamStart));
         UIManager.Instance.OpenUI<UIMainWindow>();
     }
+
+    AudioObject audioObject;
     void OnClickWechat()
     {
-        UITipsDialog.ShowTips("此接口当前未开放");
+        //UITipsDialog.ShowTips("此接口当前未开放");
+
+        if (audioObject != null)
+        {
+            AudioSystemMgr.Instance.StopSoundByAudio(audioObject);
+            audioObject = null;
+        }
+        else
+        {
+            audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"), true);
+        }
     }
 }

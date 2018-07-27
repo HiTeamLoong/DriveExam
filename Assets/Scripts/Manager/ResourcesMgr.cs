@@ -62,6 +62,10 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         return Resources.Load(assetName) as GameObject;
     }
 
+    public AudioClip LoadAudioClip(string clipName){
+        return Resources.Load<AudioClip>("Sound/" + clipName);
+    }
+
     /// <summary>
     /// Gets the audio with string.
     /// </summary>
