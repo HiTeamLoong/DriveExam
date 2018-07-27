@@ -2078,9 +2078,9 @@ MonoBehaviour:
     sprNormal: {fileID: 21300000, guid: 6faceba52ac0d4e908f67ffe7f7e4d50, type: 3}
     sprSelect: {fileID: 21300000, guid: 207346928965e45f68dee94f3a3efc41, type: 3}
   btsDoubleJump:
-    button: {fileID: 0}
-    sprNormal: {fileID: 0}
-    sprSelect: {fileID: 0}
+    button: {fileID: 114362451542585002}
+    sprNormal: {fileID: 21300000, guid: 98845d80f6461214eb1822176af60bef, type: 3}
+    sprSelect: {fileID: 21300000, guid: 694bb5e9b48d84e42b7e3b84ab67b049, type: 3}
   transControlRod: {fileID: 224649875754664464}
   controlRodNormal:
     objRoot: {fileID: 1937879737035106}

@@ -141,6 +141,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             if (FarHeadlightSwitch != value)
             {
                 base.FarHeadlightSwitch = value;
+                (btsCantrolState.button.targetGraphic as Image).sprite = value ? btsCantrolState.sprSelect : btsCantrolState.sprNormal;
             }
         }
     }
@@ -164,10 +165,35 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
         btnControlClose.onClick.AddListener(() => { LeftIndicatorSwitch = false; RightIndicatorSwitch = false; });
         btnControlRigth.onClick.AddListener(() => { RightIndicatorSwitch = true; });
 
-        UIEventListener.Get(btsControlBackward1.button.gameObject).onDown += (go) => { FarHeadlightSwitch = !FarHeadlightSwitch; };
-        UIEventListener.Get(btsControlBackward1.button.gameObject).onUp += (go) => { FarHeadlightSwitch = !FarHeadlightSwitch; };
-        UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) => { FarHeadlightSwitch = !FarHeadlightSwitch; };
-        UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) => { /*处理效果*/ };
+        btsDoubleJump.button.onClick.AddListener(() => { DoubleJumpSwitch = !DoubleJumpSwitch; });
+
+        UIEventListener.Get(btsControlBackward1.button.gameObject).onDown += (go) =>
+        {
+            FarHeadlightSwitch = !FarHeadlightSwitch;
+            controlRodBackward.objRoot.SetActive(true);
+            controlRodNormal.objRoot.SetActive(false);
+            (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprSelect;
+        };
+        UIEventListener.Get(btsControlBackward1.button.gameObject).onUp += (go) =>
+        {
+            FarHeadlightSwitch = !FarHeadlightSwitch;
+            controlRodBackward.objRoot.SetActive(false);
+            controlRodNormal.objRoot.SetActive(true);
+            (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprNormal;
+        };
+
+        UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) => {
+            FarHeadlightSwitch = !FarHeadlightSwitch;
+            controlRodBackward.objRoot.SetActive(true);
+            controlRodNormal.objRoot.SetActive(false);
+            (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprSelect;
+        };
+        UIEventListener.Get(btsControlBackward2.button.gameObject).onUp += (go) => {
+            /*处理效果*/
+            controlRodBackward.objRoot.SetActive(false);
+            controlRodNormal.objRoot.SetActive(true);
+            (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprNormal;
+        };
 
         UIEventListener.Get(controlRodNormal.imgHeadLight.gameObject).onDragEnd += OnHeadLightDragEnd;
         UIEventListener.Get(controlRodBackward.imgHeadLight.gameObject).onDragEnd += OnHeadLightDragEnd;
@@ -185,11 +211,11 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
         {
             if (currPos.x > passPos.x && currPos.y > passPos.y)//右上
             {
-                if (!ClearanceSwitch&&!HeadlightSwitch)
+                if (!ClearanceSwitch && !HeadlightSwitch)
                 {
                     ClearanceSwitch = true;
                 }
-                else if(ClearanceSwitch)
+                else if (ClearanceSwitch)
                 {
                     ClearanceSwitch = false;
                     HeadlightSwitch = true;
@@ -202,7 +228,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                     HeadlightSwitch = false;
                     ClearanceSwitch = true;
                 }
-                else if(ClearanceSwitch)
+                else if (ClearanceSwitch)
                 {
                     ClearanceSwitch = false;
                 }

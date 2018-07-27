@@ -15,9 +15,8 @@ public class MainSceneMgr : MonoBehaviour
     private void Awake()
     {
         ttsString2Audio = new Tts(APIKey, SecretKey);
-
-
-        if (/* 是否有网络 */ true)
+        
+        if (Application.internetReachability != NetworkReachability.NotReachable)
         {
             uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
             uiLoginWindow.SetState("正在检查题库更新...");
