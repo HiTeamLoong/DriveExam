@@ -127,8 +127,8 @@ public class UpdateManager : MonoBehaviour
                     Debug.LogErrorFormat("Error:Str2Audio errorno<{0}> errormsg<{1}>", result.err_no, result.err_msg);
                 }
             }));
+            uiLoginWindow.SetProgress(1.0f);
         }
-        uiLoginWindow.SetProgress(1.0f);
     }
 
     /// <summary>
@@ -165,8 +165,8 @@ public class UpdateManager : MonoBehaviour
                     ConfigDataMgr.Instance.resourceDict.Add(updateList[i], fileName);
                 }
             });
+            uiLoginWindow.SetProgress(1.0f);
         }
-        uiLoginWindow.SetProgress(1.0f);
     }
 
 

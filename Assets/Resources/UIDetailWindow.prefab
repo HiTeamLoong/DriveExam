@@ -927,7 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.228}
+  m_Color: {r: 0.625, g: 0.625, b: 0.625, a: 0.228}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1125,7 +1125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1278,6 +1278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 328683047482247472}
   btnStart: {fileID: 114081147504967096}
+  controlList: {fileID: 1236283424637216}
   btnVideoList: {fileID: 114483331800784456}
   sliderProg: {fileID: 114859895644375494}
   btnPlay: {fileID: 114953600807705172}
@@ -1286,9 +1287,10 @@ MonoBehaviour:
   sprPause: {fileID: 21300000, guid: 93a834ee840c0436893773247a1aae65, type: 3}
   textPlayTime: {fileID: 114053306967398240}
   textTotalTime: {fileID: 114833393772874962}
+  videoParent: {fileID: 224525006040847202}
+  videoChild: {fileID: 224512752233820860}
   objVideoList: {fileID: 1320848371861942}
   videoListItem: {fileID: 114092658883790286}
-  videoRender: {fileID: 0}
 --- !u!114 &114688023652796454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1349,7 +1351,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a8536b196517c4cb886f8c70da5ca60b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93a834ee840c0436893773247a1aae65, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1487,7 +1489,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1932,7 +1934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.000001627761, y: -0.00002271156}
+  m_AnchoredPosition: {x: -0.000061035156, y: -0.00002271156}
   m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &224360052431018702

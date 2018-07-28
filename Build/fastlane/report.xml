@@ -5,67 +5,67 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.003118">
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.002683">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.002184">
+      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.002352">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.001475">
+      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.001519">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: Switch to android info lane" time="0.001759">
+      <testcase classname="fastlane.lanes" name="03: Switch to android info lane" time="0.001734">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: Switch to android export lane" time="0.00213">
+      <testcase classname="fastlane.lanes" name="04: Switch to android export lane" time="0.001687">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: Switch to android do_export lane" time="0.002018">
+      <testcase classname="fastlane.lanes" name="05: Switch to android do_export lane" time="0.001557">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: Switch to android do_set_package_setting lane" time="0.001677">
+      <testcase classname="fastlane.lanes" name="06: Switch to android do_set_package_setting lane" time="0.001597">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: unity" time="28.540401">
+      <testcase classname="fastlane.lanes" name="07: unity" time="320.74486">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: echo &quot;##teamcity[publishArtifacts 'Build/Output/Android/Build-1.0.23/Unity.BuildAndroid-1.0.23-Export.log']&quot;" time="0.009877">
+      <testcase classname="fastlane.lanes" name="08: echo &quot;##teamcity[publishArtifacts 'Build/Output/Android/Build-1.0.23/Unity.BuildAndroid-1.0.23-Export.log']&quot;" time="0.009675">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: Switch to android assemble lane" time="0.001961">
+      <testcase classname="fastlane.lanes" name="09: Switch to android assemble lane" time="0.002016">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: gradle" time="28.159883">
+      <testcase classname="fastlane.lanes" name="10: gradle" time="39.074754">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: keytool -list -printcert -jarfile /Users/xuelong/Development/DirveExam/Build/Output/Android/Build-1.0.23/DriveExam/build/outputs/apk/release/DriveExam-release.apk" time="1.555272">
+      <testcase classname="fastlane.lanes" name="11: keytool -list -printcert -jarfile /Users/xuelong/HiTeamLoong/DriveExam/Build/Output/Android/Build-1.0.23/DriveExam/build/outputs/apk/release/DriveExam-release.apk" time="1.416099">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: echo &quot;##teamcity[publishArtifacts 'Build/Output/Android/Build-1.0.23/Unity.BuildAndroid-1.0.23-gradle-Release.log']&quot;" time="0.010238">
+      <testcase classname="fastlane.lanes" name="12: echo &quot;##teamcity[publishArtifacts 'Build/Output/Android/Build-1.0.23/Unity.BuildAndroid-1.0.23-gradle-Release.log']&quot;" time="0.009215">
         
       </testcase>
     

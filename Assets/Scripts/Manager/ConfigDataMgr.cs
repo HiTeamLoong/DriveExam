@@ -28,7 +28,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
-            GameConfig gameConfig = LitJson.JsonMapper.ToObject<GameConfig>(json);
+            gameConfig = LitJson.JsonMapper.ToObject<GameConfig>(json);
         }
     }
     /// <summary>
