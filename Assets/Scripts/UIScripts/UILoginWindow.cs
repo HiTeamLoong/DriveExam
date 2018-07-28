@@ -7,16 +7,7 @@ public class UILoginWindow : UIWindow
 {
     public Text textState;
 
-    [System.Serializable]
-    public class LoginGroup
-    {
-        public GameObject root;
-        public InputField iptAccount;
-        public InputField iptPassword;
-        public Button btnLogin;
-        public Button btnWechat;
-    }
-    public LoginGroup loginGroup;
+    public LoginController loginController;
 
     [System.Serializable]
     public class ProgressGroup
@@ -44,8 +35,12 @@ public class UILoginWindow : UIWindow
             if (uiState != value)
             {
                 uiState = value;
-                loginGroup.root.SetActive(uiState == State.Login);
+                loginController.gameObject.SetActive(uiState == State.Login);
                 progressGroup.root.SetActive(uiState == State.Update);
+                if (uiState == State.Login)
+                {
+                    loginController.InitWith(OnLoginCallback);
+                }
             }
         }
     }
@@ -62,8 +57,6 @@ public class UILoginWindow : UIWindow
     public override void OnCreate()
     {
         base.OnCreate();
-        loginGroup.btnLogin.onClick.AddListener(OnClickLogin);
-        loginGroup.btnWechat.onClick.AddListener(OnClickWechat);
     }
 
 
@@ -83,25 +76,32 @@ public class UILoginWindow : UIWindow
         textState.text = strState;
     }
 
-    void OnClickLogin()
+    void OnLoginCallback(bool result)
     {
-        //AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithStr(ConfigDataMgr.ExamStart));
-        UIManager.Instance.OpenUI<UIMainWindow>();
-    }
-
-    AudioObject audioObject;
-    void OnClickWechat()
-    {
-        //UITipsDialog.ShowTips("此接口当前未开放");
-
-        if (audioObject != null)
+        if (result)
         {
-            AudioSystemMgr.Instance.StopSoundByAudio(audioObject);
-            audioObject = null;
-        }
-        else
-        {
-            audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"), true);
+            UIManager.Instance.OpenUI<UIMainWindow>();
         }
     }
+    //void OnClickLogin()
+    //{
+    //    //AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithStr(ConfigDataMgr.ExamStart));
+    //    UIManager.Instance.OpenUI<UIMainWindow>();
+    //}
+
+    //AudioObject audioObject;
+    //void OnClickWechat()
+    //{
+    //    //UITipsDialog.ShowTips("此接口当前未开放");
+
+    //    if (audioObject != null)
+    //    {
+    //        AudioSystemMgr.Instance.StopSoundByAudio(audioObject);
+    //        audioObject = null;
+    //    }
+    //    else
+    //    {
+    //        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"), true);
+    //    }
+    //}
 }

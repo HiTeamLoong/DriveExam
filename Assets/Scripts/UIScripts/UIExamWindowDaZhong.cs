@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class UIExamWindowDaZhong : UIExamWindowBase
 {
 
     [Space(20)]
+    public Image imgHeadFar;
+    public Image imgFrontFog;
+
     public KnobSwitch knobSwitch;       //灯光控制旋钮 [示廓灯、近光灯、雾灯]
 
     public Button btnControlRigth;      //右转向
@@ -58,6 +62,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 {
                     knobSwitch.SetLevel(0);
                 }
+                imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);
             }
         }
     }
@@ -72,6 +77,8 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 {
                     knobSwitch.IsTriggerOn = false;
                 }
+
+                imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
             }
         }
     }
@@ -146,6 +153,8 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 (btsCantrolForward.button.targetGraphic as Image).sprite = (value && !ToggleHeadlightSwitch) ? btsCantrolForward.sprSelect : btsCantrolForward.sprNormal;
                 (btsControlNormal.button.targetGraphic as Image).sprite = (!value && !ToggleHeadlightSwitch) ? btsControlNormal.sprSelect : btsControlNormal.sprNormal;
                 imgControlRod.sprite = value ? ((!ToggleHeadlightSwitch) ? sprControlForward : sprControlBackward) : sprControlNormal;
+
+                imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);
             }
         }
     }

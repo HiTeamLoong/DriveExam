@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1197046971781758
 GameObject:
   m_ObjectHideFlags: 1
@@ -123,12 +123,12 @@ GameObject:
   - component: {fileID: 222004652688870712}
   - component: {fileID: 114458053859482148}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: ImageHeadNear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1225930290315554
 GameObject:
   m_ObjectHideFlags: 1
@@ -140,12 +140,12 @@ GameObject:
   - component: {fileID: 222774219273543866}
   - component: {fileID: 114652363813165166}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: ImageHeadFar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1236721754194372
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,12 +396,12 @@ GameObject:
   - component: {fileID: 222054940742905160}
   - component: {fileID: 114882489136140216}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageOpenLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1584583519839410
 GameObject:
   m_ObjectHideFlags: 1
@@ -535,12 +535,12 @@ GameObject:
   - component: {fileID: 222469201363984416}
   - component: {fileID: 114350339135111474}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: ImageRearFog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1739007379762428
 GameObject:
   m_ObjectHideFlags: 1
@@ -575,7 +575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1782291276408436
 GameObject:
   m_ObjectHideFlags: 1
@@ -655,12 +655,12 @@ GameObject:
   - component: {fileID: 222637723337308880}
   - component: {fileID: 114706313483929480}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: ImageFrontFog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1937879737035106
 GameObject:
   m_ObjectHideFlags: 1
@@ -872,7 +872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1802,7 +1802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1924,7 +1924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2062,6 +2062,13 @@ MonoBehaviour:
   imgResult: {fileID: 114276128744004496}
   sprRight: {fileID: 21300000, guid: d0927af1b57f0431c86b2dea1d272b35, type: 3}
   sprError: {fileID: 21300000, guid: 2cb1215a1d4164a7db57a6c29f7132c5, type: 3}
+  imgLeftIndicator: {fileID: 114174510872843874}
+  imgRightIndicator: {fileID: 114235737261749102}
+  imgOpenLight: {fileID: 114882489136140216}
+  imgHeadNear: {fileID: 114458053859482148}
+  imgHeadFar: {fileID: 114652363813165166}
+  imgFrontFog: {fileID: 114706313483929480}
+  imgRearFog: {fileID: 114350339135111474}
   btnControlRigth: {fileID: 114403002308854986}
   btnControlClose: {fileID: 114881799424311228}
   btnControlLeft: {fileID: 114189224403387340}
@@ -2215,7 +2222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2844,9 +2851,9 @@ RectTransform:
   - {fileID: 224670773541482714}
   - {fileID: 224671127713786666}
   - {fileID: 224325117628348652}
+  - {fileID: 224613814226954006}
   - {fileID: 224425841529252896}
   - {fileID: 224591406663516286}
-  - {fileID: 224613814226954006}
   - {fileID: 224111831538556056}
   m_Father: {fileID: 224016250008977830}
   m_RootOrder: 1
@@ -2867,7 +2874,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224379952239562966}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2939,7 +2946,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224379952239562966}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2975,7 +2982,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224379952239562966}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

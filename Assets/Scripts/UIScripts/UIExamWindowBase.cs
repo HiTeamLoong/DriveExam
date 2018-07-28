@@ -1,31 +1,8 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public interface ILightController
-{
-    /// <summary>
-    /// 设置示廓灯
-    /// </summary>
-    /// <param name="show">If set to <c>true</c> show.</param>
-    void SetClearanc(bool show);
-    /// <summary>
-    /// 设置近光灯
-    /// </summary>
-    /// <param name="show">If set to <c>true</c> show.</param>
-    void SetHeadNear(bool show);
-    /// <summary>
-    /// 设置远光灯
-    /// </summary>
-    /// <param name="show">If set to <c>true</c> show.</param>
-    void SetHeadFar(bool show);
-    /// <summary>
-    /// 设置前雾灯
-    /// </summary>
-    /// <param name="show">If set to <c>true</c> show.</param>
-    void SetFogLight(bool show);
-}
 
 public abstract class UIExamWindowBase : UIWindow
 {
@@ -51,6 +28,9 @@ public abstract class UIExamWindowBase : UIWindow
     public Image imgResult;
     public Sprite sprRight;
     public Sprite sprError;
+
+    public Image imgLeftIndicator;
+    public Image imgRightIndicator;
 
     private bool isShowVideo;   //显示视频
     private bool isNewRules;    //显示新规
@@ -297,6 +277,7 @@ public abstract class UIExamWindowBase : UIWindow
                 {
                     RightIndicatorSwitch = false;
                 }
+                SetLeftIndicator();
             }
         }
     }
@@ -316,6 +297,7 @@ public abstract class UIExamWindowBase : UIWindow
                 {
                     LeftIndicatorSwitch = false;
                 }
+                SetRightIndicator();
             }
         }
     }
@@ -332,6 +314,9 @@ public abstract class UIExamWindowBase : UIWindow
             {
                 doubleJumpSwitch = value;
             }
+            SetLeftIndicator();
+            SetRightIndicator();
+            SetDoubleJumpLamp();
         }
     }
     /// <summary>
@@ -553,6 +538,95 @@ public abstract class UIExamWindowBase : UIWindow
         else
         {
             PauseQuestion();
+        }
+    }
+
+    private Sequence leftSequence;
+    private Sequence rightSequence;
+    private Sequence doubleSequence;
+
+    private AudioObject leftLightAudio;
+    private AudioObject rightLightAudio;
+    private AudioObject doubleLightAudio;
+
+    private float loopInterval = 0.915f;
+    void SetLeftIndicator()
+    {
+        if (LeftIndicator && !DoubleJumpLamp)
+        {
+            leftSequence = DOTween.Sequence();
+            leftSequence.SetLoops(-1);
+            leftSequence.Append(imgLeftIndicator.DOFade(1f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            leftSequence.Append(imgLeftIndicator.DOFade(0f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            leftLightAudio = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("soundforlight"), true);
+        }
+        else
+        {
+            if (leftLightAudio != null)
+            {
+                AudioSystemMgr.Instance.StopSoundByAudio(leftLightAudio);
+                leftLightAudio = null;
+            }
+            if (leftSequence != null)
+            {
+                leftSequence.Kill();
+                leftSequence = null;
+            }
+            imgLeftIndicator.DOFade(0f, 0);
+        }
+    }
+    void SetRightIndicator()
+    {
+        if (RightIndicator&&!DoubleJumpLamp)
+        {
+            rightSequence = DOTween.Sequence();
+            rightSequence.SetLoops(-1);
+            rightSequence.Append(imgRightIndicator.DOFade(1f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            rightSequence.Append(imgRightIndicator.DOFade(0f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            rightLightAudio = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("soundforlight"), true);
+        }
+        else
+        {
+            if (rightLightAudio != null)
+            {
+                AudioSystemMgr.Instance.StopSoundByAudio(rightLightAudio);
+                rightLightAudio = null;
+            }
+            if (rightSequence != null)
+            {
+                rightSequence.Kill();
+                rightSequence = null;
+            }
+            imgRightIndicator.DOFade(0f, 0);
+        }
+    }
+
+    void SetDoubleJumpLamp()
+    {
+        if (DoubleJumpLamp)
+        {
+            doubleSequence = DOTween.Sequence();
+            doubleSequence.SetLoops(-1);
+            doubleSequence.Append(imgLeftIndicator.DOFade(1f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            doubleSequence.Join(imgRightIndicator.DOFade(1f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            doubleSequence.Append(imgLeftIndicator.DOFade(0f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            doubleSequence.Join(imgRightIndicator.DOFade(0f, loopInterval / 2f).SetEase(Ease.OutQuint));
+            doubleLightAudio = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("soundforlight"), true);
+        }
+        else
+        {
+            if (doubleLightAudio!=null)
+            {
+                AudioSystemMgr.Instance.StopSoundByAudio(doubleLightAudio);
+                doubleLightAudio = null;
+            }
+            if (doubleSequence!=null)
+            {
+                doubleSequence.Kill();
+                doubleSequence = null;
+            }
+            imgLeftIndicator.DOFade(0f, 0);
+            imgRightIndicator.DOFade(0f, 0);
         }
     }
 }

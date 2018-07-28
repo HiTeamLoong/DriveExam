@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,6 +8,12 @@ using UnityEngine.UI;
 public class UIExamWindowAiLiShe : UIExamWindowBase
 {
     [Space(20)]
+    public Image imgOpenLight;
+    public Image imgHeadNear;
+    public Image imgHeadFar;
+    public Image imgFrontFog;
+    public Image imgRearFog;
+
     public Button btnControlRigth;      //右转向
     public Button btnControlClose;      //关闭转向
     public Button btnControlLeft;       //左转向
@@ -48,6 +55,8 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 base.ClearanceSwitch = value;
                 controlRodNormal.imgHeadLight.sprite = value ? controlRodNormal.sprHeadLight1 : HeadlightSwitch ? controlRodNormal.sprHeadLight2 : controlRodNormal.sprHeadLight0;
                 controlRodBackward.imgHeadLight.sprite = value ? controlRodBackward.sprHeadLight1 : HeadlightSwitch ? controlRodBackward.sprHeadLight2 : controlRodBackward.sprHeadLight0;
+
+                imgOpenLight.DOFade((ClearanceSwitch || HeadlightSwitch) ? 1f : 0f, 0);
             }
         }
     }
@@ -60,6 +69,10 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 base.HeadlightSwitch = value;
                 controlRodNormal.imgHeadLight.sprite = value ? controlRodNormal.sprHeadLight2 : ClearanceSwitch ? controlRodNormal.sprHeadLight1 : controlRodNormal.sprHeadLight0;
                 controlRodBackward.imgHeadLight.sprite = value ? controlRodBackward.sprHeadLight2 : ClearanceSwitch ? controlRodBackward.sprHeadLight1 : controlRodBackward.sprHeadLight0;
+
+                imgOpenLight.DOFade((ClearanceSwitch || HeadlightSwitch) ? 1f : 0f, 0);
+                imgHeadNear.DOFade(LowBeamLight ? 1f : 0f, 0);
+                imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);
             }
         }
     }
@@ -72,6 +85,8 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 base.FrontFogSwitch = value;
                 controlRodNormal.imgFogLight.sprite = RearFogSwitch ? controlRodNormal.sprFoglight2 : value ? controlRodNormal.sprFogLight1 : controlRodNormal.sprFogLight0;
                 controlRodBackward.imgFogLight.sprite = RearFogSwitch ? controlRodBackward.sprFoglight2 : value ? controlRodBackward.sprFogLight1 : controlRodBackward.sprFogLight0;
+
+                imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
             }
         }
     }
@@ -84,6 +99,8 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 base.RearFogSwitch = value;
                 controlRodNormal.imgFogLight.sprite = value ? controlRodNormal.sprFoglight2 : FrontFogSwitch ? controlRodNormal.sprFogLight1 : controlRodNormal.sprFogLight0;
                 controlRodBackward.imgFogLight.sprite = value ? controlRodBackward.sprFoglight2 : FrontFogSwitch ? controlRodBackward.sprFogLight1 : controlRodBackward.sprFogLight0;
+
+                imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
             }
         }
     }
@@ -142,6 +159,9 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             {
                 base.FarHeadlightSwitch = value;
                 (btsCantrolState.button.targetGraphic as Image).sprite = value ? btsCantrolState.sprSelect : btsCantrolState.sprNormal;
+
+                imgHeadNear.DOFade(LowBeamLight ? 1f : 0f, 0);
+                imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);
             }
         }
     }
@@ -265,5 +285,26 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 }
             }
         }
+    }
+
+    void SetOpenLight()
+    {
+
+    }
+    void SetHeadNear()
+    {
+
+    }
+    void SetHeadFar()
+    {
+
+    }
+    void SetFrontFog()
+    {
+        imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
+    }
+    void SetRearFog()
+    {
+
     }
 }
