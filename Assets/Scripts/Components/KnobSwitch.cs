@@ -106,20 +106,33 @@ public class KnobSwitch : MonoBehaviour
 
     void OnClickLevel0()
     {
-        CurLevelIdx = 0;
+        if (CurLevelIdx != 0)
+        {
+            CurLevelIdx = 0;
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
+        }
     }
     void OnClickLevel1()
     {
-        CurLevelIdx = 1;
+        if (CurLevelIdx != 1)
+        {
+            CurLevelIdx = 1;
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
+        }
     }
     void OnClickLevel2()
     {
-        CurLevelIdx = 2;
+        if (CurLevelIdx != 2)
+        {
+            CurLevelIdx = 2;
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
+        }
     }
 
     void OnClickSwitch()
     {
         IsTriggerOn = !IsTriggerOn;
+        AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect02"));
     }
 
     public void SetLevel(int index)
@@ -154,6 +167,7 @@ public class KnobSwitch : MonoBehaviour
             {
                 CurLevelIdx = i;
                 beginPosition = eventData.position;
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
             }
         }
     }

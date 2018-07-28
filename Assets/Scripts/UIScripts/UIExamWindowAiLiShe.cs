@@ -181,11 +181,44 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
     {
         base.OnCreate();
 
-        btnControlLeft.onClick.AddListener(() => { LeftIndicatorSwitch = true; });
-        btnControlClose.onClick.AddListener(() => { LeftIndicatorSwitch = false; RightIndicatorSwitch = false; });
-        btnControlRigth.onClick.AddListener(() => { RightIndicatorSwitch = true; });
+        btnControlLeft.onClick.AddListener(() =>
+        {
+            if (!LeftIndicatorSwitch)
+            {
+                LeftIndicatorSwitch = true;
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+            }
+        });
+        btnControlClose.onClick.AddListener(() =>
+        {
+            if (LeftIndicatorSwitch || RightIndicatorSwitch)
+            {
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+                LeftIndicatorSwitch = false;
+                RightIndicatorSwitch = false;
+            }
+        });
+        btnControlRigth.onClick.AddListener(() =>
+        {
+            if (!RightIndicatorSwitch)
+            {
+                RightIndicatorSwitch = true;
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+            }
+        });
 
-        btsDoubleJump.button.onClick.AddListener(() => { DoubleJumpSwitch = !DoubleJumpSwitch; });
+        btsDoubleJump.button.onClick.AddListener(() =>
+        {
+            DoubleJumpSwitch = !DoubleJumpSwitch;
+            if (DoubleJumpSwitch)
+            {
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect WX01"));
+            }
+            else
+            {
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect WX02"));
+            }
+        });
 
         UIEventListener.Get(btsControlBackward1.button.gameObject).onDown += (go) =>
         {
@@ -193,6 +226,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             controlRodBackward.objRoot.SetActive(true);
             controlRodNormal.objRoot.SetActive(false);
             (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprSelect;
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
         };
         UIEventListener.Get(btsControlBackward1.button.gameObject).onUp += (go) =>
         {
@@ -200,19 +234,24 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             controlRodBackward.objRoot.SetActive(false);
             controlRodNormal.objRoot.SetActive(true);
             (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprNormal;
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
         };
 
-        UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) => {
+        UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) =>
+        {
             FarHeadlightSwitch = !FarHeadlightSwitch;
             controlRodBackward.objRoot.SetActive(true);
             controlRodNormal.objRoot.SetActive(false);
             (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprSelect;
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
         };
-        UIEventListener.Get(btsControlBackward2.button.gameObject).onUp += (go) => {
+        UIEventListener.Get(btsControlBackward2.button.gameObject).onUp += (go) =>
+        {
             /*处理效果*/
             controlRodBackward.objRoot.SetActive(false);
             controlRodNormal.objRoot.SetActive(true);
             (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprNormal;
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
         };
 
         UIEventListener.Get(controlRodNormal.imgHeadLight.gameObject).onDragEnd += OnHeadLightDragEnd;
@@ -234,11 +273,13 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 if (!ClearanceSwitch && !HeadlightSwitch)
                 {
                     ClearanceSwitch = true;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
                 else if (ClearanceSwitch)
                 {
                     ClearanceSwitch = false;
                     HeadlightSwitch = true;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
             else if (currPos.x < passPos.x && currPos.y < passPos.y)
@@ -247,10 +288,12 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 {
                     HeadlightSwitch = false;
                     ClearanceSwitch = true;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
                 else if (ClearanceSwitch)
                 {
                     ClearanceSwitch = false;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
         }
@@ -267,10 +310,12 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 if (!FrontFogSwitch && !RearFogSwitch)
                 {
                     FrontFogSwitch = true;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
                 else if (FrontFogSwitch)
                 {
                     RearFogSwitch = true;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
             else if (currPos.x < passPos.x && currPos.y < passPos.y)
@@ -278,33 +323,14 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 if (RearFogSwitch)
                 {
                     RearFogSwitch = false;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
                 else if (FrontFogSwitch && !RearFogSwitch)
                 {
                     FrontFogSwitch = false;
+                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
         }
-    }
-
-    void SetOpenLight()
-    {
-
-    }
-    void SetHeadNear()
-    {
-
-    }
-    void SetHeadFar()
-    {
-
-    }
-    void SetFrontFog()
-    {
-        imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
-    }
-    void SetRearFog()
-    {
-
     }
 }
