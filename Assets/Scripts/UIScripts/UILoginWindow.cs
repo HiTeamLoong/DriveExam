@@ -80,7 +80,10 @@ public class UILoginWindow : UIWindow
     {
         if (result)
         {
-            UIManager.Instance.OpenUI<UIMainWindow>();
+            SwitchSceneMgr.Instance.SwitchToMain(false, () =>
+             {
+                 UIManager.Instance.OpenUI<UIMainWindow>();
+             });
         }
     }
     //void OnClickLogin()

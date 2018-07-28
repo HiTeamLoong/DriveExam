@@ -7,13 +7,18 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     public Image imgProgress;
-
-    [Range(0.0f, 1.0f)]
-    private float _value;
+    public Text textProg;
 
     public float Value
     {
         get { return imgProgress.fillAmount; }
-        set { imgProgress.fillAmount = value; }
+        set
+        {
+            imgProgress.fillAmount = value;
+            if (textProg != null)
+            {
+                textProg.text = string.Format("加载中 {0}", value.ToString("P"));
+            }
+        }
     }
 }

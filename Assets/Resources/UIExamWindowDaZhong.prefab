@@ -1583,6 +1583,7 @@ MonoBehaviour:
     sprNormal: {fileID: 21300000, guid: 49a5fe73b4d1e7e4fb03f8ebccd5a6ef, type: 3}
     sprSelect: {fileID: 21300000, guid: 3886dc5272ffebb49a50b6079df55789, type: 3}
   btnHelp: {fileID: 114406105573190706}
+  btnReturn: {fileID: 114266946127414460}
   textQuestion: {fileID: 114581324159331960}
   textAnswer: {fileID: 114118951070081720}
   imgResult: {fileID: 114828530110030954}

@@ -186,11 +186,11 @@ public class LoginController : MonoBehaviour
     }
     void LoginLayer2SignupBtn()
     {
-
+        OpenLayer(signupLayer.layer);
     }
     void LoginLayer2ForgetBtn()
     {
-
+        OpenLayer(forgetLayer1.layer);
     }
     void LoginLayer2WechatBtn()
     {
@@ -211,7 +211,7 @@ public class LoginController : MonoBehaviour
     }
     void ForgetLayer1ContinueBtn()
     {
-
+        OpenLayer(forgetLayer2.layer);
     }
 
     void ForgetLayer2ConfirmBtn()

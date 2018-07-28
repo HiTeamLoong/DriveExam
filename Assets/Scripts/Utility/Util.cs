@@ -39,8 +39,8 @@ public class Util
             totalBytesReturned += bytesReturned;
         }
 
-        Debug.Log("MP3 file has " + mp3Stream.ChannelCount + " channels with a frequency of " +
-                  mp3Stream.Frequency);
+        //Debug.Log("MP3 file has " + mp3Stream.ChannelCount + " channels with a frequency of " +
+                  //mp3Stream.Frequency);
 
         byte[] convertedAudioData = convertedAudioStream.ToArray();
 

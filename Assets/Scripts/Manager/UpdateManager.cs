@@ -5,7 +5,7 @@ using System;
 using UnityEngine.Networking;
 using Wit.BaiduAip.Speech;
 
-public class MainSceneMgr : MonoBehaviour
+public class UpdateManager : MonoBehaviour
 {
     public string APIKey = "WondCiSwY0RzHYc7hGS2bFoc";
     public string SecretKey = "NjaCdrsUKPi9xiB6X6F6T46B2TdT8ZcT";
@@ -15,11 +15,12 @@ public class MainSceneMgr : MonoBehaviour
     private void Awake()
     {
         ttsString2Audio = new Tts(APIKey, SecretKey);
-        
+
+        uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
+        uiLoginWindow.SetState("正在检查题库更新...");
+
         if (Application.internetReachability != NetworkReachability.NotReachable)
         {
-            uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
-            uiLoginWindow.SetState("正在检查题库更新...");
             CheckConfigUpdate();
         }
         else

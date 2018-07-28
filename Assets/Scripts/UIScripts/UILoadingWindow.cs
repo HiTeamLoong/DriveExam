@@ -1,34 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UILoadingWindow : UIDialog
 {
     public ProgressBar progressBar;
 
     private AsyncOperation async;
-    public void InitWith(AsyncOperation async)
+    private Callback finishCallback;
+
+    public void InitWith(AsyncOperation async, Callback callback)
     {
         this.async = async;
+        async.allowSceneActivation = false;
+        finishCallback = callback;
     }
 
     private void Update()
     {
-        Debug.Log("进度" + async.progress);
-        progressBar.Value = async.progress;
-        if (async.progress>=1f)
+        if (async != null)
         {
-            //大众
-            if (GameDataMgr.Instance.carType == CarType.DAZHONG)
+
+            if (!async.isDone)
             {
-                UIManager.Instance.OpenUI<UIExamWindowDaZhong>();
+
+                if (progressBar.Value <= .9f)
+                {
+                    if (progressBar.Value < async.progress)
+                    {
+                        progressBar.Value += Time.deltaTime * Random.Range(0.2f, 1f);
+                    }
+                }
+                else
+                {
+                    if (progressBar.Value < 1f)
+                    {
+                        progressBar.Value += Time.deltaTime * Random.Range(0.2f, 1f);
+                    }
+                    else
+                    {
+                        async.allowSceneActivation = true;
+                    }
+
+                }
             }
-            //爱丽舍
             else
             {
-                UIManager.Instance.OpenUI<UIExamWindowAiLiShe>();
+                if (finishCallback != null)
+                {
+                    finishCallback();
+                }
+                UIManager.Instance.CloseUI(this);
             }
-            UIManager.Instance.CloseUI(this);
+
         }
+
     }
+
 }

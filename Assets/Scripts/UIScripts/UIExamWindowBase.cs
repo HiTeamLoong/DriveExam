@@ -22,6 +22,7 @@ public abstract class UIExamWindowBase : UIWindow
     public ButtonState btsRules;    //新规内容
     public ButtonState btsNext;     //下一题/下一套
     public Button btnHelp;          //内容提示
+    public Button btnReturn;        //返回主界面
 
     public Text textQuestion;
     public Text textAnswer;
@@ -115,9 +116,11 @@ public abstract class UIExamWindowBase : UIWindow
         btsRules.button.onClick.AddListener(OnClickRules);
 
         btsNext.button.onClick.AddListener(OnClickNext);
+        btnHelp.onClick.AddListener(null);
+        btnReturn.onClick.AddListener(() => { SwitchSceneMgr.Instance.SwitchToMain(); });
 
         lightController = FindObjectOfType<LightController>();
-        if (lightController==null)
+        if (lightController == null)
         {
             Debug.LogError("ERROR:ILightController is lost");
         }
@@ -411,9 +414,9 @@ public abstract class UIExamWindowBase : UIWindow
     /// </summary>
     private List<int> examList = new List<int>();
     /// <summary>
-    /// 前一道试题
+    /// 随机练习列表
     /// </summary>
-    private int prevIndex;
+    private List<int> exerList = new List<int>();
     /// <summary>
     /// 语音播放控件
     /// </summary>
@@ -463,11 +466,60 @@ public abstract class UIExamWindowBase : UIWindow
         PauseQuestion();
         CloseAllLight();
         //生成试题列表
-        examList.Add(0);
-        examList.Add(1);
-        examList.Add(2);
+        examList = RandomExamList();
         StartCoroutine(_BeginLightExam());
 
+    }
+
+    private List<int> RandomExamList()
+    {
+        int count = ConfigDataMgr.Instance.questions.Count;
+        List<int> tempList = new List<int>();
+        for (int i = 0; i < count; i++)
+        {
+            tempList.Add(i);
+        }
+        List<int> indexList = new List<int>();
+        int index = tempList[0];
+        tempList.Remove(index);
+        indexList.Add(index);
+
+        for (int i = 0; i < 5; i++)
+        {
+            int random = Random.Range(0, tempList.Count);
+            index = tempList[random];
+            indexList.Add(index);
+            tempList.Remove(index);
+        }
+        return indexList;
+    }
+
+    private int RandomExerIndex()
+    {
+        int count = ConfigDataMgr.Instance.questions.Count;
+        int index = 0;
+        int random = 0;
+        if (exerList == null || exerList.Count != count)
+        {
+            List<int> tempList = new List<int>();
+            for (int i = 0; i < count; i++)
+            {
+                tempList.Add(i);
+            }
+            exerList = new List<int>();
+            for (int i = 0; i < count; i++)
+            {
+                random = Random.Range(0, tempList.Count);
+                index = tempList[random];
+                exerList.Add(index);
+                tempList.Remove(index);
+            }
+        }
+        random = Random.Range(0, count / 2);
+        index = exerList[random];
+        exerList.Remove(index);
+        exerList.Add(index);
+        return index;
     }
 
     IEnumerator _BeginLightExam()
@@ -495,7 +547,7 @@ public abstract class UIExamWindowBase : UIWindow
     {
         PauseQuestion();
         CloseAllLight();
-        int index = 1;
+        int index = RandomExerIndex();
         QuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(index);
         StartCoroutine(BeginQuestion(question));
     }
@@ -532,11 +584,13 @@ public abstract class UIExamWindowBase : UIWindow
         imgResult.sprite = result ? sprRight : sprError;
         if (result)
         {
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
             yield return new WaitForSeconds(3.0f);
             imgResult.gameObject.SetActive(false);
         }
         else
         {
+            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("error"));
             PauseQuestion();
         }
     }
@@ -577,7 +631,7 @@ public abstract class UIExamWindowBase : UIWindow
     }
     void SetRightIndicator()
     {
-        if (RightIndicator&&!DoubleJumpLamp)
+        if (RightIndicator && !DoubleJumpLamp)
         {
             rightSequence = DOTween.Sequence();
             rightSequence.SetLoops(-1);
@@ -615,12 +669,12 @@ public abstract class UIExamWindowBase : UIWindow
         }
         else
         {
-            if (doubleLightAudio!=null)
+            if (doubleLightAudio != null)
             {
                 AudioSystemMgr.Instance.StopSoundByAudio(doubleLightAudio);
                 doubleLightAudio = null;
             }
-            if (doubleSequence!=null)
+            if (doubleSequence != null)
             {
                 doubleSequence.Kill();
                 doubleSequence = null;
