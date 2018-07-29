@@ -7,7 +7,7 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
 {
     public readonly string StartScene = "StartScene";
     public readonly string MainScene = "MainScene";
-    public readonly string ExamScene = "ExamSceneTest";
+    public readonly string ExamScene = "ExamScene";
     /// <summary>
     /// 进入考试场景
     /// </summary>
