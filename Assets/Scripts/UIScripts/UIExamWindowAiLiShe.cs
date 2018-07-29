@@ -222,6 +222,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
 
         UIEventListener.Get(btsControlBackward1.button.gameObject).onDown += (go) =>
         {
+            ToggleHeadlightSwitch = true;
             FarHeadlightSwitch = !FarHeadlightSwitch;
             controlRodBackward.objRoot.SetActive(true);
             controlRodNormal.objRoot.SetActive(false);
@@ -230,6 +231,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
         };
         UIEventListener.Get(btsControlBackward1.button.gameObject).onUp += (go) =>
         {
+            ToggleHeadlightSwitch = false;
             FarHeadlightSwitch = !FarHeadlightSwitch;
             controlRodBackward.objRoot.SetActive(false);
             controlRodNormal.objRoot.SetActive(true);

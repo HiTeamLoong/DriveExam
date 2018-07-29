@@ -100,6 +100,7 @@ public abstract class UIExamWindowBase : UIWindow
             {
                 isShowAnswer = value;
                 btsAnswer.image.sprite = value ? btsAnswer.sprSelect : btsAnswer.sprNormal;
+                textAnswer.gameObject.SetActive(value);
             }
         }
     }
@@ -148,6 +149,7 @@ public abstract class UIExamWindowBase : UIWindow
     void OnClickAnswer()
     {
         IsShowAnswer = !IsShowAnswer;
+
     }
     /// <summary>
     /// 点击随机题目
@@ -348,7 +350,10 @@ public abstract class UIExamWindowBase : UIWindow
             if (value != toggleHeadlightSwitch)
             {
                 toggleHeadlightSwitch = value;
-                LowToHigCount += 1;
+                if (value)
+                {
+                    LowToHigCount += 1;
+                }
             }
         }
     }
@@ -463,7 +468,7 @@ public abstract class UIExamWindowBase : UIWindow
     /// </summary>
     private void StartLightExam()
     {
-        PauseQuestion();
+        CleanQuestion();
         CloseAllLight();
         //生成试题列表
         examList = RandomExamList();
@@ -533,11 +538,13 @@ public abstract class UIExamWindowBase : UIWindow
         for (int i = 0; i < examList.Count; i++)
         {
             QuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(examList[i]);
-            yield return StartCoroutine(BeginQuestion(question));
+            yield return StartCoroutine(BeginQuestion(question, true));
         }
-        yield return StartCoroutine(BeginQuestion(ConfigDataMgr.ExamEnd));
+        yield return StartCoroutine(BeginQuestion(ConfigDataMgr.ExamEnd, true));
         textAnswer.text = "恭喜你全部操作成功！！！";
-
+        imgResult.gameObject.SetActive(true);
+        imgResult.sprite = sprRight;
+        AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
     }
 
     /// <summary>
@@ -545,11 +552,11 @@ public abstract class UIExamWindowBase : UIWindow
     /// </summary>
     private void StartExercise()
     {
-        PauseQuestion();
+        CleanQuestion();
         CloseAllLight();
         int index = RandomExerIndex();
         QuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(index);
-        StartCoroutine(BeginQuestion(question));
+        StartCoroutine(BeginQuestion(question, false));
     }
 
     /// <summary>
@@ -557,7 +564,7 @@ public abstract class UIExamWindowBase : UIWindow
     /// </summary>
     /// <returns>The question.</returns>
     /// <param name="question">Question.</param>
-    IEnumerator BeginQuestion(QuestionData question)
+    IEnumerator BeginQuestion(QuestionData question, bool isExam)
     {
         textQuestion.text = question.question;
         textAnswer.text = question.answer;
@@ -580,16 +587,24 @@ public abstract class UIExamWindowBase : UIWindow
         result &= (question.LowToHigLight == (LowToHigCount == 2));
 
         textAnswer.gameObject.SetActive(true);
+
         imgResult.gameObject.SetActive(true);
         imgResult.sprite = result ? sprRight : sprError;
         if (result)
         {
-            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
+            if (!isExam)
+            {
+                imgResult.gameObject.SetActive(true);
+                imgResult.sprite = result ? sprRight : sprError;
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
+            }
             yield return new WaitForSeconds(3.0f);
             imgResult.gameObject.SetActive(false);
         }
         else
         {
+            imgResult.gameObject.SetActive(true);
+            imgResult.sprite = result ? sprRight : sprError;
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("error"));
             PauseQuestion();
         }
