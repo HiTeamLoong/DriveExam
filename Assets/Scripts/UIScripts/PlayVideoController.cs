@@ -213,6 +213,7 @@ public class PlayVideoController : MonoBehaviour
         {
             isScreen = false;
             videoChild.SetParent(videoParent);
+            videoChild.localScale = Vector3.one;
             videoChild.anchoredPosition = Vector2.zero;
             videoChild.anchorMin = Vector2.zero;
             videoChild.anchorMax = Vector2.one;
@@ -225,6 +226,7 @@ public class PlayVideoController : MonoBehaviour
         {
             isScreen = true;
             videoChild.SetParent(transform.parent);
+            videoChild.localScale = Vector3.one;
             videoChild.anchoredPosition = Vector2.zero;
             videoChild.sizeDelta = (transform.parent as RectTransform).sizeDelta;
 

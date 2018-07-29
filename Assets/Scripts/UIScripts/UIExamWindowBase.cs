@@ -35,6 +35,7 @@ public abstract class UIExamWindowBase : UIWindow
 
     private bool isShowVideo;   //显示视频
     private bool isNewRules;    //显示新规
+    private UIVideoDialog uiVideoDialog;
     public bool IsShowVideo
     {
         get { return isShowVideo; }
@@ -44,6 +45,20 @@ public abstract class UIExamWindowBase : UIWindow
             {
                 isShowVideo = value;
                 btsVideo.image.sprite = value ? btsVideo.sprSelect : btsVideo.sprNormal;
+                if (value)
+                {
+                    if (uiVideoDialog == null)
+                    {
+                        uiVideoDialog = UIManager.Instance.OpenUI<UIVideoDialog>();
+                    }
+                }
+                else
+                {
+                    if (uiVideoDialog != null)
+                    {
+                        UIManager.Instance.CloseUI(uiVideoDialog);
+                    }
+                }
             }
         }
     }
@@ -118,7 +133,11 @@ public abstract class UIExamWindowBase : UIWindow
 
         btsNext.button.onClick.AddListener(OnClickNext);
         btnHelp.onClick.AddListener(null);
-        btnReturn.onClick.AddListener(() => { SwitchSceneMgr.Instance.SwitchToMain(); });
+        btnReturn.onClick.AddListener(() =>
+        {
+            IsShowVideo = false;
+            SwitchSceneMgr.Instance.SwitchToMain();
+        });
 
         lightController = FindObjectOfType<LightController>();
         if (lightController == null)
@@ -133,7 +152,7 @@ public abstract class UIExamWindowBase : UIWindow
     /// </summary>
     void OnClickVideo()
     {
-
+        IsShowVideo = !IsShowVideo;
     }
     /// <summary>
     /// 点击查看新规
