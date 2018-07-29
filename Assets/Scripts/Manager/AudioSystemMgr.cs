@@ -71,8 +71,8 @@ public class AudioSystemMgr : MonoBehaviour
 
     #region -------------设置音量-------------
 
-    private readonly float musicVolumeRatio = 0.2f;
-    private readonly float soundVolumeRatio = 0.2f;
+    private readonly float musicVolumeRatio = 1.0f;
+    private readonly float soundVolumeRatio = 1.0f;
     private readonly float speechVolumeRatio = 1.0f;
 
     private float musicVolume = 0.5f;
