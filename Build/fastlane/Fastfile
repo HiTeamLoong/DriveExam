@@ -67,6 +67,20 @@ private_lane :do_generate_asset do |options|
 #ensure
     teamcity_artifact(log_path(collection))
 end
+
+desc 'Switch Unity Platform'
+private_lane :do_switch_platform do |options|
+    
+    unity_tee = (options[:unity_tee] || :False).to_sym == :True
+    unity(
+        execute_method: "Plugins.Editor.BuildPackage.CommandLineBuild.SwitchPlatform",
+        project_path: project_path,
+        xcargs: "-target #{@platform}",
+        use_tee: unity_tee,
+        logfile: log_path('SwitchPlatform')
+    )
+
+end
 ##########################################################
 #
 desc 'Copy Asset Resources to StreamingAsset'

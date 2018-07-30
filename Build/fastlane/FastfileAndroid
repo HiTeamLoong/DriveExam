@@ -38,6 +38,11 @@ platform :android do
     lane :export do |options|
         do_export(options)
     end
+    #############################################
+    #
+    lane :switch_platform do |options|
+        do_switch_platform(options)
+    end
     ##########################################################
     #
     lane :icon do |options|
@@ -156,13 +161,14 @@ platform :android do
         options[:streaming] = options[:streaming] || :StreamingSystem
 
         info(options)
+        switch_platform(options)
         #update_version(options)
         #generate_asset(options)
         #copy_asset(options)
         export(options)
-        # icon(options)
+        icon(options)
         assemble(options)
-        #deploy(options)
+        deploy(options)
     end
     ##########################################################
     #
@@ -193,7 +199,7 @@ platform :android do
         generate_asset(options)
         copy_asset(options)
         export(options)
-        # icon(options)
+        icon(options)
         assemble(options)
         teamcity_export_parameter
         manifest(options)

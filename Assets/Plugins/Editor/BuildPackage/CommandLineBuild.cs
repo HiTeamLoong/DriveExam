@@ -7,6 +7,9 @@ using Plugins.Scripts;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using UnityEditor.Build;
+using UnityEngine.AssetGraph;
+
 
 namespace Plugins.Editor.BuildPackage
 {
@@ -15,6 +18,41 @@ namespace Plugins.Editor.BuildPackage
         private const string ArgsBuildLocation = "-buildlocation";
         private const string ArgsUpdateVersion = "-updateversion";
         private const string ArgsAndroidSdkRoot = "-androidsdkroot";
+
+
+        public static void SwitchPlatform()
+        {
+            try
+            {
+                var arguments = new List<string>(System.Environment.GetCommandLineArgs());
+
+                BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+                int targetIndex = arguments.FindIndex(a => a == "-target");
+                if (targetIndex >= 0)
+                {
+                    var targetStr = arguments[targetIndex + 1];
+
+                    var newTarget = (BuildTarget)Enum.Parse(typeof(BuildTarget), targetStr);
+                    //var newTarget = BuildTargetUtility.BuildTargetFromString(arguments[targetIndex + 1]);
+                    if (newTarget != target)
+                    {
+#if UNITY_5_6 || UNITY_5_6_OR_NEWER
+                        EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetUtility.TargetToGroup(newTarget), newTarget);
+#else
+                        EditorUserBuildSettings.SwitchActiveBuildTarget(newTarget);
+#endif
+                        target = newTarget;
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("switch platform fail");
+            }
+        }
+
 
         [MenuItem(@"Window/Build/Build iOS")]
         public static void BuildiOS()

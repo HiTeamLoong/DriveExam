@@ -54,6 +54,11 @@ Copy asset bundles Game Resources
 fastlane ios export
 ```
 
+### ios switch_platform
+```
+fastlane ios switch_platform
+```
+
 ### ios icon
 ```
 fastlane ios icon
@@ -171,6 +176,11 @@ Copy asset bundles Game Resources
 ### android export
 ```
 fastlane android export
+```
+
+### android switch_platform
+```
+fastlane android switch_platform
 ```
 
 ### android icon

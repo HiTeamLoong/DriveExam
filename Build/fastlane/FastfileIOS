@@ -35,6 +35,11 @@ platform :ios do
     lane :export do |options|
         do_export(options)
     end
+    #############################################
+    #
+    lane :switch_platform do |options|
+        do_switch_platform(options)
+    end
     ##########################################################
     #
     lane :icon do |options|
@@ -312,14 +317,15 @@ platform :ios do
         options[:collection] = options[:collection] || :GenerateSystem
         options[:streaming] = options[:streaming] || :StreamingSystem
 
-        #info(options)
+        info(options)
+        switch_platform(options)
         #update_version(options)
         #generate_asset(options)
         #copy_asset(options)
         export(options)
         icon(options)
         assemble(options)
-        #deploy(options)
+        deploy(options)
     end
     ##########################################################
     #
