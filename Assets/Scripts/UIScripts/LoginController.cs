@@ -72,7 +72,7 @@ public class LoginController : MonoBehaviour
     public ForgetPassword1 forgetLayer1;
     public ForgetPassword2 forgetLayer2;
 
-    private Callback<bool> loginCallback;
+    private Callback<ResponseLogin> loginCallback;
     private void Start()
     {
         btnReturn.onClick.AddListener(OnClickReturn);
@@ -94,7 +94,7 @@ public class LoginController : MonoBehaviour
 
         forgetLayer2.btnConfirm.onClick.AddListener(ForgetLayer2ConfirmBtn);
     }
-    public void InitWith(Callback<bool> loginCallback)
+    public void InitWith(Callback<ResponseLogin> loginCallback)
     {
         this.loginCallback = loginCallback;
         stackLayer = new Stack<GameObject>();
@@ -169,7 +169,34 @@ public class LoginController : MonoBehaviour
 
     void LoginLayer1LoginBtn()
     {
-        loginCallback(true);
+        if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
+        {
+            UITipsDialog.ShowTips("请输入理论保过卡卡号");
+            return;
+        }
+        if (string.IsNullOrEmpty(loginLayer1.inputPwd.text))
+        {
+            UITipsDialog.ShowTips("请输入理论保过卡密码");
+            return;
+        }
+        RequestLogin requestLogin = new RequestLogin();
+        requestLogin.phone = loginLayer1.inputAccount.text;
+        requestLogin.password = loginLayer1.inputPwd.text;
+        requestLogin.equitment = SystemInfo.deviceUniqueIdentifier;
+
+        LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
+        {
+            if (responseData.status=="200")
+            {
+                Debug.Log("登录成功"+responseData.msg);
+                UITipsDialog.ShowTips("登录成功");
+                loginCallback(responseData.data);
+            }
+            else
+            {
+                UITipsDialog.ShowTips(responseData.msg);
+            }
+        });
     }
     void LoginLayer1WechatBtn()
     {

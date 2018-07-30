@@ -126,3 +126,39 @@ public class VideoData : Data_Base
 //    }
 //
 //}
+
+public class ProtocalData_Base { }
+public class RequestData_Base : ProtocalData_Base { }
+public class ResponseData_Base : ProtocalData_Base { }
+public class ResponseData<T> where T : ResponseData_Base
+{
+    public string msg;
+    public string status;
+    public T data;
+}
+
+public class RequestLogin : RequestData_Base
+{
+    public string phone;
+    public string password;
+    public string equitment;
+}
+public class ResponseLogin : ResponseData_Base
+{
+    public string headImage;
+    public string equitmentIdentity;
+    public string userName;
+    public int uid;
+    public string phone;
+    public int countyId;
+    public string countyName;
+    public int schoolId;
+    public string schoolName;
+    public int cityId;
+    public string cityName;
+    public int provinceId;
+    public string provinceName;
+    public int isOtherLogin;
+    public int isNeedBind;
+}
+
