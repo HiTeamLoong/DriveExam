@@ -58,13 +58,13 @@ namespace cn.sharesdk.unity3d
 		#if UNITY_ANDROID
 		public const int type = (int) PlatformType.QQ;
 		public string SortId = "2";
-		public string AppId = "100371282";
-		public string AppKey = "aed9b0303e3ed1e27bae87c33761161d";
+        public string AppId = "1106823651";
+        public string AppKey = "aWkPdQrcrezrG9ji";
 		public bool ShareByAppClient = true;
 		#elif UNITY_IPHONE
 		public const int type = (int) PlatformType.QQ;
-		public string app_id = "100371282";
-		public string app_key = "aed9b0303e3ed1e27bae87c33761161d";
+        public string app_id = "1106823651";
+        public string app_key = "aWkPdQrcrezrG9ji";
 		public string auth_type = "both";  //can pass "both","sso",or "web" 
 		#endif
 	}
@@ -75,13 +75,13 @@ namespace cn.sharesdk.unity3d
 		#if UNITY_ANDROID
 		public string SortId = "1";
 		public const int type = (int) PlatformType.QZone;
-		public string AppId = "100371282";
-		public string AppKey = "ae36f4ee3946e1cbb98d6965b0b2ff5c";
+        public string AppId = "1106823651";
+        public string AppKey = "aWkPdQrcrezrG9ji";
 		public bool ShareByAppClient = true;
 		#elif UNITY_IPHONE
 		public const int type = (int) PlatformType.QZone;
-		public string app_id = "100371282";
-		public string app_key = "aed9b0303e3ed1e27bae87c33761161d";
+        public string app_id = "1106823651";
+        public string app_key = "aWkPdQrcrezrG9ji";
 		public string auth_type = "both";  //can pass "both","sso",or "web" 
 		#endif
 	}
@@ -94,8 +94,8 @@ namespace cn.sharesdk.unity3d
 		#if UNITY_ANDROID
 		public string SortId = "5";
 		public const int type = (int) PlatformType.WeChat;
-		public string AppId = "wx4868b35061f87885";
-		public string AppSecret = "64020361b8ec4c99936c0e3999a9f249";
+        public string AppId = "wxb0872f4a07e0ffe3";
+        public string AppSecret = "f6eebae2f6a6e7035e98102f0f82ee17";
 		public string UserName = "gh_afb25ac019c9@app";
 		public string Path = "/page/API/pages/share/share";
 		public bool BypassApproval = true;
@@ -103,8 +103,8 @@ namespace cn.sharesdk.unity3d
 		public string MiniprogramType = "0";
 		#elif UNITY_IPHONE
 		public const int type = (int) PlatformType.WeChat;
-		public string app_id = "wx4868b35061f87885";
-		public string app_secret = "64020361b8ec4c99936c0e3999a9f249";
+        public string app_id = "wxb0872f4a07e0ffe3";
+        public string app_secret = "f6eebae2f6a6e7035e98102f0f82ee17";
 		#endif
 	}
 

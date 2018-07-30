@@ -1,1 +1,1 @@
-{"buildSettings":{"OTHER_LDFLAGS":["-lz", "-lstdc++", "-ObjC", "-licucore", "-lsqlite3"]}, "ShareSDKPlatforms":{"22":"wx4868b35061f87885", "24":"100371282"}, "folders":["/SDK/Required", "/SDK/ShareSDK", "/SDK/ShareSDK/Support/Optional", "/SDK/ShareSDK/Support/Required"]}
+{"buildSettings":{"OTHER_LDFLAGS":["-lz", "-lstdc++", "-ObjC", "-licucore", "-lsqlite3"]}, "ShareSDKPlatforms":{"22":"wxb0872f4a07e0ffe3", "24":"1106823651"}, "folders":["/SDK/Required", "/SDK/ShareSDK", "/SDK/ShareSDK/Support/Optional", "/SDK/ShareSDK/Support/Required"]}

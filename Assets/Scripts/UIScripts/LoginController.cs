@@ -184,6 +184,7 @@ public class LoginController : MonoBehaviour
         requestLogin.password = loginLayer1.inputPwd.text;
         requestLogin.equitment = SystemInfo.deviceUniqueIdentifier;
 
+
         LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
         {
             if (responseData.status=="200")

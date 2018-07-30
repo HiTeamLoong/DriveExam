@@ -1715,7 +1715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1877283152271842
 GameObject:
   m_ObjectHideFlags: 1
@@ -2162,8 +2162,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114131572902896540}
   m_TextComponent: {fileID: 114860045457300270}
   m_Placeholder: {fileID: 114364057067141636}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -3875,8 +3875,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114296298421759322}
   m_TextComponent: {fileID: 114794060678655364}
   m_Placeholder: {fileID: 114082938223231504}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -4325,8 +4325,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114632283485423834}
   m_TextComponent: {fileID: 114154902306620784}
   m_Placeholder: {fileID: 114708580663212976}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -4610,8 +4610,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114941811046240534}
   m_TextComponent: {fileID: 114742881759889892}
   m_Placeholder: {fileID: 114970197214579676}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -5364,8 +5364,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114704616226977124}
   m_TextComponent: {fileID: 114796005711501240}
   m_Placeholder: {fileID: 114676371519484298}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -5691,8 +5691,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114611855419246552}
   m_TextComponent: {fileID: 114435356372348224}
   m_Placeholder: {fileID: 114558442072090698}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0

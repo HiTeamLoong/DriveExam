@@ -18,16 +18,17 @@ public class LoginManager : XSingleton<LoginManager>
     public readonly string LoginURL = "http://app.jiakaojingling.com/jkjl/api";
 
 
-    public void SendLoginMessage<T>(RequestData_Base request,Callback<ResponseData<T>> callback) where T : ResponseData_Base
+    public void SendLoginMessage<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
     {
         string accountURL = LoginURL + "/member/userLogin";
         Request(accountURL, request, callback);
     }
-    
+
     public void Request<T>(string url, RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
     {
         string accountURL = LoginURL + "/member/userLogin";
 
+        UIWaitDialog uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
         HTTPRequest loginRequest = new HTTPRequest(new Uri(accountURL), HTTPMethods.Post, (originalRequest, response) =>
              {
                  string errStr = string.Empty;
@@ -44,52 +45,55 @@ public class LoginManager : XSingleton<LoginManager>
                          retObject.status = response.StatusCode.ToString();
                          retObject.msg = "服务器链接错误状态码：" + response.StatusCode.ToString();
                      }
-                     callback(retObject);
-                     return;
                  }
-                 switch (originalRequest.State)
+                 else
                  {
-                     case HTTPRequestStates.Finished:
-                         if (response.IsSuccess)
-                         {
-                             try
+                     switch (originalRequest.State)
+                     {
+                         case HTTPRequestStates.Processing:
+                             retObject = null;
+                             break;
+                         case HTTPRequestStates.Finished:
+                             if (response.IsSuccess)
                              {
-                                 retObject = LitJson.JsonMapper.ToObject<ResponseData<T>>(response.DataAsText);
-                                 callback(retObject);
+                                 try
+                                 {
+                                     retObject = LitJson.JsonMapper.ToObject<ResponseData<T>>(response.DataAsText);
+                                 }
+                                 catch (Exception e)
+                                 {
+                                     retObject.status = "-1";
+                                     retObject.msg = e.Message;
+                                 }
                              }
-                             catch (Exception e)
+                             else
                              {
-                                 retObject.status = "-1";
-                                 retObject.msg = e.Message;
-                                 callback(retObject);
+                                 errStr = string.Format("Request finished Successfully, but the server sent an error. Status Code: {0}-{1} Message: {2}",
+                                           response.StatusCode, response.Message, response.DataAsText);
                              }
-                         }
-                         else
-                         {
-                             errStr = string.Format("Request finished Successfully, but the server sent an error. Status Code: {0}-{1} Message: {2}",
-                                       response.StatusCode, response.Message, response.DataAsText);
-                         }
-                         break;
-                     case HTTPRequestStates.Error:
-                         retObject.status = ((int)HTTPRequestStates.Error).ToString();
-                         retObject.msg = originalRequest.Exception != null ? (originalRequest.Exception.Message + "\n" + originalRequest.Exception.StackTrace) : "No Exception";
-                         callback(retObject);
-                         break;
-                     case HTTPRequestStates.Aborted:
-                         retObject.status = ((int)HTTPRequestStates.Aborted).ToString();
-                         retObject.msg = "Request Aborted!";
-                         callback(retObject);
-                         break;
-                     case HTTPRequestStates.ConnectionTimedOut:
-                         retObject.status = ((int)HTTPRequestStates.ConnectionTimedOut).ToString();
-                         retObject.msg = "Connection Timed Out!";
-                         callback(retObject);
-                         break;
-                     case HTTPRequestStates.TimedOut:
-                         retObject.status = ((int)HTTPRequestStates.TimedOut).ToString();
-                         retObject.msg = "Processing the request Timed Out!";
-                         callback(retObject);
-                         break;
+                             break;
+                         case HTTPRequestStates.Error:
+                             retObject.status = ((int)HTTPRequestStates.Error).ToString();
+                             retObject.msg = originalRequest.Exception != null ? (originalRequest.Exception.Message + "\n" + originalRequest.Exception.StackTrace) : "No Exception";
+                             break;
+                         case HTTPRequestStates.Aborted:
+                             retObject.status = ((int)HTTPRequestStates.Aborted).ToString();
+                             retObject.msg = "Request Aborted!";
+                             break;
+                         case HTTPRequestStates.ConnectionTimedOut:
+                             retObject.status = ((int)HTTPRequestStates.ConnectionTimedOut).ToString();
+                             retObject.msg = "Connection Timed Out!";
+                             break;
+                         case HTTPRequestStates.TimedOut:
+                             retObject.status = ((int)HTTPRequestStates.TimedOut).ToString();
+                             retObject.msg = "Processing the request Timed Out!";
+                             break;
+                     }
+                 }
+                 if (retObject != null)
+                 {
+                     UIManager.Instance.CloseUI(uIWait);
+                     callback(retObject);
                  }
              });
 
