@@ -10,6 +10,7 @@ public class UpdateManager : MonoBehaviour
     public string APIKey = "WondCiSwY0RzHYc7hGS2bFoc";
     public string SecretKey = "NjaCdrsUKPi9xiB6X6F6T46B2TdT8ZcT";
 
+    [HideInInspector]
     public UILoginWindow uiLoginWindow;
     public Tts ttsString2Audio;
     private void Awake()
@@ -18,20 +19,19 @@ public class UpdateManager : MonoBehaviour
 
         uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
         uiLoginWindow.SetState("正在检查题库更新...");
-
-        if (Application.internetReachability != NetworkReachability.NotReachable)
-        {
+        //if (Application.internetReachability != NetworkReachability.NotReachable)
+        //{
             CheckConfigUpdate();
-        }
-        else
-        {
-            CheckLoginState();
-        }
+        //}
+        //else
+        //{
+        //    CheckLoginState();
+        //}
     }
 
     void CheckLoginState()
     {
-        if (/* 是否已经登录过 */false)
+        if (GameDataMgr.Instance.ResponseLogin!=null)
         {
             //看是否更新数据进行网络交互
             UIManager.Instance.OpenUI<UIMainWindow>();
@@ -48,8 +48,8 @@ public class UpdateManager : MonoBehaviour
     void CheckConfigUpdate()
     {
         //检查配置更新
-        //string questionUrl = "http://localhost/gameConfig.json";
-        string questionUrl = "http://loong.gz01.bdysite.com/gameConfig.json";
+        string questionUrl = "http://localhost/gameConfig.json";
+        //string questionUrl = "http://loong.gz01.bdysite.com/gameConfig.json";
         StartCoroutine(RequestNetworkFile(questionUrl, (result, content, data) =>
         {
             if (result)
@@ -206,6 +206,7 @@ public class UpdateManager : MonoBehaviour
         {
             if (request.responseCode == 200 || request.responseCode == 0)
             {
+                Debug.Log(request.downloadHandler.text);
                 callback(true, request.downloadHandler.text, request.downloadHandler.data);
             }
             else

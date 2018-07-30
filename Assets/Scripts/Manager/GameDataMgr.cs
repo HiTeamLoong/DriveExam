@@ -4,6 +4,38 @@ using UnityEngine;
 
 public class GameDataMgr : XSingleton<GameDataMgr>
 {
+    private ResponseLogin responseLogin;
+    public ResponseLogin ResponseLogin
+    {
+        get
+        {
+            if (responseLogin == null)
+            {
+                string json = PlayerPrefs.GetString("ResponseLogin");
+                if (json != null)
+                {
+                    responseLogin = LitJson.JsonMapper.ToObject<ResponseLogin>(json);
+                }
+            }
+            return responseLogin;
+        }
+        set
+        {
+            if (value != null)
+            {
+                responseLogin = value;
+                string json = LitJson.JsonMapper.ToJson(responseLogin);
+                PlayerPrefs.SetString("ResponseLogin",json);
+            }
+            else
+            {
+                PlayerPrefs.DeleteKey("ResponseLogin");
+                responseLogin = value;
+            }
+        }
+    }
+
+
     private string accessToken;
     public string AcceccToken
     {
@@ -20,8 +52,6 @@ public class GameDataMgr : XSingleton<GameDataMgr>
             accessToken = value; 
         }
     }
-
-
+    
     public CarType carType = CarType.DAZHONG;
-
 }

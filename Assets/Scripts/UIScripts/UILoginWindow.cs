@@ -17,8 +17,7 @@ public class UILoginWindow : UIWindow
         public ProgressBar progressBar;
     }
     public ProgressGroup progressGroup;
-
-
+    
     public enum State
     {
         None,
@@ -76,10 +75,11 @@ public class UILoginWindow : UIWindow
         textState.text = strState;
     }
 
-    void OnLoginCallback(bool result)
+    void OnLoginCallback(ResponseLogin result)
     {
-        if (result)
+        if (result != null)
         {
+            GameDataMgr.Instance.ResponseLogin = result;
             SwitchSceneMgr.Instance.SwitchToMain(false, () =>
              {
                  UIManager.Instance.OpenUI<UIMainWindow>();

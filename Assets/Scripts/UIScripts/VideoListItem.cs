@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ public class VideoListItem : MonoBehaviour
         this.videoData = videoData;
         this.onClick = onClick;
         gameObject.GetComponent<RawImage>().texture = ResourcesMgr.Instance.GetTextureWithName(videoData.imgurl);
+        
     }
 
     void OnClickItem()
