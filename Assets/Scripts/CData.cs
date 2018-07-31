@@ -138,6 +138,14 @@ public class ResponseData<T> where T : ResponseData_Base
 }
 
 //登录
+public class RequestOther : RequestData_Base
+{
+    public string uid;
+    public string loginType;
+    public string headImg;
+    public string userName;
+    public string equitment;
+}
 public class RequestLogin : RequestData_Base
 {
     public string phone;

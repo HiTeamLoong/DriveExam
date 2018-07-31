@@ -174,7 +174,9 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         }
     }
 
-    public void AuthPlatform()
+
+    private Callback authWechat;
+    public void AuthWechat(Callback<RequestOther> callback)
     {
         shareSDK.Authorize(PlatformType.WeChat);
     }
