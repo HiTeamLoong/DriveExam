@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace cn.sharesdk.unity3d
 {
-	#if UNITY_IPHONE&&!UNITY_EDITOR
+	#if UNITY_IPHONE
 	public class iOSImpl : ShareSDKImpl
 	{
 		[DllImport("__Internal")]

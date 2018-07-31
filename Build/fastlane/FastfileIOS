@@ -165,11 +165,12 @@ platform :ios do
             archive_path: build_path,
             scheme: 'Unity-iPhone',
             clean: true,
+            include_bitcode: false,
             output_directory: build_path,
             output_name: ipa_name,
             export_method: 'enterprise',
             codesigning_identity: ENV['IOS_CODE_SIGN_IDENTITY'],
-            export_options:{provisioningProfiles:{"com.loong.DriveExam" => 'jiakaoUnityInhouse'}}
+            export_options:{provisioningProfiles:{"com.loongx.DriveExam" => 'jkjl_dengguang_dis'}}
         )
         gym_log = "/Users/#{`whoami`.strip}/Library/Logs/gym/AvgMaker-Unity-iPhone.log"
 
