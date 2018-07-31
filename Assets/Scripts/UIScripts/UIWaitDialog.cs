@@ -7,11 +7,11 @@ public class UIWaitDialog : UIDialog
 {
     public RectTransform transWait;
 
-
+    private Sequence loopSequence;
     public void Start()
     {
         float interval = 0.1f;
-        Sequence loopSequence = DOTween.Sequence();
+        loopSequence = DOTween.Sequence();
         loopSequence.AppendInterval(interval);
         loopSequence.Append(transWait.DOLocalRotate(new Vector3(0, 0, 0), 0));
         loopSequence.AppendInterval(interval);
@@ -38,5 +38,9 @@ public class UIWaitDialog : UIDialog
         loopSequence.Append(transWait.DOLocalRotate(new Vector3(0, 0, -330), 0));
         loopSequence.SetLoops(-1);
     }
-
+    public override void OnDispose()
+    {
+        loopSequence.Kill();
+        base.OnDispose();
+    }
 }

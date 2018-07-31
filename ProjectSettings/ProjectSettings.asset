@@ -254,7 +254,7 @@ PlayerSettings:
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   AndroidEnableTango: 0
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   androidUseLowAccuracyLocation: 0
   m_AndroidBanners:
   - width: 320
@@ -263,22 +263,49 @@ PlayerSettings:
   androidGamepadSupportLevel: 0
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons:
-  - m_BuildTarget: Android
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 670b02ef4588bb04d871d7a7e2b2d80f, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
+  - m_BuildTarget: iPhone
     m_Icons:
     - serializedVersion: 2
       m_Icon: {fileID: 2800000, guid: a9c3de36b8ddd2648a901bb122280443, type: 3}
-      m_Width: 192
-      m_Height: 192
+      m_Width: 180
+      m_Height: 180
       m_Kind: 0
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: f5da6207fb6ffc04d8c489f2e3d0e96b, type: 3}
+      m_Icon: {fileID: 2800000, guid: a9c3de36b8ddd2648a901bb122280443, type: 3}
+      m_Width: 167
+      m_Height: 167
+      m_Kind: 0
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: a9c3de36b8ddd2648a901bb122280443, type: 3}
+      m_Width: 152
+      m_Height: 152
+      m_Kind: 0
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: a9c3de36b8ddd2648a901bb122280443, type: 3}
       m_Width: 144
       m_Height: 144
       m_Kind: 0
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: be90596a438768a4bbac251a5faa5e5e, type: 3}
-      m_Width: 96
-      m_Height: 96
+      m_Icon: {fileID: 2800000, guid: f5da6207fb6ffc04d8c489f2e3d0e96b, type: 3}
+      m_Width: 120
+      m_Height: 120
+      m_Kind: 0
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: d5384f5a6fd87f845bcdd0684347eb61, type: 3}
+      m_Width: 114
+      m_Height: 114
+      m_Kind: 0
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 6e00f91f438532d4bb3d224f160a3d81, type: 3}
+      m_Width: 76
+      m_Height: 76
       m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 2800000, guid: b6d8a0b9acec1b745800bd38f8c571eb, type: 3}
@@ -287,21 +314,59 @@ PlayerSettings:
       m_Kind: 0
     - serializedVersion: 2
       m_Icon: {fileID: 2800000, guid: 0a17e082202c46d43a9fc3f16cec2e29, type: 3}
-      m_Width: 48
-      m_Height: 48
+      m_Width: 57
+      m_Height: 57
       m_Kind: 0
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 67bd559304aa6c34c9a29891478698ee, type: 3}
-      m_Width: 36
-      m_Height: 36
-      m_Kind: 0
-  - m_BuildTarget: 
-    m_Icons:
+      m_Icon: {fileID: 2800000, guid: f5da6207fb6ffc04d8c489f2e3d0e96b, type: 3}
+      m_Width: 120
+      m_Height: 120
+      m_Kind: 3
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: a9c3de36b8ddd2648a901bb122280443, type: 3}
-      m_Width: 128
-      m_Height: 128
-      m_Kind: 0
+      m_Icon: {fileID: 0}
+      m_Width: 80
+      m_Height: 80
+      m_Kind: 3
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 40
+      m_Height: 40
+      m_Kind: 3
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 87
+      m_Height: 87
+      m_Kind: 1
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 58
+      m_Height: 58
+      m_Kind: 1
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 29
+      m_Height: 29
+      m_Kind: 1
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 60
+      m_Height: 60
+      m_Kind: 2
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 40
+      m_Height: 40
+      m_Kind: 2
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 20
+      m_Height: 20
+      m_Kind: 2
+    - serializedVersion: 2
+      m_Icon: {fileID: 0}
+      m_Width: 1024
+      m_Height: 1024
+      m_Kind: 4
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   m_BuildTargetVRSettings: []
