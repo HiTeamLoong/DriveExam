@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using cn.sharesdk.unity3d;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class GlobalManager : XMonoSingleton<GlobalManager>
@@ -145,7 +147,13 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
             print("cancel !");
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="reqID"></param>
+    /// <param name="state"></param>
+    /// <param name="type"></param>
+    /// <param name="result"></param>
     void OnFollowFriendResultHandler(int reqID, ResponseState state, PlatformType type, Hashtable result)
     {
         if (state == ResponseState.Success)
@@ -166,4 +174,59 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         }
     }
 
+    public void AuthPlatform()
+    {
+        shareSDK.Authorize(PlatformType.WeChat);
+    }
+
+
+
+
+    //看需求写个MONO单例
+    public void RequestNetworkFile(string url,Action<bool,string,byte[]> callback)
+    {
+        StartCoroutine(IRequestNetworkFile(url, callback));
+    }
+    /// <summary>
+    /// Requests the network file.
+    /// </summary>
+    /// <returns>The network file.</returns>
+    /// <param name="url">URL.</param>
+    /// <param name="callback">Callback.</param>
+    IEnumerator IRequestNetworkFile(string url, Action<bool, string, byte[]> callback)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        yield return request.SendWebRequest();
+
+        bool isError = false;
+
+        if (request.isNetworkError)
+        {
+            Debug.LogErrorFormat("isNetworkError [{0}] [{1}]", url, request.error);
+            isError = true;
+        }
+        else if (request.isHttpError)
+        {
+            Debug.LogErrorFormat("isHttpError [{0}] [{1}]", url, request.responseCode);
+            isError = true;
+        }
+        else
+        {
+            if (request.responseCode == 200 || request.responseCode == 0)
+            {
+                Debug.Log(request.downloadHandler.text);
+                callback(true, request.downloadHandler.text, request.downloadHandler.data);
+            }
+            else
+            {
+                Debug.LogErrorFormat("response code error [{0}]", request.responseCode);
+                isError = true;
+            }
+        }
+
+        if (isError)
+        {
+            callback(false, null, null);
+        }
+    }
 }

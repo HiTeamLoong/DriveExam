@@ -6,64 +6,193 @@ using UnityEngine.UI;
 
 public class LoginController : MonoBehaviour
 {
-    public Stack<GameObject> stackLayer = new Stack<GameObject>();
+    public Stack<LayerBase> stackLayer = new Stack<LayerBase>();
 
     public Button btnReturn;
     public GameObject screenMask;
 
-    [System.Serializable]
-    public class AccountLogin
+    public abstract class LayerBase
     {
-        public GameObject layer;
+        public GameObject root;
+        public abstract void Show();
+        public abstract void Hide();
+    }
+    [System.Serializable]
+    public class AccountLogin:LayerBase
+    {
         public InputField inputAccount;
         public InputField inputPwd;
         public Button btnLogin;
         public Button btnWechat;
         public Button btnMobile;
+
+        public override void Hide()
+        {
+
+        }
+
+        public override void Show()
+        {
+            inputAccount.text = "";
+            inputPwd.text = "";
+        }
     }
     [System.Serializable]
-    public class MobileLogin
+    public class MobileLogin:LayerBase
     {
-        public GameObject layer;
         public InputField inputMobile;
         public InputField inputPwd;
         public Button btnLogin;
         public Button btnSignup;
         public Button btnForget;
         public Button btnWechat;
+
+        public override void Hide()
+        {
+
+        }
+
+        public override void Show()
+        {
+
+        }
     }
     [System.Serializable]
-    public class FreeSignup
+    public class FreeSignup:LayerBase
     {
-        public GameObject layer;
         public InputField inputMobile;
         public InputField inputAnswer;
-        public Image imgQuestion;
+        public RawImage imgQuestion;
         public InputField inputIdentifying;
         public Text textIdentifying;
         public InputField inputPwd1;
         public InputField inputPwd2;
         public Button btnConfirm;
+
+        [HideInInspector]
+        public string authCode;
+        private int timerId = -1;
+        private int countDown = 0;
+        public int CountDown
+        {
+            get
+            {
+                return countDown;
+            }
+            set
+            {
+                XTime.Instance.RemoveTimer(timerId);
+                countDown = value;
+                if (countDown > 0)
+                {
+                    textIdentifying.text = string.Format("重新获取({0})", countDown);
+                    timerId = XTime.Instance.AddTimer(countDown, countDown, () =>
+                    {
+                        countDown--;
+                        if (countDown > 0)
+                        {
+                            textIdentifying.text = string.Format("重新获取({0})", countDown);
+                        }
+                        else
+                        {
+                            textIdentifying.text = "获取验证码";
+                        }
+                    });
+                }
+                else
+                {
+                    textIdentifying.text = "获取验证码";
+                }
+            }
+        }
+
+        public override void Hide()
+        {
+
+        }
+
+        public override void Show()
+        {
+
+        }
     }
     [System.Serializable]
-    public class ForgetPassword1
+    public class ForgetPassword1:LayerBase
     {
-        public GameObject layer;
         public InputField inputMobile;
         public InputField inputAnswer;
-        public Image imgQuestion;
+        public RawImage imgQuestion;
         public InputField inputIdentifying;
         public Text textIdentifying;
 
         public Button btnContinue;
+
+        [HideInInspector]
+        public string authCode;
+        private int timerId = -1;
+        private int countDown = 0;
+        public int CountDown
+        {
+            get
+            {
+                return countDown;
+            }
+            set
+            {
+                XTime.Instance.RemoveTimer(timerId);
+                countDown = value;
+                if (countDown > 0)
+                {
+                    textIdentifying.text = string.Format("重新获取({0})", countDown);
+                    timerId = XTime.Instance.AddTimer(countDown, countDown, () =>
+                    {
+                        countDown--;
+                        if (countDown > 0)
+                        {
+                            textIdentifying.text = string.Format("重新获取({0})", countDown);
+                        }
+                        else
+                        {
+                            textIdentifying.text = "获取验证码";
+                        }
+                    });
+                }
+                else
+                {
+                    textIdentifying.text = "获取验证码";
+                }
+            }
+        }
+
+        public override void Hide()
+        {
+        }
+
+        public override void Show()
+        {
+            inputMobile.text = "";
+            inputAnswer.text = "";
+            inputIdentifying.text = "";
+            CountDown = 0;
+        }
     }
     [System.Serializable]
-    public class ForgetPassword2
+    public class ForgetPassword2:LayerBase
     {
         public GameObject layer;
         public InputField inputPwd1;
         public InputField inputPwd2;
         public Button btnConfirm;
+
+        public override void Hide()
+        {
+
+        }
+
+        public override void Show()
+        {
+
+        }
     }
 
     public AccountLogin loginLayer1;
@@ -97,45 +226,50 @@ public class LoginController : MonoBehaviour
     public void InitWith(Callback<ResponseLogin> loginCallback)
     {
         this.loginCallback = loginCallback;
-        stackLayer = new Stack<GameObject>();
-        OpenLayer(loginLayer1.layer);
+        stackLayer = new Stack<LayerBase>();
+        OpenLayer(loginLayer1);
     }
 
-    void OpenLayer(GameObject layer)
+    void OpenLayer(LayerBase layer)
     {
         if (!stackLayer.Contains(layer))
         {
-            stackLayer.Push(layer);
-            btnReturn.gameObject.SetActive(stackLayer.Count > 1);
-            if (stackLayer.Count == 1)
+            layer.Show();
+            if (stackLayer.Count == 0)
             {
-                layer.SetActive(true);
+                layer.root.SetActive(true);
             }
             else
             {
-                EnterAnim(layer);
+                LayerBase hideLayer = stackLayer.Peek();
+                hideLayer.Hide();
+                EnterAnim(layer.root);
             }
+            stackLayer.Push(layer);
+            btnReturn.gameObject.SetActive(stackLayer.Count > 1);
         }
     }
     void CloseLayer()
     {
-        if (stackLayer.Count>0)
+        if (stackLayer.Count > 0)
         {
-            GameObject layer = stackLayer.Pop();
+            LayerBase closeLayer = stackLayer.Pop();
             btnReturn.gameObject.SetActive(stackLayer.Count > 1);
             if (stackLayer.Count == 0)
             {
-                layer.SetActive(false);
+                closeLayer.root.SetActive(false);
+                closeLayer.Hide();
             }
             else
             {
-                ExitAnim(layer);
-                btnReturn.gameObject.SetActive(stackLayer.Count > 1);
+                ExitAnim(closeLayer.root, () => { closeLayer.Hide(); });
+                LayerBase openLayer = stackLayer.Peek();
+                openLayer.Show();
             }
         }
     }
 
-    void EnterAnim(GameObject layer)
+    void EnterAnim(GameObject layer, Callback callback = null)
     {
         RectTransform layerTrans = layer.transform as RectTransform;
         layerTrans.anchoredPosition = new Vector2(layerTrans.rect.width, layerTrans.anchoredPosition.y);
@@ -145,8 +279,9 @@ public class LoginController : MonoBehaviour
         enterSequence.AppendCallback(() => { screenMask.SetActive(true); });
         enterSequence.Append(layerTrans.DOAnchorPosX(0, 0.5f).SetEase(Ease.OutQuint));
         enterSequence.AppendCallback(() => { screenMask.SetActive(false); });
+        enterSequence.AppendCallback(() => { if (callback != null) { callback(); } });
     }
-    void ExitAnim(GameObject layer)
+    void ExitAnim(GameObject layer,Callback callback = null)
     {
         RectTransform layerTrans = layer.transform as RectTransform;
         Vector2 targetPos = new Vector2(layerTrans.rect.width, layerTrans.anchoredPosition.y);
@@ -156,9 +291,9 @@ public class LoginController : MonoBehaviour
         exitSequence.Append(layerTrans.DOAnchorPosX(layerTrans.rect.width, 0.5f).SetEase(Ease.OutQuint));
         exitSequence.AppendCallback(() => { screenMask.SetActive(false); });
         exitSequence.AppendCallback(() => { layer.SetActive(false); });
+        exitSequence.AppendCallback(() => { if (callback != null) { callback(); } });
     }
-
-
+    
     /// <summary>
     /// 点击返回
     /// </summary>
@@ -201,24 +336,65 @@ public class LoginController : MonoBehaviour
     }
     void LoginLayer1WechatBtn()
     {
-
+        
     }
     void LoginLayer1MobileBtn()
     {
-        OpenLayer(loginLayer2.layer);
+        OpenLayer(loginLayer2);
     }
 
     void LoginLayer2LoginBtn()
     {
-
+        if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
+        {
+            UITipsDialog.ShowTips("请输入手机号");
+            return;
+        }
+        if (string.IsNullOrEmpty(loginLayer1.inputPwd.text))
+        {
+            UITipsDialog.ShowTips("请输入密码");
+            return;
+        }
+        RequestLogin requestLogin = new RequestLogin();
+        requestLogin.phone = loginLayer1.inputAccount.text;
+        requestLogin.password = loginLayer1.inputPwd.text;
+        requestLogin.equitment = SystemInfo.deviceUniqueIdentifier;
+        
+        LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
+        {
+            if (responseData.status == "200")
+            {
+                Debug.Log("登录成功" + responseData.msg);
+                UITipsDialog.ShowTips("登录成功");
+                loginCallback(responseData.data);
+            }
+            else
+            {
+                UITipsDialog.ShowTips(responseData.msg);
+            }
+        });
     }
     void LoginLayer2SignupBtn()
     {
-        OpenLayer(signupLayer.layer);
+        OpenLayer(signupLayer);
+        LoginManager.Instance.GetValidateCodeImage(SystemInfo.deviceUniqueIdentifier, (result, texture) =>
+        {
+            if (result)
+            {
+                signupLayer.imgQuestion.texture = texture;
+            }
+        });
     }
     void LoginLayer2ForgetBtn()
     {
-        OpenLayer(forgetLayer1.layer);
+        OpenLayer(forgetLayer1);
+        LoginManager.Instance.GetValidateCodeImage(SystemInfo.deviceUniqueIdentifier, (result, texture) =>
+        {
+            if (result)
+            {
+                forgetLayer1.imgQuestion.texture = texture;
+            }
+        });
     }
     void LoginLayer2WechatBtn()
     {
@@ -227,23 +403,175 @@ public class LoginController : MonoBehaviour
 
     void SignupLayerIdentifyText(GameObject go)
     {
+        if (string.IsNullOrEmpty(signupLayer.inputMobile.text))
+        {
+            UITipsDialog.ShowTips("请输入手机号");
+            return;
+        }
+        if (string.IsNullOrEmpty(signupLayer.inputAnswer.text))
+        {
+            UITipsDialog.ShowTips("请输入问题答案");
+            return;
+        }
+        RequestAuthCode param = new RequestAuthCode();
+        param.phone = signupLayer.inputMobile.text;
+        param.zuoti = signupLayer.inputAnswer.text;
+        param.type = "register";
 
+        LoginManager.Instance.SendAuthCode<ResponseAuthCode>(param, (responseData) =>
+        {
+            if (responseData.status == "200")
+            {
+                signupLayer.CountDown = 60;
+                signupLayer.authCode = responseData.data.code;
+            }
+            else
+            {
+                UITipsDialog.ShowTips(responseData.msg);
+            }
+        });
     }
     void SignupLayerConfirmBtn()
     {
+        if (string.IsNullOrEmpty(signupLayer.inputMobile.text))
+        {
+            UITipsDialog.ShowTips("请输入手机号");
+            return;
+        }
+        if (string.IsNullOrEmpty(signupLayer.inputAnswer.text))
+        {
+            UITipsDialog.ShowTips("请输入问题答案");
+            return;
+        }
+        if (string.IsNullOrEmpty(signupLayer.inputIdentifying.text))
+        {
+            UITipsDialog.ShowTips("请输入手机验证码");
+            return;
+        }
+        string pwd1 = signupLayer.inputPwd1.text;
+        string pwd2 = signupLayer.inputPwd2.text;
+        if (string.IsNullOrEmpty(pwd1))
+        {
+            UITipsDialog.ShowTips("请输入新密码");
+            return;
+        }
+        if (string.IsNullOrEmpty(pwd2))
+        {
+            UITipsDialog.ShowTips("请确认新密码");
+            return;
+        }
+        if (!string.Equals(pwd1, pwd2))
+        {
+            UITipsDialog.ShowTips("两次密码不一致");
+            return;
+        }
 
+        RequestFreeSignup param = new RequestFreeSignup();
+        param.phone = signupLayer.inputMobile.text;
+        param.code = signupLayer.inputIdentifying.text;
+        param.password = pwd1;
+        param.equitment = SystemInfo.deviceUniqueIdentifier;
+
+
+        LoginManager.Instance.SendForgetPwd<ResponseFreeSignup>(param, (responseData) =>
+        {
+            if (responseData.status == "200")
+            {
+                UITipsDialog.ShowTips("注册成功");
+            }
+            else
+            {
+                UITipsDialog.ShowTips(responseData.msg);
+            }
+        });
     }
+
     void ForgetLayer1IdentifyText(GameObject go)
     {
+        if (string.IsNullOrEmpty(forgetLayer1.inputMobile.text))
+        {
+            UITipsDialog.ShowTips("请输入手机号");
+            return;
+        }
+        if (string.IsNullOrEmpty(forgetLayer1.inputAnswer.text))
+        {
+            UITipsDialog.ShowTips("请输入问题答案");
+            return;
+        }
+        RequestAuthCode param = new RequestAuthCode();
+        param.phone = forgetLayer1.inputMobile.text;
+        param.zuoti = forgetLayer1.inputAnswer.text;
+        param.type = "forget";
 
+        LoginManager.Instance.SendAuthCode<ResponseAuthCode>(param, (responseData) =>
+        {
+            if (responseData.status == "200")
+            {
+                forgetLayer1.CountDown = 60;
+                forgetLayer1.authCode = responseData.data.code;
+            }
+            else
+            {
+                UITipsDialog.ShowTips(responseData.msg);
+            }
+        });
     }
     void ForgetLayer1ContinueBtn()
     {
-        OpenLayer(forgetLayer2.layer);
+        if (string.IsNullOrEmpty(forgetLayer1.inputMobile.text))
+        {
+            UITipsDialog.ShowTips("请输入手机号");
+            return;
+        }
+        if (string.IsNullOrEmpty(forgetLayer1.inputAnswer.text))
+        {
+            UITipsDialog.ShowTips("请输入问题答案");
+            return;
+        }
+        if (string.IsNullOrEmpty(forgetLayer1.inputIdentifying.text))
+        {
+            UITipsDialog.ShowTips("请输入手机验证码");
+            return;
+        }
+        
+        OpenLayer(forgetLayer2);
     }
 
     void ForgetLayer2ConfirmBtn()
     {
-
+        string pwd1 = forgetLayer2.inputPwd1.text;
+        string pwd2 = forgetLayer2.inputPwd2.text;
+        if (string.IsNullOrEmpty(pwd1))
+        {
+            UITipsDialog.ShowTips("请输入新密码");
+            return;
+        }
+        if (string.IsNullOrEmpty(pwd2))
+        {
+            UITipsDialog.ShowTips("请确认新密码");
+            return;
+        }
+        if (!string.Equals(pwd1,pwd2))
+        {
+            UITipsDialog.ShowTips("两次密码不一致");
+            return;
+        }
+        RequestForgetPwd requestForgetPwd = new RequestForgetPwd();
+        requestForgetPwd.phone = forgetLayer1.inputMobile.text;
+        requestForgetPwd.code = forgetLayer1.inputIdentifying.text;
+        requestForgetPwd.password = pwd1;
+        requestForgetPwd.equitment = SystemInfo.deviceUniqueIdentifier;
+        
+        LoginManager.Instance.SendForgetPwd<ResponseForgetPwd>(requestForgetPwd, (responseData) =>
+        {
+            if (responseData.status == "200")
+            {
+                UITipsDialog.ShowTips("设置密码成功");
+            }
+            else
+            {
+                UITipsDialog.ShowTips(responseData.msg);
+            }
+        });
     }
 }

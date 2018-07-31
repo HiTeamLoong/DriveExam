@@ -15,21 +15,68 @@ public class LoginManager : XSingleton<LoginManager>
         base.OnInit();
     }
 
-    public readonly string LoginURL = "http://app.jiakaojingling.com/jkjl/api";
+    public readonly string serverURL = "http://app.jiakaojingling.com/jkjl/api";
 
-
+    /// <summary>
+    /// 请求账号登录
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="request"></param>
+    /// <param name="callback"></param>
     public void SendLoginMessage<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
     {
-        string accountURL = LoginURL + "/member/userLogin";
-        Request(accountURL, request, callback);
+        string requestURL = serverURL + "/member/userLogin";
+        Request(requestURL, request, callback);
+    }
+    /// <summary>
+    /// 请求验证码
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="request"></param>
+    /// <param name="callback"></param>
+    public void SendAuthCode<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
+    {
+        string requestURL = serverURL + "/member/checkCode";
+        Request(requestURL, request, callback);
+    }
+    /// <summary>
+    /// 请求忘记密码
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="request"></param>
+    /// <param name="callback"></param>
+    public void SendForgetPwd<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
+    {
+        string requestURL = serverURL + "/member/resetPwd";
+        Request(requestURL, request, callback);
+    }
+    /// <summary>
+    /// 请求免费注册
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="request"></param>
+    /// <param name="callback"></param>
+    public void SendFreeSingup<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
+    {
+        string requestURL = serverURL + "/member/register";
+        Request(requestURL, request, callback);
     }
 
+    /// <summary>
+    /// 获取验证图片
+    /// </summary>
+    /// <param name="udid"></param>
+    /// <param name="callback"></param>
+    public void GetValidateCodeImage(string udid, Callback<bool, Texture2D> callback)
+    {
+        string fileUrl = serverURL + "/member/ValidateCodeUtil?equitmentTime=" + udid;
+        ResourcesMgr.Instance.LoadNetworkFile(fileUrl, callback);
+    }
+    
     public void Request<T>(string url, RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
     {
-        string accountURL = LoginURL + "/member/userLogin";
-
-        UIWaitDialog uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
-        HTTPRequest loginRequest = new HTTPRequest(new Uri(accountURL), HTTPMethods.Post, (originalRequest, response) =>
+        //UIWaitDialog uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
+        HTTPRequest loginRequest = new HTTPRequest(new Uri(url), HTTPMethods.Post, (originalRequest, response) =>
              {
                  string errStr = string.Empty;
                  ResponseData<T> retObject = new ResponseData<T>();
@@ -92,7 +139,7 @@ public class LoginManager : XSingleton<LoginManager>
                  }
                  if (retObject != null)
                  {
-                     UIManager.Instance.CloseUI(uIWait);
+                     //UIManager.Instance.CloseUI(uIWait);
                      callback(retObject);
                  }
              });

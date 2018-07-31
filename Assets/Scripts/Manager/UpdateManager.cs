@@ -168,8 +168,7 @@ public class UpdateManager : MonoBehaviour
             uiLoginWindow.SetProgress(1.0f);
         }
     }
-
-
+    
     void CheckStringToAudio(string str2audio, List<string> turnList)
     {
         if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(str2audio))

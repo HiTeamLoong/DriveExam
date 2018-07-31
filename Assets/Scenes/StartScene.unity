@@ -348,6 +348,8 @@ GameObject:
   - component: {fileID: 1564550666}
   - component: {fileID: 1564550660}
   - component: {fileID: 1564550668}
+  - component: {fileID: 1564550669}
+  - component: {fileID: 1564550670}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -480,26 +482,37 @@ MonoBehaviour:
   devInfo:
     qq:
       Enable: 1
-      app_id: 1106823651
-      app_key: aWkPdQrcrezrG9ji
-      auth_type: both
+      SortId: 2
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     qzone:
       Enable: 1
-      app_id: 1106823651
-      app_key: aWkPdQrcrezrG9ji
-      auth_type: both
+      SortId: 1
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     wechat:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 5
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      UserName: gh_afb25ac019c9@app
+      Path: /page/API/pages/share/share
+      BypassApproval: 1
+      WithShareTicket: 1
+      MiniprogramType: 0
     wechatMoments:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 6
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      BypassApproval: 1
     wechatFavorites:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 7
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
 --- !u!114 &1564550667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +537,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Visible: 0
+--- !u!114 &1564550669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1564550659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a840e96ff18d7a4a94d89d5a086c751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &1564550670
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1564550659}
+  m_Enabled: 1
+  m_Alpha: 0.01
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1643389397
 GameObject:
   m_ObjectHideFlags: 0

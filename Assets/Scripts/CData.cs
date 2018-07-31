@@ -137,6 +137,7 @@ public class ResponseData<T> where T : ResponseData_Base
     public T data;
 }
 
+//登录
 public class RequestLogin : RequestData_Base
 {
     public string phone;
@@ -160,5 +161,39 @@ public class ResponseLogin : ResponseData_Base
     public string provinceName;
     public int isOtherLogin;
     public int isNeedBind;
+}
+//忘记密码
+public class RequestForgetPwd: RequestData_Base
+{
+    public string phone;
+    public string password;
+    public string code;
+    public string equitment;
+}
+public class ResponseForgetPwd : ResponseData_Base
+{
+}
+//验证码
+public class RequestAuthCode:RequestData_Base
+{
+    public string phone;
+    public string type;
+    public string zuoti;
+}
+public class ResponseAuthCode : ResponseData_Base
+{
+    public string code;
+}
+//免费注册
+public class RequestFreeSignup : RequestData_Base
+{
+    public string phone;
+    public string code;
+    public string password;
+    public string equitment;
+}
+public class ResponseFreeSignup : ResponseData_Base
+{
+
 }
 
