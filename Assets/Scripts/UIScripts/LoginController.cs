@@ -336,7 +336,7 @@ public class LoginController : MonoBehaviour
     }
     void LoginLayer1WechatBtn()
     {
-        
+        //GlobalManager.Instance.AuthPlatform()
     }
     void LoginLayer1MobileBtn()
     {
@@ -345,19 +345,19 @@ public class LoginController : MonoBehaviour
 
     void LoginLayer2LoginBtn()
     {
-        if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
+        if (string.IsNullOrEmpty(loginLayer2.inputMobile.text))
         {
             UITipsDialog.ShowTips("请输入手机号");
             return;
         }
-        if (string.IsNullOrEmpty(loginLayer1.inputPwd.text))
+        if (string.IsNullOrEmpty(loginLayer2.inputPwd.text))
         {
             UITipsDialog.ShowTips("请输入密码");
             return;
         }
         RequestLogin requestLogin = new RequestLogin();
-        requestLogin.phone = loginLayer1.inputAccount.text;
-        requestLogin.password = loginLayer1.inputPwd.text;
+        requestLogin.phone = loginLayer2.inputMobile.text;
+        requestLogin.password = loginLayer2.inputPwd.text;
         requestLogin.equitment = SystemInfo.deviceUniqueIdentifier;
         
         LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
@@ -403,7 +403,9 @@ public class LoginController : MonoBehaviour
 
     void SignupLayerIdentifyText(GameObject go)
     {
-        if (string.IsNullOrEmpty(signupLayer.inputMobile.text))
+        string mobile = signupLayer.inputMobile.text;
+        string answer = signupLayer.inputAnswer.text;
+        if (string.IsNullOrEmpty(mobile))
         {
             UITipsDialog.ShowTips("请输入手机号");
             return;
@@ -414,9 +416,10 @@ public class LoginController : MonoBehaviour
             return;
         }
         RequestAuthCode param = new RequestAuthCode();
-        param.phone = signupLayer.inputMobile.text;
-        param.zuoti = signupLayer.inputAnswer.text;
+        param.phone = mobile;
+        param.zuoti = answer;
         param.type = "register";
+        param.equitment = SystemInfo.deviceUniqueIdentifier;
 
         LoginManager.Instance.SendAuthCode<ResponseAuthCode>(param, (responseData) =>
         {
@@ -502,6 +505,7 @@ public class LoginController : MonoBehaviour
         param.phone = forgetLayer1.inputMobile.text;
         param.zuoti = forgetLayer1.inputAnswer.text;
         param.type = "forget";
+        param.equitment = SystemInfo.deviceUniqueIdentifier;
 
         LoginManager.Instance.SendAuthCode<ResponseAuthCode>(param, (responseData) =>
         {

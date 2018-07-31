@@ -6287,14 +6287,14 @@ MonoBehaviour:
   btnReturn: {fileID: 114309990591592114}
   screenMask: {fileID: 1981344429217260}
   loginLayer1:
-    layer: {fileID: 1828490832350296}
+    root: {fileID: 1828490832350296}
     inputAccount: {fileID: 114186775948288630}
     inputPwd: {fileID: 114513748210729340}
     btnLogin: {fileID: 114401532709604516}
     btnWechat: {fileID: 114838614308571030}
     btnMobile: {fileID: 114307352277457114}
   loginLayer2:
-    layer: {fileID: 1305798896001674}
+    root: {fileID: 1305798896001674}
     inputMobile: {fileID: 114831789852372208}
     inputPwd: {fileID: 114429403467151422}
     btnLogin: {fileID: 114775893697311084}
@@ -6302,7 +6302,7 @@ MonoBehaviour:
     btnForget: {fileID: 114254272771499890}
     btnWechat: {fileID: 114415658646809916}
   signupLayer:
-    layer: {fileID: 1410932149445570}
+    root: {fileID: 1410932149445570}
     inputMobile: {fileID: 114996127496493494}
     inputAnswer: {fileID: 114738783751052450}
     imgQuestion: {fileID: 114076518488688010}
@@ -6311,15 +6311,18 @@ MonoBehaviour:
     inputPwd1: {fileID: 114757932812448506}
     inputPwd2: {fileID: 114078461448972188}
     btnConfirm: {fileID: 114704011899621422}
+    authCode: 
   forgetLayer1:
-    layer: {fileID: 1338610747968042}
+    root: {fileID: 1338610747968042}
     inputMobile: {fileID: 114276809281138708}
     inputAnswer: {fileID: 114682958664402936}
     imgQuestion: {fileID: 114134544146538482}
     inputIdentifying: {fileID: 114885355120855062}
     textIdentifying: {fileID: 114891624054757254}
     btnContinue: {fileID: 114129821793702000}
+    authCode: 
   forgetLayer2:
+    root: {fileID: 1742802207872766}
     layer: {fileID: 1742802207872766}
     inputPwd1: {fileID: 114603357375929628}
     inputPwd2: {fileID: 114724184476218670}

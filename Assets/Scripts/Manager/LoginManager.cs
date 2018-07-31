@@ -36,7 +36,7 @@ public class LoginManager : XSingleton<LoginManager>
     /// <param name="callback"></param>
     public void SendAuthCode<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
     {
-        string requestURL = serverURL + "/member/checkCode";
+        string requestURL = serverURL + "/member/getIdentifyingCode";
         Request(requestURL, request, callback);
     }
     /// <summary>
@@ -75,8 +75,8 @@ public class LoginManager : XSingleton<LoginManager>
     
     public void Request<T>(string url, RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
     {
-        //UIWaitDialog uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
-        HTTPRequest loginRequest = new HTTPRequest(new Uri(url), HTTPMethods.Post, (originalRequest, response) =>
+        UIWaitDialog uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
+        HTTPRequest httpRequest = new HTTPRequest(new Uri(url), HTTPMethods.Post, (originalRequest, response) =>
              {
                  string errStr = string.Empty;
                  ResponseData<T> retObject = new ResponseData<T>();
@@ -139,17 +139,21 @@ public class LoginManager : XSingleton<LoginManager>
                  }
                  if (retObject != null)
                  {
-                     //UIManager.Instance.CloseUI(uIWait);
+                     UIManager.Instance.CloseUI(uIWait);
                      callback(retObject);
                  }
              });
 
         System.Reflection.FieldInfo[] fieldInfos = request.GetType().GetFields();
+        string message = url;
         for (int i = 0; i < fieldInfos.Length; i++)
         {
             System.Reflection.FieldInfo fieldInfo = fieldInfos[i];
-            loginRequest.AddField(fieldInfo.Name, fieldInfo.GetValue(request).ToString());
+            httpRequest.AddField(fieldInfo.Name, fieldInfo.GetValue(request).ToString());
+            message += (i == 0) ? "?" : "&";
+            message += (fieldInfo.Name + "=" + fieldInfo.GetValue(request).ToString());
         }
-        loginRequest.Send();
+        Debug.Log(message);
+        httpRequest.Send();
     }
 }
