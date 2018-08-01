@@ -35,8 +35,7 @@ public class GameDataMgr : XSingleton<GameDataMgr>
             }
         }
     }
-
-
+    
     private string accessToken;
     public string AcceccToken
     {

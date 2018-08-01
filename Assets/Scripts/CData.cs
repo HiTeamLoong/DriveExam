@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public enum CarType
 {
@@ -88,8 +89,21 @@ public class VideoData : Data_Base
     public string videourl;
     public string videoname;
 }
-
-////抽奖箱子
+public class AuthorizeData
+{
+    public string author = "loong";
+    public bool authorize = true;
+    public string authTime = "2068-8-1 0:0:0";
+    public bool authExpire
+    {
+        get
+        {
+            DateTime dateTime = DateTime.Parse(authTime);
+            return (DateTime.Now > dateTime);
+        }
+    }
+}
+////e.g.
 //public class pendingChest : Data_Base
 //{
 //    public int index;

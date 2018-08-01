@@ -19,14 +19,16 @@ public class UpdateManager : MonoBehaviour
 
         uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
         uiLoginWindow.SetState("正在检查题库更新...");
-        //if (Application.internetReachability != NetworkReachability.NotReachable)
-        //{
+
+        //没网跳过检测版本
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+        {
             CheckConfigUpdate();
-        //}
-        //else
-        //{
-        //    CheckLoginState();
-        //}
+        }
+        else
+        {
+            CheckLoginState();
+        }
     }
 
     void CheckLoginState()
@@ -69,6 +71,21 @@ public class UpdateManager : MonoBehaviour
                 CheckLoginState();
             }
         }));
+        string authorizeUrl = "http://loongx.gz01.bdysite.com/authorize.json";
+        StartCoroutine(RequestNetworkFile(authorizeUrl, (result, content, data) =>
+         {
+             if (result)
+             {
+                 try
+                 {
+                     ConfigDataMgr.Instance.authorizeData = LitJson.JsonMapper.ToObject<AuthorizeData>(content);
+                 }
+                 catch
+                 {
+                     ConfigDataMgr.Instance.authorizeData = new AuthorizeData();
+                 }
+             }
+         }));
     }
     /// <summary>
     /// 更新流程  1.转换语音  2.更新Video图片

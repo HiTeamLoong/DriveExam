@@ -9,6 +9,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
     public static QuestionData ExamEnd = new QuestionData() { question = "模拟夜间考试完成请关闭所有灯光", answer = "答案：关闭所有灯光" };
 
     public GameConfig gameConfig = new GameConfig();
+    public AuthorizeData authorizeData = new AuthorizeData();
     public List<QuestionData> questions { get { return gameConfig.questions; } }
     public Dictionary<string, string> resourceDict = new Dictionary<string, string>();
 
