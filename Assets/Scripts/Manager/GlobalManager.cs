@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using cn.sharesdk.unity3d;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -102,11 +103,13 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     {
         if (state == ResponseState.Success)
         {
+            UITipsDialog.ShowTips("分享成功");
             print("share successfully - share result :");
             print(MiniJSON.jsonEncode(result));
         }
         else if (state == ResponseState.Fail)
         {
+            UITipsDialog.ShowTips("分享失败");
 #if UNITY_ANDROID
             print("fail! throwable stack = " + result["stack"] + "; error msg = " + result["msg"]);
 #elif UNITY_IPHONE
@@ -115,6 +118,7 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         }
         else if (state == ResponseState.Cancel)
         {
+            UITipsDialog.ShowTips("取消分享");
             print("cancel !");
         }
     }
@@ -222,6 +226,67 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
 #endif
     }
 
+    public static string SHARE_DIR
+    {
+        get
+        {
+            return Path.Combine(Application.persistentDataPath, "ShareImage");
+        }
+    }
+    private string WriteShareImage(Texture2D texture)
+    {
+        if (Directory.Exists(SHARE_DIR))
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(SHARE_DIR);
+            foreach (FileInfo fileInfo in directoryInfo.GetFiles())
+            {
+                File.Delete(fileInfo.FullName);
+            }
+        }
+
+        byte[] imgData = texture.EncodeToPNG();
+        string imgName = System.Guid.NewGuid().ToString("N") + ".png";
+        try
+        {
+            string imagePath = Path.Combine(SHARE_DIR, imgName);
+            using (FileStream fs = new FileStream(Path.Combine(SHARE_DIR, imgName), FileMode.Create, FileAccess.ReadWrite))
+            {
+                fs.Write(imgData, 0, imgData.Length);
+            }
+            return imagePath;
+        }
+        catch (IOException)
+        {
+            Debug.LogFormat("[{0}]:分享失败，请检查磁盘空间是否已满", "ShareSystem");
+            return null;
+        }
+    }
+    public void ShareImage(Texture2D texture)
+    {
+        string imagePath = WriteShareImage(texture);
+        if (!string.IsNullOrEmpty(imagePath))
+        {
+            ShareContent content = new ShareContent();
+            content.SetImagePath(imagePath);
+            content.SetShareType(ContentType.Image);
+            shareSDK.ShowPlatformList(null, content, 100, 100);
+        }
+    }
+    public void ShareWebpage(string title, string text, string url, Texture2D texture)
+    {
+        string imagePath = WriteShareImage(texture);
+        if (!string.IsNullOrEmpty(imagePath))
+        {
+            ShareContent content = new ShareContent();
+            content.SetTitle(title);
+            content.SetText(text);
+            content.SetUrl(url);
+            content.SetImagePath(imagePath);
+            content.SetShareType(ContentType.Webpage);
+            shareSDK.ShowPlatformList(null, content, 100, 100);
+        }
+    }
+    
     //看需求写个MONO单例
     public void RequestNetworkFile(string url, Action<bool, string, byte[]> callback)
     {
