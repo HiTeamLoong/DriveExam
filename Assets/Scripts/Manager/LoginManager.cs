@@ -70,6 +70,7 @@ public class LoginManager : XSingleton<LoginManager>
     public void GetValidateCodeImage(string udid, Callback<bool, Texture2D> callback)
     {
         string fileUrl = serverURL + "/member/ValidateCodeUtil?equitmentTime=" + udid;
+        Debug.Log(fileUrl);
         ResourcesMgr.Instance.LoadNetworkFile(fileUrl, callback);
     }
     
