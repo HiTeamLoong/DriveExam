@@ -86,7 +86,7 @@ public class LoginController : MonoBehaviour
                 if (countDown > 0)
                 {
                     textIdentifying.text = string.Format("重新获取({0})", countDown);
-                    timerId = XTime.Instance.AddTimer(countDown, countDown, () =>
+                    timerId = XTime.Instance.AddTimer(1, countDown, () =>
                     {
                         countDown--;
                         if (countDown > 0)
@@ -144,7 +144,7 @@ public class LoginController : MonoBehaviour
                 if (countDown > 0)
                 {
                     textIdentifying.text = string.Format("重新获取({0})", countDown);
-                    timerId = XTime.Instance.AddTimer(countDown, countDown, () =>
+                    timerId = XTime.Instance.AddTimer(1, countDown, () =>
                     {
                         countDown--;
                         if (countDown > 0)
@@ -433,6 +433,10 @@ public class LoginController : MonoBehaviour
 
     void SignupLayerIdentifyText(GameObject go)
     {
+        if (signupLayer.CountDown>0)
+        {
+            return;
+        }
         string mobile = signupLayer.inputMobile.text;
         string answer = signupLayer.inputAnswer.text;
         if (string.IsNullOrEmpty(mobile))
@@ -521,6 +525,10 @@ public class LoginController : MonoBehaviour
 
     void ForgetLayer1IdentifyText(GameObject go)
     {
+        if (forgetLayer1.CountDown>0)
+        {
+            return;
+        }
         if (string.IsNullOrEmpty(forgetLayer1.inputMobile.text))
         {
             UITipsDialog.ShowTips("请输入手机号");
