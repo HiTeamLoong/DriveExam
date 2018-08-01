@@ -13,6 +13,13 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
     /// </summary>
     public void SwitchToExam(Callback callback = null)
     {
+        AuthorizeData auth = ConfigDataMgr.instance.authorizeData;
+        if (!auth.authorize||auth.authExpire)
+        {
+            UITipsDialog.ShowTips("软件未授权或授权到期");
+            return;
+        }
+
         UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
         AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
         uiLoadingWindow.InitWith(async, () =>

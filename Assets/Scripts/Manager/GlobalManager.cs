@@ -28,7 +28,6 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         shareSDK.showUserHandler = OnGetUserInfoResultHandler;
         shareSDK.getFriendsHandler = OnGetFriendsResultHandler;
         shareSDK.followFriendHandler = OnFollowFriendResultHandler;
-
     }
 
     /// <summary>
