@@ -1,0 +1,11 @@
+微信
+appid:wxb0872f4a07e0ffe3  
+secrect: f6eebae2f6a6e7035e98102f0f82ee17
+
+QQ-IOS:
+APP ID:1106823651
+APP KEY:aWkPdQrcrezrG9ji
+
+QQ-Android
+APP ID:1107389581
+APP KEY:7dqRE1nL2uIVBVAu
