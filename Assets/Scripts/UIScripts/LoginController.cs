@@ -336,7 +336,7 @@ public class LoginController : MonoBehaviour
     }
     void LoginLayer1WechatBtn()
     {
-        //GlobalManager.Instance.AuthPlatform()
+        GlobalManager.Instance.AuthWechat(null);
     }
     void LoginLayer1MobileBtn()
     {
@@ -398,7 +398,7 @@ public class LoginController : MonoBehaviour
     }
     void LoginLayer2WechatBtn()
     {
-
+        GlobalManager.Instance.AuthWechat(null);
     }
 
     void SignupLayerIdentifyText(GameObject go)

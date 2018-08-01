@@ -205,7 +205,6 @@ public class UpdateManager : MonoBehaviour
         {
             if (request.responseCode == 200 || request.responseCode == 0)
             {
-                Debug.Log(request.downloadHandler.text);
                 callback(true, request.downloadHandler.text, request.downloadHandler.data);
             }
             else

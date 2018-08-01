@@ -482,37 +482,26 @@ MonoBehaviour:
   devInfo:
     qq:
       Enable: 1
-      SortId: 2
-      AppId: 1107389581
-      AppKey: 7dqRE1nL2uIVBVAu
-      ShareByAppClient: 1
+      app_id: 1106823651
+      app_key: aWkPdQrcrezrG9ji
+      auth_type: both
     qzone:
       Enable: 1
-      SortId: 1
-      AppId: 1107389581
-      AppKey: 7dqRE1nL2uIVBVAu
-      ShareByAppClient: 1
+      app_id: 1106823651
+      app_key: aWkPdQrcrezrG9ji
+      auth_type: both
     wechat:
       Enable: 1
-      SortId: 5
-      AppId: wxb0872f4a07e0ffe3
-      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
-      UserName: gh_afb25ac019c9@app
-      Path: /page/API/pages/share/share
-      BypassApproval: 1
-      WithShareTicket: 1
-      MiniprogramType: 0
+      app_id: wxb0872f4a07e0ffe3
+      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
     wechatMoments:
       Enable: 1
-      SortId: 6
-      AppId: wxb0872f4a07e0ffe3
-      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
-      BypassApproval: 1
+      app_id: wxb0872f4a07e0ffe3
+      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
     wechatFavorites:
       Enable: 1
-      SortId: 7
-      AppId: wxb0872f4a07e0ffe3
-      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      app_id: wxb0872f4a07e0ffe3
+      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
 --- !u!114 &1564550667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,7 +543,7 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1564550659}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Alpha: 0.04
   m_Interactable: 1
   m_BlocksRaycasts: 1
@@ -633,79 +622,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1 &1909988841
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1909988844}
-  - component: {fileID: 1909988843}
-  - component: {fileID: 1909988842}
-  m_Layer: 0
-  m_Name: Camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!124 &1909988842
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1909988841}
-  m_Enabled: 1
---- !u!20 &1909988843
-Camera:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1909988841}
-  m_Enabled: 0
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &1909988844
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1909988841}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.066229, y: 0.7012668, z: 0.002457915}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2023815289
 GameObject:
   m_ObjectHideFlags: 0

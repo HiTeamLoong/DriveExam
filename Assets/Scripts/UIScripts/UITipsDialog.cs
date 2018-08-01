@@ -16,7 +16,7 @@ public class UITipsDialog : UIDialog
     {
         textTips.text = tips;
 
-        XTime.Instance.AddTimer(3f, 1, () =>
+        XTime.Instance.AddTimer(2f, 1, () =>
         {
             UIManager.Instance.CloseUI(this);
         });
