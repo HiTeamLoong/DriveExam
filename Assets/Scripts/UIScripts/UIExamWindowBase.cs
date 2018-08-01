@@ -136,6 +136,8 @@ public abstract class UIExamWindowBase : UIWindow
         btnReturn.onClick.AddListener(() =>
         {
             IsShowVideo = false;
+            CleanQuestion();
+            CloseAllLight();
             SwitchSceneMgr.Instance.SwitchToMain();
         });
 

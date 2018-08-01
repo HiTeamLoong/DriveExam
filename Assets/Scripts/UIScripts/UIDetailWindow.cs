@@ -9,7 +9,7 @@ public class UIDetailWindow : UIWindow
     public Button btnReturn;
     public Button btnStart;
 
-    public PlayVideoController PlayVideoController;
+    public PlayVideoController playVideoController;
 
     public override void OnCreate()
     {
@@ -17,7 +17,7 @@ public class UIDetailWindow : UIWindow
         btnReturn.onClick.AddListener(OnClickReturn);
         btnStart.onClick.AddListener(OnClickStart);
 
-        PlayVideoController.InitWith(ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString()]);
+        playVideoController.InitWith(ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString()]);
     }
 
     /// <summary>
@@ -35,6 +35,7 @@ public class UIDetailWindow : UIWindow
         //AsyncOperation async = SceneManager.LoadSceneAsync("ExamScene");
         //UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
         //uiLoadingWindow.InitWith(async);
+        playVideoController.IsPlay = false;
         SwitchSceneMgr.Instance.SwitchToExam();
     }
 }

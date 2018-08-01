@@ -363,7 +363,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1564550659}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 407cf781ee62c49e4a45b9d2fc3988c8, type: 3}
   m_Name: 
@@ -482,26 +482,37 @@ MonoBehaviour:
   devInfo:
     qq:
       Enable: 1
-      app_id: 1106823651
-      app_key: aWkPdQrcrezrG9ji
-      auth_type: both
+      SortId: 2
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     qzone:
       Enable: 1
-      app_id: 1106823651
-      app_key: aWkPdQrcrezrG9ji
-      auth_type: both
+      SortId: 1
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     wechat:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 5
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      UserName: gh_afb25ac019c9@app
+      Path: /page/API/pages/share/share
+      BypassApproval: 1
+      WithShareTicket: 1
+      MiniprogramType: 0
     wechatMoments:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 6
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      BypassApproval: 1
     wechatFavorites:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 7
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
 --- !u!114 &1564550667
 MonoBehaviour:
   m_ObjectHideFlags: 0

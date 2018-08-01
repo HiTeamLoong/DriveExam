@@ -9,7 +9,7 @@ public class GameDataMgr : XSingleton<GameDataMgr>
     {
         get
         {
-            PlayerPrefs.DeleteAll();
+            //PlayerPrefs.DeleteAll();
             if (responseLogin == null)
             {
                 string json = PlayerPrefs.GetString("ResponseLogin");

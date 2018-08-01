@@ -14,20 +14,20 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     {
         UIManager.Instance.CloseAllWindow();
 
-        Input.multiTouchEnabled = false;
+        //Input.multiTouchEnabled = false;
     }
 
     private void Start()
     {
-        if (shareSDK==null)
-        {
-            shareSDK = FindObjectOfType<ShareSDK>();
-        }
-        shareSDK.authHandler = OnAuthResultHandler;
-        shareSDK.shareHandler = OnShareResultHandler;
-        shareSDK.showUserHandler = OnGetUserInfoResultHandler;
-        shareSDK.getFriendsHandler = OnGetFriendsResultHandler;
-        shareSDK.followFriendHandler = OnFollowFriendResultHandler;
+        //if (shareSDK==null)
+        //{
+        //    shareSDK = FindObjectOfType<ShareSDK>();
+        //}
+        //shareSDK.authHandler = OnAuthResultHandler;
+        //shareSDK.shareHandler = OnShareResultHandler;
+        //shareSDK.showUserHandler = OnGetUserInfoResultHandler;
+        //shareSDK.getFriendsHandler = OnGetFriendsResultHandler;
+        //shareSDK.followFriendHandler = OnFollowFriendResultHandler;
 
     }
 

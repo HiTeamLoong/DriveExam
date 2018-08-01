@@ -1373,7 +1373,7 @@ MonoBehaviour:
   isMain: 0
   btnReturn: {fileID: 114366331721152198}
   btnStart: {fileID: 114271055653903088}
-  PlayVideoController: {fileID: 114671978421681450}
+  playVideoController: {fileID: 114671978421681450}
 --- !u!114 &114825647335076862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1934,7 +1934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.000049204664, y: -0.00002271156}
+  m_AnchoredPosition: {x: -0.00004822709, y: -0.00002271156}
   m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &224360052431018702

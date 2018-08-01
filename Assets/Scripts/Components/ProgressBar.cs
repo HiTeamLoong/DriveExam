@@ -14,10 +14,11 @@ public class ProgressBar : MonoBehaviour
         get { return imgProgress.fillAmount; }
         set
         {
-            imgProgress.fillAmount = value;
+            float prog = Mathf.Clamp01(value);
+            imgProgress.fillAmount = prog;
             if (textProg != null)
             {
-                textProg.text = string.Format("加载中 {0}", value.ToString("P"));
+                textProg.text = string.Format("加载中 {0}", prog.ToString("P"));
             }
         }
     }
