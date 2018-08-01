@@ -1,70 +1,77 @@
 using UnityEngine;
 using System.Collections;
-using System;  
-using System.Collections.Generic;  
-using System.IO;  
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Reflection;
 
 namespace cn.sharesdk.unity3d
 {
-	/// <summary>
-	/// ShareSDK.
-	/// </summary>
-	public class ShareSDK : MonoBehaviour 
-	{
-		private int reqID;
-		//配置ShareSDK AppKey
-		//注:此处区分仅为demo测试而区分，实际使用时可以不区分安卓或iOS
-		 #if UNITY_ANDROID
+    /// <summary>
+    /// ShareSDK.
+    /// </summary>
+    public class ShareSDK : MonoBehaviour
+    {
+        private int reqID;
+        //配置ShareSDK AppKey
+        //注:此处区分仅为demo测试而区分，实际使用时可以不区分安卓或iOS
+#if UNITY_ANDROID
         public string appKey = "26e83d145e058";
         public string appSecret = "0b77f55195b9ffc4e536523d14ae496b";
-		 #elif UNITY_IPHONE
+#elif UNITY_IPHONE
         public string appKey = "26e83d145e058";
         public string appSecret = "0b77f55195b9ffc4e536523d14ae496b";
-		 #endif
+#endif
 
-		public DevInfoSet devInfo;
-		public ShareSDKImpl shareSDKUtils;
+        public DevInfoSet devInfo;
+        public ShareSDKImpl shareSDKUtils;
 
-		public EventHandler authHandler;
-		public EventHandler shareHandler;
-		public EventHandler showUserHandler;
-		public EventHandler getFriendsHandler;
-		public EventHandler followFriendHandler;
+        public EventHandler authHandler;
+        public EventHandler shareHandler;
+        public EventHandler showUserHandler;
+        public EventHandler getFriendsHandler;
+        public EventHandler followFriendHandler;
 
-		void Awake()
-		{				
-			Type type = devInfo.GetType();
-			Hashtable platformConfigs = new Hashtable();
-			FieldInfo[] devInfoFields = type.GetFields();
-			foreach (FieldInfo devInfoField in devInfoFields) 
-			{	
-				DevInfo info = (DevInfo) devInfoField.GetValue(devInfo);
-				int platformId = (int) info.GetType().GetField("type").GetValue(info);
-				FieldInfo[] fields = info.GetType().GetFields();
-				Hashtable table = new Hashtable();
-				foreach (FieldInfo field in fields) 
-				{
-					if ("type".EndsWith(field.Name)) {
-						continue;
-					} else if ("Enable".EndsWith(field.Name) || "ShareByAppClient".EndsWith(field.Name) || "BypassApproval".EndsWith(field.Name) || "WithShareTicket".EndsWith(field.Name)) {
-						table.Add(field.Name, Convert.ToString(field.GetValue(info)).ToLower());
-					} else {
-						table.Add(field.Name, Convert.ToString(field.GetValue(info)));
-					}
-				}
-				platformConfigs.Add(platformId, table);
-			}
+        void Awake()
+        {
+            Type type = devInfo.GetType();
+            Hashtable platformConfigs = new Hashtable();
+            FieldInfo[] devInfoFields = type.GetFields();
+            foreach (FieldInfo devInfoField in devInfoFields)
+            {
+                DevInfo info = (DevInfo)devInfoField.GetValue(devInfo);
+                int platformId = (int)info.GetType().GetField("type").GetValue(info);
+                FieldInfo[] fields = info.GetType().GetFields();
+                Hashtable table = new Hashtable();
+                foreach (FieldInfo field in fields)
+                {
+                    if ("type".EndsWith(field.Name))
+                    {
+                        continue;
+                    }
+                    else if ("Enable".EndsWith(field.Name) || "ShareByAppClient".EndsWith(field.Name) || "BypassApproval".EndsWith(field.Name) || "WithShareTicket".EndsWith(field.Name))
+                    {
+                        table.Add(field.Name, Convert.ToString(field.GetValue(info)).ToLower());
+                    }
+                    else
+                    {
+                        table.Add(field.Name, Convert.ToString(field.GetValue(info)));
+                    }
+                }
+                platformConfigs.Add(platformId, table);
+            }
+#if !UNITY_EDITOR
 
-			#if UNITY_ANDROID
+#if UNITY_ANDROID
 			shareSDKUtils = new AndroidImpl(gameObject);
 			shareSDKUtils.InitSDK(appKey,appSecret);
-			#elif UNITY_IPHONE
+#elif UNITY_IPHONE
 			shareSDKUtils = new iOSImpl(gameObject);
-			#endif
+#endif
 
-			shareSDKUtils.SetPlatformConfig(platformConfigs);
+            shareSDKUtils.SetPlatformConfig(platformConfigs);
+#endif
 		}
 		
 		/// <summary>

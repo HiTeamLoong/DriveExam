@@ -18,7 +18,7 @@ public class LoginController : MonoBehaviour
         public abstract void Hide();
     }
     [System.Serializable]
-    public class AccountLogin:LayerBase
+    public class AccountLogin : LayerBase
     {
         public InputField inputAccount;
         public InputField inputPwd;
@@ -38,7 +38,7 @@ public class LoginController : MonoBehaviour
         }
     }
     [System.Serializable]
-    public class MobileLogin:LayerBase
+    public class MobileLogin : LayerBase
     {
         public InputField inputMobile;
         public InputField inputPwd;
@@ -58,7 +58,7 @@ public class LoginController : MonoBehaviour
         }
     }
     [System.Serializable]
-    public class FreeSignup:LayerBase
+    public class FreeSignup : LayerBase
     {
         public InputField inputMobile;
         public InputField inputAnswer;
@@ -117,7 +117,7 @@ public class LoginController : MonoBehaviour
         }
     }
     [System.Serializable]
-    public class ForgetPassword1:LayerBase
+    public class ForgetPassword1 : LayerBase
     {
         public InputField inputMobile;
         public InputField inputAnswer;
@@ -177,7 +177,7 @@ public class LoginController : MonoBehaviour
         }
     }
     [System.Serializable]
-    public class ForgetPassword2:LayerBase
+    public class ForgetPassword2 : LayerBase
     {
         public GameObject layer;
         public InputField inputPwd1;
@@ -273,7 +273,7 @@ public class LoginController : MonoBehaviour
     {
         RectTransform layerTrans = layer.transform as RectTransform;
         layerTrans.anchoredPosition = new Vector2(layerTrans.rect.width, layerTrans.anchoredPosition.y);
-        
+
         Sequence enterSequence = DOTween.Sequence();
         enterSequence.AppendCallback(() => { layer.SetActive(true); });
         enterSequence.AppendCallback(() => { screenMask.SetActive(true); });
@@ -281,7 +281,7 @@ public class LoginController : MonoBehaviour
         enterSequence.AppendCallback(() => { screenMask.SetActive(false); });
         enterSequence.AppendCallback(() => { if (callback != null) { callback(); } });
     }
-    void ExitAnim(GameObject layer,Callback callback = null)
+    void ExitAnim(GameObject layer, Callback callback = null)
     {
         RectTransform layerTrans = layer.transform as RectTransform;
         Vector2 targetPos = new Vector2(layerTrans.rect.width, layerTrans.anchoredPosition.y);
@@ -293,7 +293,7 @@ public class LoginController : MonoBehaviour
         exitSequence.AppendCallback(() => { layer.SetActive(false); });
         exitSequence.AppendCallback(() => { if (callback != null) { callback(); } });
     }
-    
+
     /// <summary>
     /// 点击返回
     /// </summary>
@@ -322,9 +322,9 @@ public class LoginController : MonoBehaviour
 
         LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
         {
-            if (responseData.status=="200")
+            if (responseData.status == "200")
             {
-                Debug.Log("登录成功"+responseData.msg);
+                Debug.Log("登录成功" + responseData.msg);
                 UITipsDialog.ShowTips("登录成功");
                 loginCallback(responseData.data);
             }
@@ -336,7 +336,22 @@ public class LoginController : MonoBehaviour
     }
     void LoginLayer1WechatBtn()
     {
-        GlobalManager.Instance.AuthWechat(null);
+        GlobalManager.Instance.AuthWechat((requestOther) =>
+        {
+            LoginManager.Instance.SendOtherMessage<ResponseLogin>(requestOther, (responseData) =>
+                {
+                    if (responseData.status == "200")
+                    {
+                        Debug.Log("登录成功" + responseData.msg);
+                        UITipsDialog.ShowTips("登录成功");
+                        loginCallback(responseData.data);
+                    }
+                    else
+                    {
+                        UITipsDialog.ShowTips(responseData.msg);
+                    }
+                });
+        });
     }
     void LoginLayer1MobileBtn()
     {
@@ -359,7 +374,7 @@ public class LoginController : MonoBehaviour
         requestLogin.phone = loginLayer2.inputMobile.text;
         requestLogin.password = loginLayer2.inputPwd.text;
         requestLogin.equitment = SystemInfo.deviceUniqueIdentifier;
-        
+
         LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
         {
             if (responseData.status == "200")
@@ -398,7 +413,22 @@ public class LoginController : MonoBehaviour
     }
     void LoginLayer2WechatBtn()
     {
-        GlobalManager.Instance.AuthWechat(null);
+        GlobalManager.Instance.AuthWechat((requestOther) =>
+        {
+            LoginManager.Instance.SendOtherMessage<ResponseLogin>(requestOther, (responseData) =>
+            {
+                if (responseData.status == "200")
+                {
+                    Debug.Log("登录成功" + responseData.msg);
+                    UITipsDialog.ShowTips("登录成功");
+                    loginCallback(responseData.data);
+                }
+                else
+                {
+                    UITipsDialog.ShowTips(responseData.msg);
+                }
+            });
+        });
     }
 
     void SignupLayerIdentifyText(GameObject go)
@@ -537,7 +567,7 @@ public class LoginController : MonoBehaviour
             UITipsDialog.ShowTips("请输入手机验证码");
             return;
         }
-        
+
         OpenLayer(forgetLayer2);
     }
 
@@ -555,7 +585,7 @@ public class LoginController : MonoBehaviour
             UITipsDialog.ShowTips("请确认新密码");
             return;
         }
-        if (!string.Equals(pwd1,pwd2))
+        if (!string.Equals(pwd1, pwd2))
         {
             UITipsDialog.ShowTips("两次密码不一致");
             return;
@@ -565,7 +595,7 @@ public class LoginController : MonoBehaviour
         requestForgetPwd.code = forgetLayer1.inputIdentifying.text;
         requestForgetPwd.password = pwd1;
         requestForgetPwd.equitment = SystemInfo.deviceUniqueIdentifier;
-        
+
         LoginManager.Instance.SendForgetPwd<ResponseForgetPwd>(requestForgetPwd, (responseData) =>
         {
             if (responseData.status == "200")

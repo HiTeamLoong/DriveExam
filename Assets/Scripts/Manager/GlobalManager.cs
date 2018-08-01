@@ -19,15 +19,15 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
 
     private void Start()
     {
-        //if (shareSDK==null)
-        //{
-        //    shareSDK = FindObjectOfType<ShareSDK>();
-        //}
-        //shareSDK.authHandler = OnAuthResultHandler;
-        //shareSDK.shareHandler = OnShareResultHandler;
-        //shareSDK.showUserHandler = OnGetUserInfoResultHandler;
-        //shareSDK.getFriendsHandler = OnGetFriendsResultHandler;
-        //shareSDK.followFriendHandler = OnFollowFriendResultHandler;
+        if (shareSDK == null)
+        {
+            shareSDK = FindObjectOfType<ShareSDK>();
+        }
+        shareSDK.authHandler = OnAuthResultHandler;
+        shareSDK.shareHandler = OnShareResultHandler;
+        shareSDK.showUserHandler = OnGetUserInfoResultHandler;
+        shareSDK.getFriendsHandler = OnGetFriendsResultHandler;
+        shareSDK.followFriendHandler = OnFollowFriendResultHandler;
 
     }
 
@@ -42,21 +42,49 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     {
         if (state == ResponseState.Success)
         {
-            if (result != null && result.Count > 0)
+            if (type == PlatformType.WeChat)
             {
-                print("authorize success !" + "Platform :" + type + "result:" + MiniJSON.jsonEncode(result));
+                RequestOther requestOther = new RequestOther();
+                requestOther.uid = result["openid"].ToString();
+                requestOther.loginType = 1;
+                requestOther.headImg = result["icon"].ToString();
+                requestOther.userName = result["nickname"].ToString();
+                requestOther.equitment = SystemInfo.deviceUniqueIdentifier;
+                if (authWechat != null)
+                {
+                    authWechat(requestOther);
+                    authWechat = null;
+                }
             }
-            else
+            else if (type == PlatformType.QQ)
             {
-                print("authorize success !" + "Platform :" + type);
+                RequestOther requestOther = new RequestOther();
+                requestOther.uid = result["openid"].ToString();
+                requestOther.loginType = 1;
+                requestOther.headImg = result["headimgurl"].ToString();
+                requestOther.userName = result["nickname"].ToString();
+                requestOther.equitment = SystemInfo.deviceUniqueIdentifier;
+                if (authWechat != null)
+                {
+                    authWechat(requestOther);
+                    authWechat = null;
+                }
             }
+            //if (result != null && result.Count > 0)
+            //{
+            //    print("authorize success !" + "Platform :" + type + "result:" + MiniJSON.jsonEncode(result));
+            //}
+            //else
+            //{
+            //    print("authorize success !" + "Platform :" + type);
+            //}
         }
         else if (state == ResponseState.Fail)
         {
 #if UNITY_ANDROID
             print("fail! throwable stack = " + result["stack"] + "; error msg = " + result["msg"]);
 #elif UNITY_IPHONE
-            print ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
+            print("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
 #endif
         }
         else if (state == ResponseState.Cancel)
@@ -83,7 +111,7 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
 #if UNITY_ANDROID
             print("fail! throwable stack = " + result["stack"] + "; error msg = " + result["msg"]);
 #elif UNITY_IPHONE
-            print ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
+            print("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
 #endif
         }
         else if (state == ResponseState.Cancel)
@@ -98,26 +126,26 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     /// <param name="state">State.</param>
     /// <param name="type">Type.</param>
     /// <param name="result">Result.</param>
-    void OnGetUserInfoResultHandler (int reqID, ResponseState state, PlatformType type, Hashtable result)
+    void OnGetUserInfoResultHandler(int reqID, ResponseState state, PlatformType type, Hashtable result)
     {
         if (state == ResponseState.Success)
         {
-            print ("get user info result :");
-            print (MiniJSON.jsonEncode(result));
-            print ("AuthInfo:" + MiniJSON.jsonEncode (shareSDK.GetAuthInfo (PlatformType.QQ)));
-            print ("Get userInfo success !Platform :" + type );
+            print("get user info result :");
+            print(MiniJSON.jsonEncode(result));
+            print("AuthInfo:" + MiniJSON.jsonEncode(shareSDK.GetAuthInfo(PlatformType.QQ)));
+            print("Get userInfo success !Platform :" + type);
         }
         else if (state == ResponseState.Fail)
         {
-            #if UNITY_ANDROID
+#if UNITY_ANDROID
             print ("fail! throwable stack = " + result["stack"] + "; error msg = " + result["msg"]);
-            #elif UNITY_IPHONE
-            print ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
-            #endif
+#elif UNITY_IPHONE
+            print("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
+#endif
         }
-        else if (state == ResponseState.Cancel) 
+        else if (state == ResponseState.Cancel)
         {
-            print ("cancel !");
+            print("cancel !");
         }
     }
     /// <summary>
@@ -139,7 +167,7 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
 #if UNITY_ANDROID
             print("fail! throwable stack = " + result["stack"] + "; error msg = " + result["msg"]);
 #elif UNITY_IPHONE
-            print ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
+            print("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
 #endif
         }
         else if (state == ResponseState.Cancel)
@@ -165,7 +193,7 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
 #if UNITY_ANDROID
             print("fail! throwable stack = " + result["stack"] + "; error msg = " + result["msg"]);
 #elif UNITY_IPHONE
-            print ("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
+            print("fail! error code = " + result["error_code"] + "; error msg = " + result["error_msg"]);
 #endif
         }
         else if (state == ResponseState.Cancel)
@@ -175,17 +203,28 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     }
 
 
-    private Callback authWechat;
+    private Callback<RequestOther> authWechat;
     public void AuthWechat(Callback<RequestOther> callback)
     {
+#if UNITY_EDITOR
+        RequestOther requestOther = new RequestOther();
+        requestOther.uid = "o0ray0iVuIB4CDxi_l_BgerD5Kw8";
+        requestOther.loginType = 1;
+        requestOther.headImg = "http://thirdwx.qlogo.cn/mmopen/vi_32/9RU5gXnwDosiaTn2VgyviajNpYalYoOEuUs3JJbtFjYbJWaT4Nq2j9Qw193FSwFVwePyuLWBGSSxfLf1E2HjSOdQ/132";
+        requestOther.userName = "薛龙";
+        requestOther.equitment = SystemInfo.deviceUniqueIdentifier;
+        if (callback != null)
+        {
+            callback(requestOther);
+        }
+#else
+        authWechat = callback;
         shareSDK.Authorize(PlatformType.WeChat);
+#endif
     }
 
-
-
-
     //看需求写个MONO单例
-    public void RequestNetworkFile(string url,Action<bool,string,byte[]> callback)
+    public void RequestNetworkFile(string url, Action<bool, string, byte[]> callback)
     {
         StartCoroutine(IRequestNetworkFile(url, callback));
     }

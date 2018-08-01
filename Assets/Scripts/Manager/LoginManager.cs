@@ -29,6 +29,17 @@ public class LoginManager : XSingleton<LoginManager>
         Request(requestURL, request, callback);
     }
     /// <summary>
+    /// 第三方登录
+    /// </summary>
+    /// <param name="request">Request.</param>
+    /// <param name="callback">Callback.</param>
+    /// <typeparam name="T">The 1st type parameter.</typeparam>
+    public void SendOtherMessage<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
+    {
+        string requestURL = serverURL + "/member/otherLogin";
+        Request(requestURL, request, callback);
+    }
+    /// <summary>
     /// 请求验证码
     /// </summary>
     /// <typeparam name="T"></typeparam>

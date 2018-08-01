@@ -141,7 +141,7 @@ public class ResponseData<T> where T : ResponseData_Base
 public class RequestOther : RequestData_Base
 {
     public string uid;
-    public string loginType;
+    public int loginType;
     public string headImg;
     public string userName;
     public string equitment;
