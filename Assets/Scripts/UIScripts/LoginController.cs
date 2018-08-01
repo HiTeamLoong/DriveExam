@@ -419,7 +419,7 @@ public class LoginController : MonoBehaviour
         param.phone = mobile;
         param.zuoti = answer;
         param.type = "register";
-        param.equitment = SystemInfo.deviceUniqueIdentifier;
+        param.equitmentTime = SystemInfo.deviceUniqueIdentifier;
 
         LoginManager.Instance.SendAuthCode<ResponseAuthCode>(param, (responseData) =>
         {
@@ -505,7 +505,7 @@ public class LoginController : MonoBehaviour
         param.phone = forgetLayer1.inputMobile.text;
         param.zuoti = forgetLayer1.inputAnswer.text;
         param.type = "forget";
-        param.equitment = SystemInfo.deviceUniqueIdentifier;
+        param.equitmentTime = SystemInfo.deviceUniqueIdentifier;
 
         LoginManager.Instance.SendAuthCode<ResponseAuthCode>(param, (responseData) =>
         {

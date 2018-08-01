@@ -187,7 +187,7 @@ public class RequestAuthCode:RequestData_Base
     public string phone;
     public string type;
     public string zuoti;
-    public string equitment;
+    public string equitmentTime;
 }
 public class ResponseAuthCode : ResponseData_Base
 {
