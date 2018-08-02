@@ -5,20 +5,22 @@ using UnityEngine.UI;
 
 public class UITipsDialog : UIDialog
 {
-    public static void ShowTips(string tips)
+    public static void ShowTips(string tips, bool isKeep = false)
     {
         UITipsDialog uITipsDialog = UIManager.Instance.OpenUI<UITipsDialog>();
-        uITipsDialog.InitWith(tips);
+        uITipsDialog.InitWith(tips,isKeep);
     }
     public Text textTips;
 
-    public void InitWith(string tips)
+    public void InitWith(string tips, bool isKeep = false)
     {
         textTips.text = tips;
-
-        XTime.Instance.AddTimer(2f, 1, () =>
+        if (!isKeep)
         {
-            UIManager.Instance.CloseUI(this);
-        });
+            XTime.Instance.AddTimer(2f, 1, () =>
+            {
+                UIManager.Instance.CloseUI(this);
+            });
+        }
     }
 }

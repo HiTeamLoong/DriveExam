@@ -272,19 +272,20 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
             shareSDK.ShowPlatformList(null, content, 100, 100);
         }
     }
-    public void ShareWebpage(string title, string text, string url, Texture2D texture)
+    public void ShareWebpage(string title, string text, string url, string imageUrl)
     {
-        string imagePath = WriteShareImage(texture);
-        if (!string.IsNullOrEmpty(imagePath))
-        {
-            ShareContent content = new ShareContent();
-            content.SetTitle(title);
-            content.SetText(text);
-            content.SetUrl(url);
-            content.SetImagePath(imagePath);
-            content.SetShareType(ContentType.Webpage);
-            shareSDK.ShowPlatformList(null, content, 100, 100);
-        }
+        //string imagePath = WriteShareImage(texture);
+        //if (!string.IsNullOrEmpty(imagePath))
+        //{
+        ShareContent content = new ShareContent();
+        content.SetTitle(title);
+        content.SetText(text);
+        content.SetUrl(url);
+        content.SetImageUrl(imageUrl);
+        //content.SetImagePath(imagePath);
+        content.SetShareType(ContentType.Webpage);
+        shareSDK.ShowPlatformList(null, content, 100, 100);
+        //}
     }
     
     //看需求写个MONO单例

@@ -11,6 +11,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
     public GameConfig gameConfig = new GameConfig();
     public AuthorizeData authorizeData = new AuthorizeData();
     public List<QuestionData> questions { get { return gameConfig.questions; } }
+    public ShareData shareData { get { return gameConfig.share; } }
     public Dictionary<string, string> resourceDict = new Dictionary<string, string>();
 
     public override void OnInit()
@@ -30,6 +31,10 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
         {
             string json = File.ReadAllText(filePath);
             gameConfig = LitJson.JsonMapper.ToObject<GameConfig>(json);
+        }
+        else
+        {
+            gameConfig = null;
         }
     }
     /// <summary>

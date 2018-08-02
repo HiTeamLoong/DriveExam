@@ -7,12 +7,13 @@ public class UIShareWindow : UIWindow
 {
     public Button btnLogout;
     public Button btnReturn;
-
+    public Button btnShare;
     public override void OnCreate()
     {
         base.OnCreate();
         btnLogout.onClick.AddListener(OnClickLogout);
         btnReturn.onClick.AddListener(OnClickReturn);
+        btnShare.onClick.AddListener(OnClickShare);
     }
 
     void OnClickLogout(){
@@ -22,5 +23,10 @@ public class UIShareWindow : UIWindow
     }
     void OnClickReturn(){
         UIManager.Instance.CloseUI(this);
+    }
+    void OnClickShare()
+    {
+        ShareData shareData = ConfigDataMgr.Instance.shareData;
+        GlobalManager.Instance.ShareWebpage(shareData.title,shareData.content,shareData.url,shareData.image);
     }
 }

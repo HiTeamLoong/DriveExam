@@ -26,15 +26,18 @@ public class GameConfig : Data_Base
     /// 视频教学
     /// </summary>
     public Dictionary<string, List<VideoData>> video = new Dictionary<string, List<VideoData>>();
-
+    /// <summary>
+    /// 分享的内容
+    /// </summary>
+    public ShareData share;
 }
 
 public class ShareData : Data_Base
 {
-    public string title = "";
-    public string content = "";
-    public string url = "";
-    public string image = "";
+    public string title = "驾考精灵为驾考保驾护航";
+    public string content = "驾考精灵百分百保过，您驾考的最优选择...";
+    public string url = "http://www.ly502.com/";
+    public string image = "http://loongx.gz01.bdysite.com/shareImage2.png";
 }
 
 /// <summary>

@@ -21,7 +21,7 @@ public class UpdateManager : MonoBehaviour
         uiLoginWindow.SetState("正在检查题库更新...");
 
         //没网跳过检测版本
-        if (Application.internetReachability != NetworkReachability.NotReachable)
+        if (ConfigDataMgr.Instance.gameConfig==null||Application.internetReachability != NetworkReachability.NotReachable)
         {
             CheckConfigUpdate();
         }
@@ -57,7 +57,7 @@ public class UpdateManager : MonoBehaviour
             if (result)
             {
                 GameConfig gameConfig = LitJson.JsonMapper.ToObject<GameConfig>(content);
-                if (gameConfig.version != ConfigDataMgr.Instance.gameConfig.version)
+                if (ConfigDataMgr.Instance.gameConfig == null || gameConfig.version != ConfigDataMgr.Instance.gameConfig.version)
                 {
                     StartCoroutine(UpdateResource(gameConfig));
                 }
@@ -66,9 +66,13 @@ public class UpdateManager : MonoBehaviour
                     CheckLoginState();
                 }
             }
-            else
+            else if (ConfigDataMgr.Instance.gameConfig != null)
             {
                 CheckLoginState();
+            }
+            else
+            {
+                UITipsDialog.ShowTips("题库缺失，请链接网络后重新进入", true);
             }
         }));
         string authorizeUrl = "http://loongx.gz01.bdysite.com/authorize.json";

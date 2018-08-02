@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIFlowDialog : UIDialog
 {
-
     public Button btnClose;
 
     public override void OnCreate()

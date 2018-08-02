@@ -66,13 +66,16 @@ public class UIManager : XMonoSingleton<UIManager>
     {
         if (uiPanel.GetType().IsSubclassOf(typeof(UIWindow)))
         {
-            if (!(uiPanel as UIWindow).isMain && windowsStack.Peek() == uiPanel)
+            UIWindow tempWnd = windowsStack.Peek();
+            if (!(uiPanel as UIWindow).isMain && tempWnd == uiPanel)
             {
-                windowsStack.Pop();
-                Destroy(uiPanel.gameObject);
-                UIWindow temp = windowsStack.Peek();
-                temp.gameObject.SetActive(true);
-                temp.OnShow();
+                tempWnd = windowsStack.Pop();
+                tempWnd.OnDispose();
+                Destroy(tempWnd.gameObject);
+
+                tempWnd = windowsStack.Peek();
+                tempWnd.gameObject.SetActive(true);
+                tempWnd.OnShow();
             }
             else
             {
@@ -81,13 +84,17 @@ public class UIManager : XMonoSingleton<UIManager>
         }
         else if (uiPanel.GetType().IsSubclassOf(typeof(UIDialog)))
         {
-            if (dialogsStack.Peek() == uiPanel)
+            UIDialog tempDlg = dialogsStack.Peek();
+            if (tempDlg == uiPanel)
             {
-                dialogsStack.Pop();
-                Destroy(uiPanel.gameObject);
+                tempDlg = dialogsStack.Pop();
+                tempDlg.OnDispose();
+                Destroy(tempDlg.gameObject);
+
                 if (dialogsStack.Count > 0)
                 {
-                    dialogsStack.Peek().OnShow();
+                    tempDlg = dialogsStack.Peek();
+                    tempDlg.OnShow();
                 }
             }
             else
