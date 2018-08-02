@@ -568,7 +568,7 @@ MonoBehaviour:
       AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
       UserName: gh_afb25ac019c9@app
       Path: /page/API/pages/share/share
-      BypassApproval: 1
+      BypassApproval: 0
       WithShareTicket: 1
       MiniprogramType: 0
     wechatMoments:
@@ -576,7 +576,7 @@ MonoBehaviour:
       SortId: 6
       AppId: wxb0872f4a07e0ffe3
       AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
-      BypassApproval: 1
+      BypassApproval: 0
     wechatFavorites:
       Enable: 1
       SortId: 7

@@ -5,102 +5,117 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.003144">
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.002038">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.002744">
+      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.00214">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.001557">
+      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.001415">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: Switch to ios info lane" time="0.00203">
+      <testcase classname="fastlane.lanes" name="03: Switch to ios info lane" time="0.001575">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: Switch to ios switch_platform lane" time="0.001683">
+      <testcase classname="fastlane.lanes" name="04: Switch to ios switch_platform lane" time="0.001751">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: Switch to ios do_switch_platform lane" time="0.002073">
+      <testcase classname="fastlane.lanes" name="05: Switch to ios do_switch_platform lane" time="0.001646">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: unity" time="15.734176">
+      <testcase classname="fastlane.lanes" name="06: unity" time="13.721087">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: Switch to ios export lane" time="0.00261">
+      <testcase classname="fastlane.lanes" name="07: Switch to ios export lane" time="0.002666">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: Switch to ios do_export lane" time="0.00157">
+      <testcase classname="fastlane.lanes" name="08: Switch to ios do_export lane" time="0.001676">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: Switch to ios do_set_package_setting lane" time="0.001935">
+      <testcase classname="fastlane.lanes" name="09: Switch to ios do_set_package_setting lane" time="0.001731">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: unity" time="74.440571">
+      <testcase classname="fastlane.lanes" name="10: unity" time="69.424937">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: echo &quot;##teamcity[publishArtifacts 'Build/Output/iOS/Build-1.0.37/DriveExam/Unity.BuildiOS-1.0.37-Export.log']&quot;" time="0.010276">
+      <testcase classname="fastlane.lanes" name="11: echo &quot;##teamcity[publishArtifacts 'Build/Output/iOS/Build-1.0.40/DriveExam/Unity.BuildiOS-1.0.40-Export.log']&quot;" time="0.01239">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: Switch to ios icon lane" time="0.002056">
+      <testcase classname="fastlane.lanes" name="12: Switch to ios icon lane" time="0.001943">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="13: Switch to ios do_icon lane" time="0.002408">
+      <testcase classname="fastlane.lanes" name="13: Switch to ios do_icon lane" time="0.002686">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="14: add_badge" time="18.679569">
+      <testcase classname="fastlane.lanes" name="14: add_badge" time="15.95295">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="15: Switch to ios assemble lane" time="0.002285">
+      <testcase classname="fastlane.lanes" name="15: Switch to ios displayName lane" time="0.001955">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="16: automatic_code_signing" time="0.338095">
+      <testcase classname="fastlane.lanes" name="16: set_info_plist_value" time="0.011571">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="17: update_app_identifier" time="0.013652">
+      <testcase classname="fastlane.lanes" name="17: set_info_plist_value" time="0.010393">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="18: update_project_provisioning" time="0.207406">
+      <testcase classname="fastlane.lanes" name="18: Switch to ios assemble lane" time="0.001867">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="19: gym" time="31.69882">
+      <testcase classname="fastlane.lanes" name="19: automatic_code_signing" time="0.289504">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="20: update_app_identifier" time="0.007646">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="21: update_project_provisioning" time="3.662575">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="22: gym" time="54.191075">
         
       </testcase>
     

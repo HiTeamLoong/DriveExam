@@ -12,12 +12,12 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: loongx
-  productName: "\u9A7E\u8003\u7CBE\u7075\u706F\u5149"
+  productName: DriveExam
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.972549, g: 0.972549, b: 0.972549, a: 1}
-  m_ShowUnitySplashScreen: 1
-  m_ShowUnitySplashLogo: 1
+  m_ShowUnitySplashScreen: 0
+  m_ShowUnitySplashLogo: 0
   m_SplashScreenOverlayOpacity: 0.983
   m_SplashScreenAnimation: 2
   m_SplashScreenLogoStyle: 0
