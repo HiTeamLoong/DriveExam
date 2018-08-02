@@ -57,6 +57,9 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 controlRodBackward.imgHeadLight.sprite = value ? controlRodBackward.sprHeadLight1 : HeadlightSwitch ? controlRodBackward.sprHeadLight2 : controlRodBackward.sprHeadLight0;
 
                 imgOpenLight.DOFade((ClearanceSwitch || HeadlightSwitch) ? 1f : 0f, 0);
+
+                imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
+                imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
             }
         }
     }
@@ -73,6 +76,9 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 imgOpenLight.DOFade((ClearanceSwitch || HeadlightSwitch) ? 1f : 0f, 0);
                 imgHeadNear.DOFade(LowBeamLight ? 1f : 0f, 0);
                 imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);
+
+                imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
+                imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
             }
         }
     }
