@@ -8,12 +8,19 @@ public class UIMainWindow : UIWindow
     public Button btnJieda;
     public Button btnAilishe;
 
+    public Button btnShare;
+    public Button btnVow;
+    public Button btnFlow;
+
 
     public override void OnCreate()
     {
         base.OnCreate();
         btnJieda.onClick.AddListener(OnClickJieda);
         btnAilishe.onClick.AddListener(OnClickAilishe);
+        btnShare.onClick.AddListener(OnClickShare);
+        btnVow.onClick.AddListener(OnClickVow);
+        btnFlow.onClick.AddListener(OnClickFlow);
     }
 
     /// <summary>
@@ -56,5 +63,26 @@ public class UIMainWindow : UIWindow
     {
         GameDataMgr.Instance.carType = CarType.AILISHE;
         ShowDetailWindow();
+    }
+    /// <summary>
+    /// 开启分享界面
+    /// </summary>
+    void OnClickShare()
+    {
+        UIManager.Instance.OpenUI<UIShareWindow>();
+    }
+    /// <summary>
+    /// 查看驾考宣言
+    /// </summary>
+    void OnClickVow()
+    {
+        UIManager.Instance.OpenUI<UIVowDialog>();
+    }
+    /// <summary>
+    /// 查看驾考流程
+    /// </summary>
+    void OnClickFlow()
+    {
+        UIManager.Instance.OpenUI<UIFlowDialog>();
     }
 }

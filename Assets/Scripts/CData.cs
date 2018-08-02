@@ -26,6 +26,15 @@ public class GameConfig : Data_Base
     /// 视频教学
     /// </summary>
     public Dictionary<string, List<VideoData>> video = new Dictionary<string, List<VideoData>>();
+
+}
+
+public class ShareData : Data_Base
+{
+    public string title = "";
+    public string content = "";
+    public string url = "";
+    public string image = "";
 }
 
 /// <summary>
