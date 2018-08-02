@@ -42,33 +42,26 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     {
         if (state == ResponseState.Success)
         {
-            if (type == PlatformType.WeChat)
-            {
-                RequestOther requestOther = new RequestOther();
+            RequestOther requestOther = new RequestOther();
+#if UNITY_ANDROID
                 requestOther.uid = result["openid"].ToString();
                 requestOther.loginType = 1;
                 requestOther.headImg = result["icon"].ToString();
                 requestOther.userName = result["nickname"].ToString();
                 requestOther.equitment = SystemInfo.deviceUniqueIdentifier;
-                if (authWechat != null)
-                {
-                    authWechat(requestOther);
-                    authWechat = null;
-                }
-            }
-            else if (type == PlatformType.QQ)
+#elif UNITY_IOS
+            requestOther.uid = result["openid"].ToString();
+            requestOther.loginType = 1;
+            requestOther.headImg = result["headimgurl"].ToString();
+            requestOther.userName = result["nickname"].ToString();
+            requestOther.equitment = SystemInfo.deviceUniqueIdentifier;
+#endif
+
+
+            if (authWechat != null)
             {
-                RequestOther requestOther = new RequestOther();
-                requestOther.uid = result["openid"].ToString();
-                requestOther.loginType = 1;
-                requestOther.headImg = result["headimgurl"].ToString();
-                requestOther.userName = result["nickname"].ToString();
-                requestOther.equitment = SystemInfo.deviceUniqueIdentifier;
-                if (authWechat != null)
-                {
-                    authWechat(requestOther);
-                    authWechat = null;
-                }
+                authWechat(requestOther);
+                authWechat = null;
             }
             //if (result != null && result.Count > 0)
             //{
@@ -274,6 +267,20 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     }
     public void ShareWebpage(string title, string text, string url, string imageUrl)
     {
+
+        //    ShareContent content = new ShareContent();
+        //content.SetText("this is a test string.");
+        //content.SetImageUrl("http://ww3.sinaimg.cn/mw690/be159dedgw1evgxdt9h3fj218g0xctod.jpg");
+        //content.SetTitle("test title");
+        ////          content.SetTitleUrl("http://www.mob.com");
+        ////          content.SetSite("Mob-ShareSDK");
+        //// content.SetSiteUrl("http://www.mob.com");
+        //content.SetUrl("http://qjsj.youzu.com/jycs/");
+        ////          content.SetComment("test description");
+        ////          content.SetMusicUrl("http://mp3.mwap8.com/destdir/Music/2009/20090601/ZuiXuanMinZuFeng20090601119.mp3");
+        //content.SetShareType(ContentType.Webpage);
+        //ssdk.ShareContent(PlatformType.WeChat, content);
+
         //string imagePath = WriteShareImage(texture);
         //if (!string.IsNullOrEmpty(imagePath))
         //{
@@ -282,12 +289,13 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         content.SetText(text);
         content.SetUrl(url);
         content.SetImageUrl(imageUrl);
+        content.SetTitleUrl(url);
         //content.SetImagePath(imagePath);
         content.SetShareType(ContentType.Webpage);
         shareSDK.ShowPlatformList(null, content, 100, 100);
         //}
     }
-    
+
     //看需求写个MONO单例
     public void RequestNetworkFile(string url, Action<bool, string, byte[]> callback)
     {

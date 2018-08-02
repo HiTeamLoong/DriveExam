@@ -338,19 +338,23 @@ public class LoginController : MonoBehaviour
     {
         GlobalManager.Instance.AuthWechat((requestOther) =>
         {
-            LoginManager.Instance.SendOtherMessage<ResponseLogin>(requestOther, (responseData) =>
-                {
-                    if (responseData.status == "200")
+            if (requestOther != null)
+            {
+
+                LoginManager.Instance.SendOtherMessage<ResponseLogin>(requestOther, (responseData) =>
                     {
-                        Debug.Log("登录成功" + responseData.msg);
-                        UITipsDialog.ShowTips("登录成功");
-                        loginCallback(responseData.data);
-                    }
-                    else
-                    {
-                        UITipsDialog.ShowTips(responseData.msg);
-                    }
-                });
+                        if (responseData.status == "200")
+                        {
+                            Debug.Log("登录成功" + responseData.msg);
+                            UITipsDialog.ShowTips("登录成功");
+                            loginCallback(responseData.data);
+                        }
+                        else
+                        {
+                            UITipsDialog.ShowTips(responseData.msg);
+                        }
+                    });
+            }
         });
     }
     void LoginLayer1MobileBtn()
@@ -415,25 +419,28 @@ public class LoginController : MonoBehaviour
     {
         GlobalManager.Instance.AuthWechat((requestOther) =>
         {
-            LoginManager.Instance.SendOtherMessage<ResponseLogin>(requestOther, (responseData) =>
+            if (requestOther != null)
             {
-                if (responseData.status == "200")
+                LoginManager.Instance.SendOtherMessage<ResponseLogin>(requestOther, (responseData) =>
                 {
-                    Debug.Log("登录成功" + responseData.msg);
-                    UITipsDialog.ShowTips("登录成功");
-                    loginCallback(responseData.data);
-                }
-                else
-                {
-                    UITipsDialog.ShowTips(responseData.msg);
-                }
-            });
+                    if (responseData.status == "200")
+                    {
+                        Debug.Log("登录成功" + responseData.msg);
+                        UITipsDialog.ShowTips("登录成功");
+                        loginCallback(responseData.data);
+                    }
+                    else
+                    {
+                        UITipsDialog.ShowTips(responseData.msg);
+                    }
+                });
+            }
         });
     }
 
     void SignupLayerIdentifyText(GameObject go)
     {
-        if (signupLayer.CountDown>0)
+        if (signupLayer.CountDown > 0)
         {
             return;
         }
@@ -525,7 +532,7 @@ public class LoginController : MonoBehaviour
 
     void ForgetLayer1IdentifyText(GameObject go)
     {
-        if (forgetLayer1.CountDown>0)
+        if (forgetLayer1.CountDown > 0)
         {
             return;
         }

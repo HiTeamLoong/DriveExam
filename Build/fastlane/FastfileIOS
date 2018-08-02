@@ -312,6 +312,12 @@ platform :ios do
         sh("ios-deploy -b #{ipa_path}")
     end
     ##########################################################
+    #    
+    lane :displayName do
+        set_info_plist_value(path:"#{build_path}/Info.plist",key:"CFBundleDevelopmentRegion",value:"China")
+        set_info_plist_value(path:"#{build_path}/Info.plist",key:"CFBundleDisplayName",value:"驾考精灵灯光")
+    end
+    ##########################################################
     #
     desc 'Submit a new Beta Build'
     lane :beta do |options|
@@ -325,6 +331,7 @@ platform :ios do
         #copy_asset(options)
         export(options)
         icon(options)
+        displayName(options)
         assemble(options)
         deploy(options)
     end

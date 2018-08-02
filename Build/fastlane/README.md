@@ -139,6 +139,11 @@ fastlane ios upload_bugly
 fastlane ios deploy
 ```
 
+### ios displayName
+```
+fastlane ios displayName
+```
+
 ### ios beta
 ```
 fastlane ios beta
