@@ -517,7 +517,7 @@ public class LoginController : MonoBehaviour
         param.equitment = SystemInfo.deviceUniqueIdentifier;
 
 
-        LoginManager.Instance.SendForgetPwd<ResponseFreeSignup>(param, (responseData) =>
+        LoginManager.Instance.SendFreeSingup<ResponseFreeSignup>(param, (responseData) =>
         {
             if (responseData.status == "200")
             {

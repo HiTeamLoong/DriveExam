@@ -132,7 +132,7 @@ public abstract class UIExamWindowBase : UIWindow
         btsRules.button.onClick.AddListener(OnClickRules);
 
         btsNext.button.onClick.AddListener(OnClickNext);
-        btnHelp.onClick.AddListener(null);
+        btnHelp.onClick.AddListener(OnClickHelp);
         btnReturn.onClick.AddListener(() =>
         {
             IsShowVideo = false;
@@ -217,6 +217,13 @@ public abstract class UIExamWindowBase : UIWindow
         {
             StartExercise();
         }
+    }
+    /// <summary>
+    /// 帮助提示
+    /// </summary>
+    void OnClickHelp()
+    {
+        UIManager.Instance.OpenUI<UIExamTipsDialog>();
     }
     #endregion
 

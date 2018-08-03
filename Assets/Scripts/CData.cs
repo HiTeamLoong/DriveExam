@@ -223,8 +223,8 @@ public class ResponseAuthCode : ResponseData_Base
 public class RequestFreeSignup : RequestData_Base
 {
     public string phone;
-    public string code;
     public string password;
+    public string code;
     public string equitment;
 }
 public class ResponseFreeSignup : ResponseData_Base
