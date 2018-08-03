@@ -230,6 +230,11 @@ public class LoginController : MonoBehaviour
         OpenLayer(loginLayer1);
     }
 
+    public void OnDispose(){
+        forgetLayer1.CountDown = 0;
+        signupLayer.CountDown = 0;
+    }
+
     void OpenLayer(LayerBase layer)
     {
         if (!stackLayer.Contains(layer))

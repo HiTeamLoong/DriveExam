@@ -14,8 +14,8 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     private void Awake()
     {
         UIManager.Instance.CloseAllWindow();
-
-        //Input.multiTouchEnabled = false;
+        //设置不开启多点触控
+        Input.multiTouchEnabled = false;
     }
 
     private void Start()
