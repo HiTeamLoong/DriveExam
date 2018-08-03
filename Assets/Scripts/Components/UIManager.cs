@@ -1,19 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : XMonoSingleton<UIManager>
 {
     public Transform wndParent;
     public Transform dlgParent;
 
+    private Canvas canvas;
+    private CanvasScaler canvasScaler;
+    public Vector2 defaultResolution{
+        get{
+            if (canvasScaler==null)
+            {
+                canvasScaler = GetComponent<CanvasScaler>();
+            }
+            return canvasScaler.referenceResolution;
+        }
+    }
+    public Vector2 realResolution{
+        get{
+            if (canvas==null)
+            {
+                canvas = GetComponent<Canvas>();
+            }
+            RectTransform canvasTrans = (canvas.transform as RectTransform);
+            return canvasTrans.sizeDelta;
+        }
+    }
 
     public Stack<UIWindow> windowsStack = new Stack<UIWindow>();
     public Stack<UIDialog> dialogsStack = new Stack<UIDialog>();
 
+    private void Awake()
+    {
+        Vector2 defaultRatio = UIManager.Instance.defaultResolution;
+        Vector2 realRatio = UIManager.Instance.realResolution;
+        canvasScaler.matchWidthOrHeight = (defaultRatio.y / defaultRatio.x) < (realRatio.y / realRatio.x) ? 0 : 1;
+    }
+
     public override void OnInit()
     {
-        base.OnInit();
+        base.OnInit(); 
+
     }
 
     public T OpenUI<T>() where T : UIPanelBase
