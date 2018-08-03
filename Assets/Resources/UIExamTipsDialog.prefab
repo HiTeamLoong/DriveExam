@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224113760175699416}
   m_Layer: 5
-  m_Name: Ailishe
+  m_Name: Dazhong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224417592771779510}
   m_Layer: 5
-  m_Name: Dazhong
+  m_Name: Ailishe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,8 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnClose: {fileID: 114108320998299014}
-  tipsAilishe: {fileID: 1253230121602050}
-  tipsDazhong: {fileID: 1303588743911884}
+  tipsAilishe: {fileID: 1303588743911884}
+  tipsDazhong: {fileID: 1253230121602050}
 --- !u!114 &114572514714829362
 MonoBehaviour:
   m_ObjectHideFlags: 1
