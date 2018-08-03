@@ -51,7 +51,7 @@ public class UpdateManager : MonoBehaviour
     {
         //检查配置更新
         //string questionUrl = "http://localhost/gameConfig.json";
-        string questionUrl = "http://loong.gz01.bdysite.com/gameConfig.json";
+        string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/gameConfig.json";
         StartCoroutine(RequestNetworkFile(questionUrl, (result, content, data) =>
         {
             if (result)

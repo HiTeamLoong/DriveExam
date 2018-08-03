@@ -37,7 +37,7 @@ public class ShareData : Data_Base
     public string title = "驾考精灵为驾考保驾护航";
     public string content = "驾考精灵百分百保过，您驾考的最优选择...";
     public string url = "http://www.ly502.com/";
-    public string image = "http://loongx.gz01.bdysite.com/shareImage2.png";
+    public string image = "http://app.jiakaojingling.com/jkjl/static/dengguang/shareImage2.png";
 }
 
 /// <summary>
