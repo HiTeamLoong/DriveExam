@@ -19,9 +19,14 @@ public class GameConfig : Data_Base
     /// </summary>
     public string version = "0";
     /// <summary>
+    /// 考试开始语音
+    /// </summary>
+    public string exam_audio;
+    /// <summary>
     /// 试题列表
     /// </summary>
-    public List<QuestionData> questions = new List<QuestionData>();
+    public Dictionary<string, QuestionData> questions = new Dictionary<string, QuestionData>();
+    public Dictionary<string, ExamData> examList = new Dictionary<string, ExamData>();
     /// <summary>
     /// 视频教学
     /// </summary>
@@ -53,6 +58,10 @@ public class QuestionData : Data_Base
     /// 试题答案文案.
     /// </summary>
     public string answer;
+    /// <summary>
+    /// 试题语音文件
+    /// </summary>
+    public string audio;
 
     /// <summary>
     /// 双闪灯
@@ -90,6 +99,20 @@ public class QuestionData : Data_Base
     /// 远近灯光切换--两次
     /// </summary>
     public bool LowToHigLight;
+}
+
+/// <summary>
+/// 车型试题列表顺序
+/// </summary>
+public class ExamData:Data_Base{
+    /// <summary>
+    /// 考试随机列表--多个表随机
+    /// </summary>
+    public List<List<string>> exam = new List<List<string>>();
+    /// <summary>
+    /// 随机练习列表--从此列表中随机
+    /// </summary>
+    public List<string> random = new List<string>();
 }
 
 /// <summary>

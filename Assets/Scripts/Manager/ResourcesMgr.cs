@@ -78,6 +78,18 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         AudioClip audioClip = Util.GetAudioClipFromMP3ByteArray(data);
         return audioClip;
     }
+    /// <summary>
+    /// 通过url读取语音文件
+    /// </summary>
+    /// <returns>The audio with URL.</returns>
+    /// <param name="audioUrl">Audio URL.</param>
+    public AudioClip GetAudioWithURL(string audioUrl){
+        string fileName = ConfigDataMgr.Instance.resourceDict[audioUrl];
+        byte[] data = File.ReadAllBytes(Path.Combine(AudioPath, fileName));
+        AudioClip audioClip = WavUtility.ToAudioClip(data);
+        return audioClip;
+
+    }
     public void WriteAudioFile(string fileName, byte[] data)
     {
         File.WriteAllBytes(Path.Combine(AudioPath, fileName), data);

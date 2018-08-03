@@ -10,7 +10,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
 
     public GameConfig gameConfig = new GameConfig();
     public AuthorizeData authorizeData = new AuthorizeData();
-    public List<QuestionData> questions { get { return gameConfig.questions; } }
+    public Dictionary<string, QuestionData> questions { get { return gameConfig.questions; } }
     public ShareData shareData { get { return gameConfig.share; } }
     public Dictionary<string, string> resourceDict = new Dictionary<string, string>();
 
@@ -77,14 +77,27 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
 
     public QuestionData GetQuestionByIndex(int index)
     {
-        if (index >= 0 && index < questions.Count)
+        //if (index >= 0 && index < questions.Count)
+        //{
+        //    return questions[index];
+        //}
+        //else
+        //{
+        //    Debug.LogError("question index error");
+        //    return null;
+        //}
+        return null;
+    }
+    public QuestionData GetQuestionByIndex(string index)
+    {
+        if (questions.ContainsKey(index))
         {
             return questions[index];
         }
         else
         {
-            Debug.LogError("question index error");
             return null;
         }
     }
+
 }

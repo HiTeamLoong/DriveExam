@@ -21,7 +21,7 @@ public class UpdateManager : MonoBehaviour
         uiLoginWindow.SetState("正在检查题库更新...");
 
         //没网跳过检测版本
-        if (ConfigDataMgr.Instance.gameConfig==null||Application.internetReachability != NetworkReachability.NotReachable)
+        if (ConfigDataMgr.Instance.gameConfig == null || Application.internetReachability != NetworkReachability.NotReachable)
         {
             CheckConfigUpdate();
         }
@@ -33,7 +33,7 @@ public class UpdateManager : MonoBehaviour
 
     void CheckLoginState()
     {
-        if (GameDataMgr.Instance.ResponseLogin!=null)
+        if (GameDataMgr.Instance.ResponseLogin != null)
         {
             //看是否更新数据进行网络交互
             UIManager.Instance.OpenUI<UIMainWindow>();
@@ -50,8 +50,8 @@ public class UpdateManager : MonoBehaviour
     void CheckConfigUpdate()
     {
         //检查配置更新
-        //string questionUrl = "http://localhost/gameConfig.json";
-        string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/gameConfig.json";
+        string questionUrl = "http://localhost/gameConfig.json";
+        //string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/gameConfig.json";
         StartCoroutine(RequestNetworkFile(questionUrl, (result, content, data) =>
         {
             if (result)
@@ -98,7 +98,8 @@ public class UpdateManager : MonoBehaviour
     /// <param name="gameConfig">Game config.</param>
     IEnumerator UpdateResource(GameConfig gameConfig)
     {
-        yield return StartCoroutine(TurnString2Audio(gameConfig));
+        yield return StartCoroutine(LoadQuestionAudio(gameConfig));
+        //yield return StartCoroutine(TurnString2Audio(gameConfig));
         yield return StartCoroutine(LoadVideoTexture(gameConfig));
 
         //记录文件映射表
@@ -110,6 +111,45 @@ public class UpdateManager : MonoBehaviour
         //更新结束检测登录
         CheckLoginState();
     }
+    /// <summary>
+    /// 下载试题的语音
+    /// </summary>
+    /// <returns>The question audio.</returns>
+    /// <param name="gameConfig">Game config.</param>
+    IEnumerator LoadQuestionAudio(GameConfig gameConfig)
+    {
+        List<string> updateList = new List<string>();
+        //检查开始灯光考试的语音需要更新
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.exam_audio))
+        {
+            updateList.Add(gameConfig.exam_audio);
+        }
+        //检查试题的语音是否需要更新
+        foreach (var item in gameConfig.questions)
+        {
+            QuestionData questionData = item.Value;
+            if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(questionData.audio))
+            {
+                updateList.Add(questionData.audio);
+            }
+        }
+        for (int i = 0; i < updateList.Count; i++)
+        {
+            //设置转换进度
+            uiLoginWindow.SetProgress((float)i / updateList.Count);
+            yield return RequestNetworkFile(updateList[i], (result, content, data) =>
+            {
+                if (result)
+                {
+                    string fileName = System.Guid.NewGuid().ToString("N");
+                    ResourcesMgr.Instance.WriteAudioFile(fileName, data);
+                    ConfigDataMgr.Instance.resourceDict.Add(updateList[i], fileName);
+                }
+            });
+        }
+        uiLoginWindow.SetProgress(1.0f);
+    }
+
 
     /// <summary>
     /// 转换语音文件
@@ -124,9 +164,14 @@ public class UpdateManager : MonoBehaviour
         CheckStringToAudio(ConfigDataMgr.ExamStartTip, updateList);
         CheckStringToAudio(ConfigDataMgr.ExamEnd.question, updateList);
         //试题语音检测部分
-        for (int i = 0; i < gameConfig.questions.Count; i++)
+        //for (int i = 0; i < gameConfig.questions.Count; i++)
+        //{
+        //    QuestionData questionData = gameConfig.questions[i];
+        //    CheckStringToAudio(questionData.question, updateList);
+        //}
+        foreach (var item in gameConfig.questions)
         {
-            QuestionData questionData = gameConfig.questions[i];
+            QuestionData questionData = item.Value;
             CheckStringToAudio(questionData.question, updateList);
         }
 
@@ -148,8 +193,8 @@ public class UpdateManager : MonoBehaviour
                     Debug.LogErrorFormat("Error:Str2Audio errorno<{0}> errormsg<{1}>", result.err_no, result.err_msg);
                 }
             }));
-            uiLoginWindow.SetProgress(1.0f);
         }
+        uiLoginWindow.SetProgress(1.0f);
     }
 
     /// <summary>
@@ -186,10 +231,10 @@ public class UpdateManager : MonoBehaviour
                     ConfigDataMgr.Instance.resourceDict.Add(updateList[i], fileName);
                 }
             });
-            uiLoginWindow.SetProgress(1.0f);
         }
+        uiLoginWindow.SetProgress(1.0f);
     }
-    
+
     void CheckStringToAudio(string str2audio, List<string> turnList)
     {
         if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(str2audio))
@@ -197,7 +242,6 @@ public class UpdateManager : MonoBehaviour
             turnList.Add(str2audio);
         }
     }
-
 
     /// <summary>
     /// Requests the network file.

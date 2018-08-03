@@ -445,11 +445,11 @@ public abstract class UIExamWindowBase : UIWindow
     /// <summary>
     /// 考试试题列表
     /// </summary>
-    private List<int> examList = new List<int>();
+    private List<string> examList = new List<string>();
     /// <summary>
     /// 随机练习列表
     /// </summary>
-    private List<int> exerList = new List<int>();
+    private List<string> exerList = new List<string>();
     /// <summary>
     /// 语音播放控件
     /// </summary>
@@ -499,57 +499,39 @@ public abstract class UIExamWindowBase : UIWindow
         CleanQuestion();
         CloseAllLight();
         //生成试题列表
-        examList = RandomExamList();
+        RandomExamList();
         StartCoroutine(_BeginLightExam());
 
     }
 
-    private List<int> RandomExamList()
+    private void RandomExamList()
     {
-        int count = ConfigDataMgr.Instance.questions.Count;
-        List<int> tempList = new List<int>();
-        for (int i = 0; i < count; i++)
+        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString()];
+        int count = examData.exam.Count;
+        if (examList != null)
         {
-            tempList.Add(i);
+            int index = examData.exam.IndexOf(examList);
+            index++;
+            index %= examData.exam.Count;
+            examList = examData.exam[index];
         }
-        List<int> indexList = new List<int>();
-        int index = tempList[0];
-        tempList.Remove(index);
-        indexList.Add(index);
-
-        for (int i = 0; i < 5; i++)
+        else
         {
-            int random = Random.Range(0, tempList.Count);
-            index = tempList[random];
-            indexList.Add(index);
-            tempList.Remove(index);
+            examList = examData.exam[Random.Range(0, examData.exam.Count)];
         }
-        return indexList;
     }
 
-    private int RandomExerIndex()
+    private string RandomExerIndex()
     {
-        int count = ConfigDataMgr.Instance.questions.Count;
-        int index = 0;
-        int random = 0;
-        if (exerList == null || exerList.Count != count)
+        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString()];
+        int count = examData.random.Count;
+        exerList = new List<string>();
+        for (int i = 0; i < count; i++)
         {
-            List<int> tempList = new List<int>();
-            for (int i = 0; i < count; i++)
-            {
-                tempList.Add(i);
-            }
-            exerList = new List<int>();
-            for (int i = 0; i < count; i++)
-            {
-                random = Random.Range(0, tempList.Count);
-                index = tempList[random];
-                exerList.Add(index);
-                tempList.Remove(index);
-            }
+            exerList.Add(examData.random[i]);
         }
-        random = Random.Range(0, count / 2);
-        index = exerList[random];
+        int random = Random.Range(0, count / 2);
+        string index = exerList[random];
         exerList.Remove(index);
         exerList.Add(index);
         return index;
@@ -559,16 +541,16 @@ public abstract class UIExamWindowBase : UIWindow
     {
         textQuestion.text = ConfigDataMgr.ExamStartTip;
         textAnswer.text = "";
-        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithStr(ConfigDataMgr.ExamStartTip));
+        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(ConfigDataMgr.Instance.gameConfig.exam_audio));
         yield return new WaitForSeconds(audioObject.playTime);
         audioObject = null;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         for (int i = 0; i < examList.Count; i++)
         {
             QuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(examList[i]);
             yield return StartCoroutine(BeginQuestion(question, true));
         }
-        yield return StartCoroutine(BeginQuestion(ConfigDataMgr.ExamEnd, true));
+        //yield return StartCoroutine(BeginQuestion(ConfigDataMgr.ExamEnd, true));
         textAnswer.text = "恭喜你全部操作成功！！！";
         imgResult.gameObject.SetActive(true);
         imgResult.sprite = sprRight;
@@ -582,7 +564,7 @@ public abstract class UIExamWindowBase : UIWindow
     {
         CleanQuestion();
         CloseAllLight();
-        int index = RandomExerIndex();
+        string index = RandomExerIndex();
         QuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(index);
         StartCoroutine(BeginQuestion(question, false));
     }
@@ -597,7 +579,7 @@ public abstract class UIExamWindowBase : UIWindow
         textQuestion.text = question.question;
         textAnswer.text = question.answer;
         textAnswer.gameObject.SetActive(false || IsShowAnswer);
-        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithStr(question.question));
+        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(question.audio));
         yield return new WaitForSeconds(audioObject.playTime);
         audioObject = null;
         LowToHigCount = 0;//防止抢先操作
