@@ -26,7 +26,13 @@ public class UIShareWindow : UIWindow
     }
     void OnClickShare()
     {
-        ShareData shareData = ConfigDataMgr.Instance.shareData;
-        GlobalManager.Instance.ShareWebpage(shareData.title,shareData.content,shareData.url,shareData.image);
+        if (ConfigDataMgr.Instance.gameConfig.showShare)
+        {
+            ShareData shareData = ConfigDataMgr.Instance.shareData;
+            GlobalManager.Instance.ShareWebpage(shareData.title, shareData.content, shareData.url, shareData.image);
+        }else
+        {
+            UITipsDialog.ShowTips("此功能暂未开放");
+        }
     }
 }

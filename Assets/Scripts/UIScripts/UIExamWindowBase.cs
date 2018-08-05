@@ -542,6 +542,7 @@ public abstract class UIExamWindowBase : UIWindow
         textQuestion.text = ConfigDataMgr.ExamStartTip;
         textAnswer.text = "";
         audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(ConfigDataMgr.Instance.gameConfig.exam_audio));
+        Debug.Log(audioObject.playTime);
         yield return new WaitForSeconds(audioObject.playTime);
         audioObject = null;
         yield return new WaitForSeconds(3f);
@@ -580,10 +581,11 @@ public abstract class UIExamWindowBase : UIWindow
         textAnswer.text = question.answer;
         textAnswer.gameObject.SetActive(false || IsShowAnswer);
         audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(question.audio));
+        Debug.Log(audioObject.playTime);
         yield return new WaitForSeconds(audioObject.playTime);
         audioObject = null;
         LowToHigCount = 0;//防止抢先操作
-        yield return new WaitForSeconds(5f);//操作时间
+        yield return new WaitForSeconds(4f);//操作时间
 
         bool result = true;
         result &= (question.DoubleJumpLamp == DoubleJumpLamp);
@@ -595,7 +597,12 @@ public abstract class UIExamWindowBase : UIWindow
         result &= (question.LeftIndicator == LeftIndicator);
         result &= (question.RightIndicator == RightIndicator);
         result &= (question.LowToHigLight == (LowToHigCount == 2));
+        //if (!question.LowToHigLight&&lowToHigCount>0)
+        //{
 
+        
+        //}
+        result &= !(!question.LowToHigLight && lowToHigCount > 0);
         textAnswer.gameObject.SetActive(true);
 
         imgResult.gameObject.SetActive(true);

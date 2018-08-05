@@ -31,6 +31,7 @@ public class GameConfig : Data_Base
     /// 视频教学
     /// </summary>
     public Dictionary<string, List<VideoData>> video = new Dictionary<string, List<VideoData>>();
+    public bool showShare = false;
     /// <summary>
     /// 分享的内容
     /// </summary>

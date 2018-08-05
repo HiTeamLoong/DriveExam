@@ -86,7 +86,8 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
     public AudioClip GetAudioWithURL(string audioUrl){
         string fileName = ConfigDataMgr.Instance.resourceDict[audioUrl];
         byte[] data = File.ReadAllBytes(Path.Combine(AudioPath, fileName));
-        AudioClip audioClip = WavUtility.ToAudioClip(data);
+        //AudioClip audioClip = WavUtility.ToAudioClip(data);
+        AudioClip audioClip = Util.GetAudioClipFromMP3ByteArray(data);
         return audioClip;
 
     }

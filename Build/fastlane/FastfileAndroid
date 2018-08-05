@@ -166,7 +166,7 @@ platform :android do
         #generate_asset(options)
         #copy_asset(options)
         export(options)
-        icon(options)
+        # icon(options)
         assemble(options)
         deploy(options)
     end

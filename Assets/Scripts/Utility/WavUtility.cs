@@ -46,7 +46,7 @@ public class WavUtility
 
 		// NB: Only uncompressed PCM wav files are supported.
 		string formatCode = FormatCode (audioFormat);
-		Debug.AssertFormat (audioFormat == 1 || audioFormat == 65534, "Detected format code '{0}' {1}, but only PCM and WaveFormatExtensable uncompressed formats are currently supported.", audioFormat, formatCode);
+		//Debug.AssertFormat (audioFormat == 1 || audioFormat == 65534, "Detected format code '{0}' {1}, but only PCM and WaveFormatExtensable uncompressed formats are currently supported.", audioFormat, formatCode);
 
 		UInt16 channels = BitConverter.ToUInt16 (fileBytes, 22);
 		int sampleRate = BitConverter.ToInt32 (fileBytes, 24);

@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shareSDK: {fileID: 0}
+  loongAuthUrl: http://loongx.gz01.bdysite.com/authorize.json
 --- !u!1 &1564550659
 GameObject:
   m_ObjectHideFlags: 0

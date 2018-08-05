@@ -50,8 +50,9 @@ public class UpdateManager : MonoBehaviour
     void CheckConfigUpdate()
     {
         //检查配置更新
-        string questionUrl = "http://localhost/gameConfig.json";
-        //string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/gameConfig.json";
+        //string questionUrl = "http://localhost/LightExam/gameConfig.json";
+        //string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/LightExam/gameConfig.json";
+        string questionUrl = "http://loongx.gz01.bdysite.com/LightExam/gameConfig.json";
         StartCoroutine(RequestNetworkFile(questionUrl, (result, content, data) =>
         {
             if (result)
@@ -75,8 +76,7 @@ public class UpdateManager : MonoBehaviour
                 UITipsDialog.ShowTips("题库缺失，请链接网络后重新进入", true);
             }
         }));
-        string authorizeUrl = "http://loongx.gz01.bdysite.com/authorize.json";
-        StartCoroutine(RequestNetworkFile(authorizeUrl, (result, content, data) =>
+        StartCoroutine(RequestNetworkFile(GlobalManager.Instance.loongAuthUrl, (result, content, data) =>
          {
              if (result)
              {
