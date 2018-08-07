@@ -596,12 +596,8 @@ public abstract class UIExamWindowBase : UIWindow
         result &= (question.RearFogLamp == RearFogLamp);
         result &= (question.LeftIndicator == LeftIndicator);
         result &= (question.RightIndicator == RightIndicator);
-        result &= (question.LowToHigLight == (LowToHigCount == 2));
-        //if (!question.LowToHigLight&&lowToHigCount>0)
-        //{
+        result &= (question.LowToHigLight == (LowToHigCount >= 2));
 
-        
-        //}
         result &= !(!question.LowToHigLight && lowToHigCount > 0);
         textAnswer.gameObject.SetActive(true);
 

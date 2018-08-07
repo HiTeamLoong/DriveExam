@@ -14,9 +14,11 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
     public ShareData shareData { get { return gameConfig.share; } }
     public Dictionary<string, string> resourceDict = new Dictionary<string, string>();
 
+
     public override void OnInit()
     {
         base.OnInit();
+
         ReadGameConfigData();
         ReadAudioDictData();
     }

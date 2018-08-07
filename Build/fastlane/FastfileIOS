@@ -168,9 +168,9 @@ platform :ios do
             include_bitcode: false,
             output_directory: build_path,
             output_name: ipa_name,
-            export_method: 'development',
+            export_method: ENV['IOS_EXPORT_METHOD'],
             codesigning_identity: ENV['IOS_CODE_SIGN_IDENTITY'],
-            export_options:{provisioningProfiles:{"com.loongx.DriveExam" => 'jiakao_dengguang_dev'}}
+            export_options:{provisioningProfiles:{ENV['IOS_IDENTIFIER'] => ENV['IOS_PROVISIONING_PROFILE_SPECIFIER']}}
         )
         gym_log = "/Users/#{`whoami`.strip}/Library/Logs/gym/AvgMaker-Unity-iPhone.log"
 
