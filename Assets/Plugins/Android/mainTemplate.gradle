@@ -46,6 +46,8 @@ android {
 	defaultConfig {
 		targetSdkVersion **TARGETSDKVERSION**
 		applicationId '**APPLICATIONID**'
+		versionCode 1
+		versionName "1.1"
 	}
 
     signingConfigs {
