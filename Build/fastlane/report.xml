@@ -5,32 +5,37 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.002355">
+      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.002231">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: add_extra_platforms" time="0.002585">
+      <testcase classname="fastlane.lanes" name="1: add_extra_platforms" time="0.00226">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: default_platform" time="0.001762">
+      <testcase classname="fastlane.lanes" name="2: default_platform" time="0.001565">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: gradle" time="33.91948">
+      <testcase classname="fastlane.lanes" name="3: Switch to ios info lane" time="0.001696">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: keytool -list -printcert -jarfile /Users/xuelong/HiTeamLoong/DriveExam/Build/Output/Android/Build-1.0.45/DriveExam/build/outputs/apk/release/DriveExam-release.apk" time="1.159791">
+      <testcase classname="fastlane.lanes" name="4: Switch to ios switch_platform lane" time="0.001965">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: echo &quot;##teamcity[publishArtifacts 'Build/Output/Android/Build-1.0.45/Unity.BuildAndroid-1.0.45-gradle-Release.log']&quot;" time="0.010413">
+      <testcase classname="fastlane.lanes" name="5: Switch to ios do_switch_platform lane" time="0.00194">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: unity" time="5.808597">
         
       </testcase>
     
