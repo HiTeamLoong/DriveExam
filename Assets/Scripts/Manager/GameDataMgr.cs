@@ -53,4 +53,5 @@ public class GameDataMgr : XSingleton<GameDataMgr>
     }
     
     public CarType carType = CarType.DAZHONG;
+    public CarVersion carVersion = CarVersion.NEW;
 }

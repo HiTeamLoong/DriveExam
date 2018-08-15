@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class UIMainWindow : UIWindow
 {
-    public Button btnJieda;
-    public Button btnAilishe;
+    public Button btnJieda_Old;
+    public Button btnAilishe_Old;
+
+    public Button btnJieda_New;
+    public Button btnAilishe_New;
 
     public Button btnShare;
     public Button btnVow;
@@ -16,8 +19,12 @@ public class UIMainWindow : UIWindow
     public override void OnCreate()
     {
         base.OnCreate();
-        btnJieda.onClick.AddListener(OnClickJieda);
-        btnAilishe.onClick.AddListener(OnClickAilishe);
+        btnJieda_Old.onClick.AddListener(OnClickJiedaOld);
+        btnAilishe_Old.onClick.AddListener(OnClickAilisheOld);
+
+        btnJieda_New.onClick.AddListener(OnClickJiedaNew);
+        btnAilishe_New.onClick.AddListener(OnClickAilisheNew);
+
         btnShare.onClick.AddListener(OnClickShare);
         btnVow.onClick.AddListener(OnClickVow);
         btnFlow.onClick.AddListener(OnClickFlow);
@@ -48,22 +55,36 @@ public class UIMainWindow : UIWindow
         }
     }
 
+    void OnClickJiedaOld(){
+        GameDataMgr.Instance.carType = CarType.DAZHONG;
+        GameDataMgr.Instance.carVersion = CarVersion.OLD;
+        ShowDetailWindow();
+    }
+    void OnClickAilisheOld(){
+        GameDataMgr.Instance.carType = CarType.AILISHE;
+        GameDataMgr.Instance.carVersion = CarVersion.OLD;
+        ShowDetailWindow();
+    }
     /// <summary>
     /// Ons the click jieda.
     /// </summary>
-    void OnClickJieda()
+    void OnClickJiedaNew()
     {
         GameDataMgr.Instance.carType = CarType.DAZHONG;
+        GameDataMgr.Instance.carVersion = CarVersion.NEW;
         ShowDetailWindow();
     }
     /// <summary>
     /// Ons the click ailishe.
     /// </summary>
-    void OnClickAilishe()
+    void OnClickAilisheNew()
     {
         GameDataMgr.Instance.carType = CarType.AILISHE;
+        GameDataMgr.Instance.carVersion = CarVersion.NEW;
         ShowDetailWindow();
     }
+
+
     /// <summary>
     /// 开启分享界面
     /// </summary>

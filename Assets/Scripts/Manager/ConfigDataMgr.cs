@@ -5,9 +5,6 @@ using System.IO;
 
 public class ConfigDataMgr : XSingleton<ConfigDataMgr>
 {
-    public static string ExamStartTip = "下面将进行模拟夜间灯光的考试，请在语音播报叮一声结束后5秒内完成操作";
-    public static QuestionData ExamEnd = new QuestionData() { question = "模拟夜间考试完成请关闭所有灯光", answer = "答案：关闭所有灯光" };
-
     public GameConfig gameConfig = new GameConfig();
     public AuthorizeData authorizeData = new AuthorizeData();
     public Dictionary<string, QuestionData> questions { get { return gameConfig.questions; } }

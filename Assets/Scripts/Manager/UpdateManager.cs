@@ -50,8 +50,8 @@ public class UpdateManager : MonoBehaviour
     void CheckConfigUpdate()
     {
         //检查配置更新
-        //string questionUrl = "http://localhost/LightExam/gameConfig.json";
-        string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/LightExam/gameConfig.json";
+        string questionUrl = "http://localhost/LightExam/gameConfig.json";
+        //string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/LightExam/gameConfig.json";
         //string questionUrl = "http://loongx.gz01.bdysite.com/LightExam/gameConfig.json";
         StartCoroutine(RequestNetworkFile(questionUrl, (result, content, data) =>
         {
@@ -120,9 +120,14 @@ public class UpdateManager : MonoBehaviour
     {
         List<string> updateList = new List<string>();
         //检查开始灯光考试的语音需要更新
-        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.exam_audio))
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.examtip_old.exam_audio))
         {
-            updateList.Add(gameConfig.exam_audio);
+            updateList.Add(gameConfig.examtip_old.exam_audio);
+        }
+        //检查开始灯光考试的语音需要更新
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.examtip_new.exam_audio))
+        {
+            updateList.Add(gameConfig.examtip_new.exam_audio);
         }
         //检查试题的语音是否需要更新
         foreach (var item in gameConfig.questions)
@@ -161,8 +166,8 @@ public class UpdateManager : MonoBehaviour
         List<string> updateList = new List<string>();
 
         //通用语音检测部分
-        CheckStringToAudio(ConfigDataMgr.ExamStartTip, updateList);
-        CheckStringToAudio(ConfigDataMgr.ExamEnd.question, updateList);
+        //CheckStringToAudio(ConfigDataMgr.ExamStartTip, updateList);
+        //CheckStringToAudio(ConfigDataMgr.ExamEnd.question, updateList);
         //试题语音检测部分
         //for (int i = 0; i < gameConfig.questions.Count; i++)
         //{

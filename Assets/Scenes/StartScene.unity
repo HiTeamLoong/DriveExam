@@ -188,6 +188,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 521285270}
+  - component: {fileID: 521285271}
   m_Layer: 5
   m_Name: WndRoot
   m_TagString: Untagged
@@ -214,6 +215,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &521285271
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 521285269}
+  m_Enabled: 1
+  m_Alpha: 0.1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1261920842
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,9 +359,7 @@ GameObject:
   - component: {fileID: 1564550665}
   - component: {fileID: 1564550667}
   - component: {fileID: 1564550666}
-  - component: {fileID: 1564550660}
   - component: {fileID: 1564550668}
-  - component: {fileID: 1564550669}
   - component: {fileID: 1564550670}
   m_Layer: 5
   m_Name: UIRoot
@@ -358,19 +368,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1564550660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1564550659}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407cf781ee62c49e4a45b9d2fc3988c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  demoSkin: {fileID: 0}
-  ssdk: {fileID: 1564550666}
 --- !u!114 &1564550661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,26 +480,37 @@ MonoBehaviour:
   devInfo:
     qq:
       Enable: 1
-      app_id: 1106823651
-      app_key: aWkPdQrcrezrG9ji
-      auth_type: both
+      SortId: 2
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     qzone:
       Enable: 1
-      app_id: 1106823651
-      app_key: aWkPdQrcrezrG9ji
-      auth_type: both
+      SortId: 1
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     wechat:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 5
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      UserName: gh_afb25ac019c9@app
+      Path: /page/API/pages/share/share
+      BypassApproval: 1
+      WithShareTicket: 1
+      MiniprogramType: 0
     wechatMoments:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 6
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      BypassApproval: 1
     wechatFavorites:
       Enable: 1
-      app_id: wxb0872f4a07e0ffe3
-      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
+      SortId: 7
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
 --- !u!114 &1564550667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,23 +529,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1564550659}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1b62afdf4f514a6baa216acd1c7f8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Visible: 0
---- !u!114 &1564550669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1564550659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a840e96ff18d7a4a94d89d5a086c751, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &1564550670
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -560,6 +557,7 @@ GameObject:
   - component: {fileID: 1643389398}
   - component: {fileID: 1643389399}
   - component: {fileID: 1643389400}
+  - component: {fileID: 1643389401}
   m_Layer: 5
   m_Name: DlgRoot
   m_TagString: Untagged
@@ -623,6 +621,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &1643389401
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1643389397}
+  m_Enabled: 1
+  m_Alpha: 0.1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2023815289
 GameObject:
   m_ObjectHideFlags: 0

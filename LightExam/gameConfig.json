@@ -1,11 +1,18 @@
 {
-  "version": "1",
-  "exam_audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/1 下面将进行模拟夜间灯光的考试，请在语音播报叮一声结束后5秒内完成操作 0 500.mp3",
+  "version": "2",
+  "examtip_old": {
+    "exam_tip": "下面将进行模拟夜间行驶场景灯光使用的考试，请按语音指令在5秒内做出相应的灯光操作",
+    "exam_audio": "http://localhost/LightExam/version_2/audio/start_old.mp3"
+  },
+  "examtip_new": {
+    "exam_tip": "下面将进行模拟夜间灯光的考试，请在语音播报叮一声结束后5秒内完成操作",
+    "exam_audio": "http://localhost/LightExam/version_2/audio/start_new.mp3"
+  },
   "questions": {
     "1": {
       "question": "请开启前照灯",
       "answer": "答案：开启大灯，注意是近光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/2 请开启前照灯 100 5000 大灯全开.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/1.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -19,7 +26,7 @@
     "2": {
       "question": "夜间超越前方车辆",
       "answer": "答案：变换远近光灯，完成操作后仍为近光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/3 夜间超越前方车辆 100 5000 远近光交替.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/2.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -33,7 +40,7 @@
     "3": {
       "question": "夜间通过急弯",
       "answer": "答案：远近光交替",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/4 夜间通过急弯 100 5000 远近光交替.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/3.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -47,7 +54,7 @@
     "4": {
       "question": "夜间通过拱桥",
       "answer": "答案：变换远近光灯，完成操作后仍为近光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/5 夜间通过拱桥 100 5000 远近光交替.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/4.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -61,7 +68,7 @@
     "5": {
       "question": "夜间通过坡路",
       "answer": "答案：变换远近光灯，完成操作后仍为近光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/6 夜间通过坡路 100 5000 远近光交替.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/5.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -75,7 +82,7 @@
     "6": {
       "question": "夜间通过有交通信号灯控制的路口",
       "answer": "答案：开启近光灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/7 夜间通过有交通信号灯控制的路口 100 5000 开近光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/6.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -89,7 +96,7 @@
     "7": {
       "question": "夜间直行通过路口",
       "answer": "答案：开启近光灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/8 夜间直行通过路口 100 5000 开近光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/7.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -103,7 +110,7 @@
     "8": {
       "question": "夜间通过坡路、拱桥",
       "answer": "答案：变换远近光灯，完成操作后仍为近光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/9 夜间通过坡路，拱桥 100 5000 远近光交替.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/8.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -117,7 +124,7 @@
     "9": {
       "question": "夜间同方向近距离跟车行驶",
       "answer": "答案：开启近光灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/10 夜间同方向近距离跟车行驶 100 5000 开近光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/9.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -131,7 +138,7 @@
     "10": {
       "question": "夜间在窄路、窄桥与机动车会车",
       "answer": "答案：开启近光灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/11 夜间在窄路窄桥与机动车会车 100 5000 开近光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/10.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -145,7 +152,7 @@
     "11": {
       "question": "夜间机动车会车",
       "answer": "答案：开启近光灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/12 夜间与机动车会车 100 5000 开近光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/11.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -159,7 +166,7 @@
     "12": {
       "question": "夜间在窄路、窄桥与非机动车会车",
       "answer": "答案：开启近光灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/13 夜间在窄路窄桥与非机动车会车 100 5000 开近光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/12.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -173,7 +180,7 @@
     "13": {
       "question": "夜间在照明良好的道路行驶",
       "answer": "答案：开启近光灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/14 夜间在照明良好的道路上行驶 100 5000 开近光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/13.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -187,7 +194,7 @@
     "14": {
       "question": "夜间在没有路灯，照明不良条件下行驶",
       "answer": "答案：开大灯 (远光灯)",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/15 夜间在没有路灯，照明不良条件下行驶 100 5000 开远光灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/14.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": false,
@@ -201,7 +208,7 @@
     "15": {
       "question": "夜间在道路上发生事故，妨碍交通又难以移动",
       "answer": "答案：开启示宽灯和危险警示灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/19 夜间在道路上发生交通事故，妨碍交通又难以移动 100 5000 开双闪灯示宽灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/15.mp3",
       "DoubleJumpLamp": true,
       "ClearAnceLamp": true,
       "LowBeamLight": false,
@@ -215,7 +222,7 @@
     "16": {
       "question": "夜间在道路上发生故障，妨碍交通又难以移动",
       "answer": "答案：开启示宽灯和危险警示灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/20 夜间在道路上发生故障，妨碍交通又难以移动 100 5000 开双闪灯示宽灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/16.mp3",
       "DoubleJumpLamp": true,
       "ClearAnceLamp": true,
       "LowBeamLight": false,
@@ -229,7 +236,7 @@
     "17": {
       "question": "夜间通过没有交通信号灯控制的路口",
       "answer": "答案：变换远近光灯，完成操作后仍为近光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/22 夜间通过没有交通信号灯的路口 100 5000 远近光交替.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/17.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -243,7 +250,7 @@
     "18": {
       "question": "夜间路边临时停车",
       "answer": "答案：开启小灯（示宽灯）+ 危险警示灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/18 夜间临时停车 100 5000 开双闪灯示宽灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/18.mp3",
       "DoubleJumpLamp": true,
       "ClearAnceLamp": true,
       "LowBeamLight": false,
@@ -257,7 +264,7 @@
     "19": {
       "question": "雾天行驶",
       "answer": "答案：大灯（近光灯）+ 危险警示灯 + 雾灯",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/27 雾天行驶 100 5000 开雾灯开双闪灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/19.mp3",
       "DoubleJumpLamp": true,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -271,7 +278,7 @@
     "20": {
       "question": "夜间通过人行横道",
       "answer": "答案：变换远近光灯，完成操作后仍为近光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/24 夜间通过人行横道 100 5000 远近光交替.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/20.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": true,
       "LowBeamLight": true,
@@ -285,7 +292,7 @@
     "end": {
       "question": "模拟夜间考试完成请关闭所有灯光",
       "answer": "答案：关闭所有灯光",
-      "audio": "http://loongx.gz01.bdysite.com/LightExam/version_1/audio/26 模拟夜间考试完成，请关闭所有灯光 100 4000 关闭所有灯.mp3",
+      "audio": "http://localhost/LightExam/version_1/audio/end.mp3",
       "DoubleJumpLamp": false,
       "ClearAnceLamp": false,
       "LowBeamLight": false,
@@ -452,40 +459,40 @@
   "video": {
     "DAZHONG": [
       {
-        "imgurl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight001.jpg",
-        "videourl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight001.mp4",
+        "imgurl": "http://localhost/LightExam/version_1/video/DZlight/DZlight001.jpg",
+        "videourl": "http://localhost/LightExam/version_1/video/DZlight/DZlight001.mp4",
         "videoname": "2001709210000032101.mp4"
       },
       {
-        "imgurl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight002.jpg",
-        "videourl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight002.mp4",
+        "imgurl": "http://localhost/LightExam/version_1/video/DZlight/DZlight002.jpg",
+        "videourl": "http://localhost/LightExam/version_1/video/DZlight/DZlight002.mp4",
         "videoname": "2001709210000032102.mp4"
       },
       {
-        "imgurl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight003.jpg",
-        "videourl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight003.mp4",
+        "imgurl": "http://localhost/LightExam/version_1/video/DZlight/DZlight003.jpg",
+        "videourl": "http://localhost/LightExam/version_1/video/DZlight/DZlight003.mp4",
         "videoname": "2001709210000032103.mp4"
       },
       {
-        "imgurl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight004.jpg",
-        "videourl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/DZlight/DZlight004.mp4",
+        "imgurl": "http://localhost/LightExam/version_1/video/DZlight/DZlight004.jpg",
+        "videourl": "http://localhost/LightExam/version_1/video/DZlight/DZlight004.mp4",
         "videoname": "2001709210000032104.mp4"
       }
     ],
     "AILISHE": [
       {
-        "imgurl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/XTLlight/XTLlight001.jpg",
-        "videourl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/XTLlight/XTLlight001.mp4",
+        "imgurl": "http://localhost/LightExam/version_1/video/XTLlight/XTLlight001.jpg",
+        "videourl": "http://localhost/LightExam/version_1/video/XTLlight/XTLlight001.mp4",
         "videoname": "2001709210000032201.mp4"
       },
       {
-        "imgurl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/XTLlight/XTLlight002.jpg",
-        "videourl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/XTLlight/XTLlight002.mp4",
+        "imgurl": "http://localhost/LightExam/version_1/video/XTLlight/XTLlight002.jpg",
+        "videourl": "http://localhost/LightExam/version_1/video/XTLlight/XTLlight002.mp4",
         "videoname": "2001709210000032202.mp4"
       },
       {
-        "imgurl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/XTLlight/XTLlight003.jpg",
-        "videourl": "http://loongx.gz01.bdysite.com/LightExam/version_1/video/XTLlight/XTLlight003.mp4",
+        "imgurl": "http://localhost/LightExam/version_1/video/XTLlight/XTLlight003.jpg",
+        "videourl": "http://localhost/LightExam/version_1/video/XTLlight/XTLlight003.mp4",
         "videoname": "2001709210000032203.mp4"
       }
     ]
@@ -495,6 +502,6 @@
     "title": "驾考精灵为驾考保驾护航",
     "content": "驾考精灵百分百保过，您驾考的最优选择...",
     "url": "http://www.ly502.com/",
-    "image": "http://loongx.gz01.bdysite.com/LightExam/version_1/share/shareImage2.png"
+    "image": "http://localhost/LightExam/version_1/share/shareImage2.png"
   }
 }

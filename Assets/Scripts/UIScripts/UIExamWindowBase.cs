@@ -539,9 +539,10 @@ public abstract class UIExamWindowBase : UIWindow
 
     IEnumerator _BeginLightExam()
     {
-        textQuestion.text = ConfigDataMgr.ExamStartTip;
+        ExamTipData examTip = GameDataMgr.Instance.carVersion == CarVersion.NEW ? ConfigDataMgr.Instance.gameConfig.examtip_new : ConfigDataMgr.Instance.gameConfig.examtip_old;
+        textQuestion.text = examTip.exam_tip;
         textAnswer.text = "";
-        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(ConfigDataMgr.Instance.gameConfig.exam_audio));
+        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.exam_audio));
         Debug.Log(audioObject.playTime);
         yield return new WaitForSeconds(audioObject.playTime);
         audioObject = null;
