@@ -22,7 +22,7 @@ public class GameConfig : Data_Base
     /// <summary>
     /// 配置版本
     /// </summary>
-    public string version = "0";
+    public string version = "0.0";
     /// <summary>
     /// 考试开始语音
     /// </summary>
@@ -43,6 +43,21 @@ public class GameConfig : Data_Base
     /// 分享的内容
     /// </summary>
     public ShareData share;
+
+    public int AppVersion
+    {
+        get
+        {
+            return int.Parse(version.Split('.')[0]);
+        }
+    }
+    public int ResVersion
+    {
+        get
+        {
+            return int.Parse(version.Split('.')[1]);
+        }
+    }
 }
 
 public class ShareData : Data_Base
@@ -53,7 +68,8 @@ public class ShareData : Data_Base
     public string image = "http://app.jiakaojingling.com/jkjl/static/dengguang/shareImage2.png";
 }
 
-public class ExamTipData :Data_Base{
+public class ExamTipData : Data_Base
+{
     public string exam_tip;
     public string exam_audio;
 }
@@ -117,7 +133,8 @@ public class QuestionData : Data_Base
 /// <summary>
 /// 车型试题列表顺序
 /// </summary>
-public class ExamData:Data_Base{
+public class ExamData : Data_Base
+{
     /// <summary>
     /// 考试随机列表--多个表随机
     /// </summary>
@@ -233,7 +250,7 @@ public class ResponseLogin : ResponseData_Base
     public int isNeedBind;
 }
 //忘记密码
-public class RequestForgetPwd: RequestData_Base
+public class RequestForgetPwd : RequestData_Base
 {
     public string phone;
     public string password;
@@ -244,7 +261,7 @@ public class ResponseForgetPwd : ResponseData_Base
 {
 }
 //验证码
-public class RequestAuthCode:RequestData_Base
+public class RequestAuthCode : RequestData_Base
 {
     public string phone;
     public string type;
