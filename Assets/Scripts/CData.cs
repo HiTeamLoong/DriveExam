@@ -14,6 +14,27 @@ public enum CarVersion
 
 public class Data_Base { }
 
+public class GameVersion : Data_Base
+{
+    /// <summary>
+    /// 配置版本
+    /// </summary>
+    public string version = "0.0";
+    public int AppVersion
+    {
+        get
+        {
+            return int.Parse(version.Split('.')[0]);
+        }
+    }
+    public int ResVersion
+    {
+        get
+        {
+            return int.Parse(version.Split('.')[1]);
+        }
+    }
+}
 /// <summary>
 /// 游戏配置文件
 /// </summary>
@@ -214,6 +235,16 @@ public class ResponseData<T> where T : ResponseData_Base
     public string msg;
     public string status;
     public T data;
+}
+//灯光账号登录
+public class RequestLightLogin : RequestData_Base
+{
+    public string loginAccount;
+    public string password;
+}
+public class ResponseLightLogin : ResponseData_Base
+{
+
 }
 
 //登录

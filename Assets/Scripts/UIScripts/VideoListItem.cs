@@ -19,8 +19,15 @@ public class VideoListItem : MonoBehaviour
     {
         this.videoData = videoData;
         this.onClick = onClick;
-        gameObject.GetComponent<RawImage>().texture = ResourcesMgr.Instance.GetTextureWithName(videoData.imgurl);
-        
+        //gameObject.GetComponent<RawImage>().texture = ResourcesMgr.Instance.GetTextureWithName(videoData.imgurl);
+
+        ResourcesMgr.Instance.AsyncLoadTextureWithName(videoData.imgurl, (texture) =>
+        {
+            if (gameObject != null && texture != null)
+            {
+                gameObject.GetComponent<RawImage>().texture = texture;
+            }
+        });
     }
 
     void OnClickItem()

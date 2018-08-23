@@ -122,7 +122,14 @@ public class PlayVideoController : MonoBehaviour
     void SetVideoPlayData(VideoData videoData)
     {
         controlList.SetActive(false);
-        videoPlayer.GetComponent<RawImage>().texture = ResourcesMgr.Instance.GetTextureWithName(videoData.imgurl);
+        ResourcesMgr.Instance.AsyncLoadTextureWithName(videoData.imgurl,(texture)=>
+        {
+            if (videoPlayer != null && texture != null)
+            {
+                videoPlayer.GetComponent<RawImage>().texture = texture;
+            }
+        });
+
         videoPlayer.url = videoData.videourl;
         videoPlayer.Prepare();
     }

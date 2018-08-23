@@ -18,6 +18,17 @@ public class LoginManager : XSingleton<LoginManager>
     public readonly string serverURL = "http://app.jiakaojingling.com/jkjl/api";
 
     /// <summary>
+    /// 灯光考试登录
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="request"></param>
+    /// <param name="callback"></param>
+    public void SendLightLoginMessage<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
+    {
+        string requestURL = serverURL + "/four/nkLight/userLogin";
+        Request(requestURL, request, callback);
+    }
+    /// <summary>
     /// 请求账号登录
     /// </summary>
     /// <typeparam name="T"></typeparam>

@@ -6,6 +6,7 @@ using cn.sharesdk.unity3d;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
 
 public class GlobalManager : XMonoSingleton<GlobalManager>
 {
@@ -382,4 +383,119 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         }
     }
 
+
+
+
+
+    private static readonly string jumpAppPackage = "";
+    private static readonly string jumpAppAndroidDownload = "";
+
+    private static readonly string jumpAppURLSchemes = "";
+    private static readonly string jumpAppIOSDownload = "";
+
+    public static void JumpToAPP()
+    {
+        if (IsInstallApp(jumpAppPackage, jumpAppURLSchemes))
+        {
+            OpenApp(jumpAppPackage, jumpAppURLSchemes);
+        }
+        else
+        {
+            DownloadApp(jumpAppAndroidDownload, jumpAppIOSDownload);
+        }
+    }
+
+#if (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+    [DllImport("__Internal")]
+	private static extern bool _IOS_IsInstallApp(string value);
+#endif
+    private static Dictionary<string, bool> IsInstallAppTable = new Dictionary<string, bool>();
+    public static bool IsInstallApp(string packageAndroidName, string packageIOSName)
+    {
+        if (IsInstallAppTable.ContainsKey(packageAndroidName) || IsInstallAppTable.ContainsKey(packageIOSName))
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            return IsInstallAppTable[packageAndroidName];
+#elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+            return IsInstallAppTable[packageIOSName];
+#elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
+            return true;
+#endif
+        }
+        else
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (AndroidJavaObject packageManager = currentActivity.Call<AndroidJavaObject>("getPackageManager"))
+            {
+                AndroidJavaObject launchIntent = null;
+                try
+                {
+                    launchIntent = packageManager.Call<AndroidJavaObject>("getLaunchIntentForPackage", packageAndroidName);
+                }
+                catch (System.Exception ex){}
+                if (launchIntent == null){
+                    IsInstallAppTable.Add(packageAndroidName,false);
+                    return false;
+                 }
+                else{
+                    IsInstallAppTable.Add(packageAndroidName,true);
+                    return true;
+            }
+            }
+        }
+        catch (System.Exception ex)
+        {
+        }
+        return false;
+#elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+            bool isIos = _IOS_IsInstallApp(packageIOSName);
+            IsInstallAppTable.Add(packageIOSName, isIos);
+            return isIos;
+#elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
+            return true;
+#endif
+
+        }
+        return false;
+    }
+
+    public static void OpenApp(string packageAndroidName, string packageIOSName)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        using (AndroidJavaClass jcPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        {
+            using (AndroidJavaObject joActivity = jcPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            {
+                using (AndroidJavaObject joPackageManager = joActivity.Call<AndroidJavaObject>("getPackageManager"))
+                {
+                    using (AndroidJavaObject joIntent = joPackageManager.Call<AndroidJavaObject>("getLaunchIntentForPackage", packageAndroidName))
+                    {
+                        if (null != joIntent)
+                        {
+                            joActivity.Call("startActivity", joIntent);
+                        }
+                    }
+                }
+            }
+        }
+#elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+        Application.OpenUrl("@weixin://");
+#elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
+        //return true;
+#endif
+    }
+
+    public static void DownloadApp(string downloadAndroid,string downloadIOS)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        Application.OpenURL(downloadAndroid);
+#elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+        Application.OpenURL(downloadIOS);
+#elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
+#endif
+    }
 }

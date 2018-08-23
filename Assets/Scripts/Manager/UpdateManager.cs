@@ -33,15 +33,15 @@ public class UpdateManager : MonoBehaviour
 
     void CheckLoginState()
     {
-        if (GameDataMgr.Instance.ResponseLogin != null)
+        //if (GameDataMgr.Instance.ResponseLogin != null)
         {
             //看是否更新数据进行网络交互
             UIManager.Instance.OpenUI<UIMainWindow>();
         }
-        else
-        {
-            uiLoginWindow.SetLoginList();
-        }
+        //else
+        //{
+        //    uiLoginWindow.SetLoginList();
+        //}
     }
 
     /// <summary>
@@ -50,21 +50,35 @@ public class UpdateManager : MonoBehaviour
     void CheckConfigUpdate()
     {
         //检查配置更新
-        string questionUrl = "http://localhost/LightExam/gameConfig.json";
+        //string questionUrl = "http://localhost/LightExam/gameConfig.json";
         //string questionUrl = "http://app.jiakaojingling.com/jkjl/static/dengguang/LightExam/gameConfig.json";
-        //string questionUrl = "http://loongx.gz01.bdysite.com/LightExam/gameConfig.json";
+        string questionUrl = "http://loongx.gz01.bdysite.com/LightExam/gameConfig.json";
         StartCoroutine(RequestNetworkFile(questionUrl, (result, content, data) =>
         {
             if (result)
             {
-                GameConfig gameConfig = LitJson.JsonMapper.ToObject<GameConfig>(content);
-                if (ConfigDataMgr.Instance.gameConfig == null || gameConfig.version != ConfigDataMgr.Instance.gameConfig.version)
+                GameVersion gameVersion = LitJson.JsonMapper.ToObject<GameVersion>(content);
+                if (ConfigDataMgr.Instance.gameConfig != null && gameVersion.AppVersion != ConfigDataMgr.Instance.gameConfig.AppVersion)
                 {
-                    StartCoroutine(UpdateResource(gameConfig));
+                    UIPrompDialog.ShowPromp(UIPrompDialog.PrompType.Confirm, "版本更新", "应用功能版本更新，请退出前往更新？", (confirm) =>
+                    {
+                        if (confirm)
+                        {
+                            Application.Quit();
+                        }
+                    });
                 }
                 else
                 {
-                    CheckLoginState();
+                    GameConfig gameConfig = LitJson.JsonMapper.ToObject<GameConfig>(content);
+                    if (ConfigDataMgr.Instance.gameConfig == null || gameVersion.ResVersion != ConfigDataMgr.Instance.gameConfig.ResVersion)
+                    {
+                        StartCoroutine(UpdateResource(gameConfig));
+                    }
+                    else
+                    {
+                        CheckLoginState();
+                    }
                 }
             }
             else if (ConfigDataMgr.Instance.gameConfig != null)
@@ -76,6 +90,8 @@ public class UpdateManager : MonoBehaviour
                 UITipsDialog.ShowTips("题库缺失，请链接网络后重新进入", true);
             }
         }));
+
+
         StartCoroutine(RequestNetworkFile(GlobalManager.Instance.loongAuthUrl, (result, content, data) =>
          {
              if (result)
@@ -100,10 +116,10 @@ public class UpdateManager : MonoBehaviour
     {
         yield return StartCoroutine(LoadQuestionAudio(gameConfig));
         //yield return StartCoroutine(TurnString2Audio(gameConfig));
-        yield return StartCoroutine(LoadVideoTexture(gameConfig));
+        //yield return StartCoroutine(LoadVideoTexture(gameConfig));
 
         //记录文件映射表
-        ConfigDataMgr.Instance.WriteAudioDictData();
+        ConfigDataMgr.Instance.WriteResourceDictData();
         //更新题库数据
         ConfigDataMgr.Instance.gameConfig = gameConfig;
         ConfigDataMgr.Instance.WriteGameConfigData();

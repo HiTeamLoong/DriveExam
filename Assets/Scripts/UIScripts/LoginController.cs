@@ -311,33 +311,61 @@ public class LoginController : MonoBehaviour
     {
         if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
         {
-            UITipsDialog.ShowTips("请输入理论保过卡卡号");
+            UITipsDialog.ShowTips("请输入灯光练习账号");
             return;
         }
         if (string.IsNullOrEmpty(loginLayer1.inputPwd.text))
         {
-            UITipsDialog.ShowTips("请输入理论保过卡密码");
+            UITipsDialog.ShowTips("请输入灯光练习密码");
             return;
         }
-        RequestLogin requestLogin = new RequestLogin();
-        requestLogin.phone = loginLayer1.inputAccount.text;
+        RequestLightLogin requestLogin = new RequestLightLogin();
+        requestLogin.loginAccount = loginLayer1.inputAccount.text;
         requestLogin.password = loginLayer1.inputPwd.text;
-        requestLogin.equitment = SystemInfo.deviceUniqueIdentifier;
 
-
-        LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
+        LoginManager.Instance.SendLightLoginMessage<ResponseLightLogin>(requestLogin, (responseData) =>
         {
             if (responseData.status == "200")
             {
                 Debug.Log("登录成功" + responseData.msg);
                 UITipsDialog.ShowTips("登录成功");
-                loginCallback(responseData.data);
+                loginCallback(new ResponseLogin());
             }
             else
             {
                 UITipsDialog.ShowTips(responseData.msg);
             }
         });
+        //return;
+        //if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
+        //{
+        //    UITipsDialog.ShowTips("请输入理论保过卡卡号");
+        //    return;
+        //}
+        //if (string.IsNullOrEmpty(loginLayer1.inputPwd.text))
+        //{
+        //    UITipsDialog.ShowTips("请输入理论保过卡密码");
+        //    return;
+        //}
+        //RequestLogin requestLogin = new RequestLogin();
+        //requestLogin.phone = loginLayer1.inputAccount.text;
+        //requestLogin.password = loginLayer1.inputPwd.text;
+        //requestLogin.equitment = SystemInfo.deviceUniqueIdentifier;
+
+
+        //LoginManager.Instance.SendLoginMessage<ResponseLogin>(requestLogin, (responseData) =>
+        //{
+        //    if (responseData.status == "200")
+        //    {
+        //        Debug.Log("登录成功" + responseData.msg);
+        //        UITipsDialog.ShowTips("登录成功");
+        //        loginCallback(responseData.data);
+        //    }
+        //    else
+        //    {
+        //        UITipsDialog.ShowTips(responseData.msg);
+        //    }
+        //});
     }
     void LoginLayer1WechatBtn()
     {

@@ -114,19 +114,53 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         File.WriteAllBytes(Path.Combine(TexturePath, fileName), data);
     }
 
+    public void AsyncLoadTextureWithName(string imgurl, Callback<Texture2D> callback)
+    {
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(imgurl))
+        {
+            LoadNetworkFile(imgurl, (result,data) =>
+            {
+                if (result)
+                {
+                    Texture2D texture2D = new Texture2D(0, 0, TextureFormat.ARGB32, false);
+                    texture2D.LoadImage(data);
+                    callback(texture2D);
+
+                    if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(imgurl))
+                    {
+                        string fileName = System.Guid.NewGuid().ToString("N");
+                        WriteTextureFile(fileName, data);
+
+                        ConfigDataMgr.Instance.resourceDict.Add(imgurl, fileName);
+                        ConfigDataMgr.Instance.WriteResourceDictData();
+                    }
+                }
+                else
+                {
+                    callback(null);
+                }
+            });
+        }
+        else
+        {
+            callback(GetTextureWithName(imgurl));
+        }
+             
+    }
+
     /// <summary>
     /// 加载网络资源
     /// </summary>
     /// <typeparam name="T">文件类型</typeparam>
     /// <param name="fileUrl">文件URL</param>
     /// <param name="callback">完成回调</param>
-    public void LoadNetworkFile<T>(string fileUrl,Callback<bool,T> callback)where T:Object
+    public void LoadNetworkFile<T>(string fileUrl, Callback<bool, T> callback) where T : Object
     {
         GlobalManager.Instance.RequestNetworkFile(fileUrl, (result, text, data) =>
         {
             if (result)
             {
-                if(typeof(Texture2D).IsAssignableFrom(typeof(T)))
+                if (typeof(Texture2D).IsAssignableFrom(typeof(T)))
                 {
                     Texture2D texture2D = new Texture2D(0, 0, TextureFormat.ARGB32, false);
                     texture2D.LoadImage(data);
@@ -140,6 +174,20 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
             else
             {
                 callback(result, default(T));
+            }
+        });
+    }
+    public void LoadNetworkFile(string fileUrl, Callback<bool, byte[]> callback)
+    {
+        GlobalManager.Instance.RequestNetworkFile(fileUrl, (result, text, data) =>
+        {
+            if (result)
+            {
+                callback(result, data);
+            }
+            else
+            {
+                callback(result, null);
             }
         });
     }

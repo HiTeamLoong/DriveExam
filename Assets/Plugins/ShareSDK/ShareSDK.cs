@@ -35,6 +35,7 @@ namespace cn.sharesdk.unity3d
 
         void Awake()
         {
+#if !UNITY_EDITOR
             Type type = devInfo.GetType();
             Hashtable platformConfigs = new Hashtable();
             FieldInfo[] devInfoFields = type.GetFields();
@@ -61,7 +62,6 @@ namespace cn.sharesdk.unity3d
                 }
                 platformConfigs.Add(platformId, table);
             }
-#if !UNITY_EDITOR
 
 #if UNITY_ANDROID
 			shareSDKUtils = new AndroidImpl(gameObject);

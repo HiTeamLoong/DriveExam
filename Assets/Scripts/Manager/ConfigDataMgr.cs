@@ -17,7 +17,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
         base.OnInit();
 
         ReadGameConfigData();
-        ReadAudioDictData();
+        ReadResourceDictData();
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
     /// <summary>
     /// Reads the audio dict data from audioDict.json.
     /// </summary>
-    public void ReadAudioDictData()
+    public void ReadResourceDictData()
     {
         string filePath = Path.Combine(ResourcesMgr.ConfigPath, "resourceDict.json");
         if (File.Exists(filePath))
@@ -61,7 +61,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
     /// <summary>
     /// Writes the audio dict data to audioDict.json.
     /// </summary>
-    public void WriteAudioDictData()
+    public void WriteResourceDictData()
     {
         string filePath = Path.Combine(ResourcesMgr.ConfigPath, "resourceDict.json");
         string json = LitJson.JsonMapper.ToJson(resourceDict);
