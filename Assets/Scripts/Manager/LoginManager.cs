@@ -25,7 +25,8 @@ public class LoginManager : XSingleton<LoginManager>
     /// <param name="callback"></param>
     public void SendLightLoginMessage<T>(RequestData_Base request, Callback<ResponseData<T>> callback) where T : ResponseData_Base
     {
-        string requestURL = serverURL + "/four/nkLight/userLogin";
+        //http://app.jiakaojingling.com/jkjl/api/dengguang/userLogin  //10000001/782109 
+        string requestURL = serverURL + "/dengguang/userLogin";
         Request(requestURL, request, callback);
     }
     /// <summary>

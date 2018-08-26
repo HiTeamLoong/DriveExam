@@ -9,12 +9,42 @@ public class UILoadingWindow : UIDialog
 
     private AsyncOperation async;
     private Callback finishCallback;
+    private bool isDownloadFail = false;
+    private float downloadProg = 1f;
 
-    public void InitWith(AsyncOperation async, Callback callback)
+    public void InitWith(AsyncOperation async, Callback callback, bool checkRes = false)
     {
         this.async = async;
         async.allowSceneActivation = false;
         finishCallback = callback;
+
+        if (checkRes)
+        {
+            downloadProg = 0f;
+            ResourcesMgr.Instance.DownLoadAudioResource(ConfigDataMgr.Instance.gameConfig, DownLoadCallback);
+        }
+    }
+
+    public void DownLoadCallback(bool result, float prog)
+    {
+        if (!isDownloadFail)
+        {
+            if (result)
+            {
+                downloadProg = prog;
+            }
+            else
+            {
+                isDownloadFail = true;
+                UIPrompDialog.ShowPromp(UIPrompDialog.PrompType.Confirm, "资源加载失败", "请退出游戏后检查网络设置？", confirm =>
+                {
+                    if (confirm)
+                    {
+                        Application.Quit();
+                    }
+                });
+            }
+        }
     }
 
     private void Update()
@@ -27,14 +57,14 @@ public class UILoadingWindow : UIDialog
 
                 if (progressBar.Value <= .9f)
                 {
-                    if (progressBar.Value < async.progress)
+                    if (progressBar.Value < async.progress && progressBar.Value < downloadProg)
                     {
                         progressBar.Value += Time.deltaTime * Random.Range(0.2f, 1f);
                     }
                 }
                 else
                 {
-                    if (progressBar.Value < 1f)
+                    if (progressBar.Value < 1f && progressBar.Value < downloadProg)
                     {
                         progressBar.Value += Time.deltaTime * Random.Range(0.2f, 1f);
                     }

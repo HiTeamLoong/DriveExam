@@ -38,7 +38,7 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
             {
                 callback();
             }
-        });
+        }, true);
     }
     /// <summary>
     /// 进入主场景

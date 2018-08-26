@@ -8,7 +8,7 @@ public class UIPrompDialog : UIDialog
     public static void ShowPromp(PrompType type, string title, string content, Callback<bool> callback)
     {
         UIPrompDialog uIPrompDialog = UIManager.Instance.OpenUI<UIPrompDialog>();
-
+        uIPrompDialog.InitWith(type, title, content, callback);
     }
 
     public enum PrompType
@@ -42,18 +42,18 @@ public class UIPrompDialog : UIDialog
 
     void OnClickCancelBtn()
     {
+        UIManager.Instance.CloseUI(this);
         if (callback != null)
         {
             callback(false);
         }
-        UIManager.Instance.CloseUI(this);
     }
     void OnClickConfirmBtn()
     {
+        UIManager.Instance.CloseUI(this);
         if (callback != null)
         {
             callback(true);
         }
-        UIManager.Instance.CloseUI(this);
     }
 }

@@ -387,20 +387,24 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
 
 
 
-    private static readonly string jumpAppPackage = "";
-    private static readonly string jumpAppAndroidDownload = "";
+    private static readonly string jumpAppPackage = "com.iningke.jiakaojl";
+    private static readonly string jumpAppAndroidDownload = "http://www.baidu.com";
 
-    private static readonly string jumpAppURLSchemes = "";
-    private static readonly string jumpAppIOSDownload = "";
+    private static readonly string jumpAppURLSchemes = "weixin://";
+    private static readonly string jumpAppIOSDownload = "https://itunes.apple.com/cn/app/jia-kao-jing-ling/id1159621754?mt=8";
 
     public static void JumpToAPP()
     {
         if (IsInstallApp(jumpAppPackage, jumpAppURLSchemes))
         {
+            Debug.Log("已经安装了应用");
+
             OpenApp(jumpAppPackage, jumpAppURLSchemes);
         }
         else
         {
+            Debug.Log("未安装应用");
+
             DownloadApp(jumpAppAndroidDownload, jumpAppIOSDownload);
         }
     }
@@ -415,8 +419,10 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         if (IsInstallAppTable.ContainsKey(packageAndroidName) || IsInstallAppTable.ContainsKey(packageIOSName))
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
+            Debug.Log("检查是否安装应用：" + packageAndroidName);
             return IsInstallAppTable[packageAndroidName];
 #elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+            Debug.Log("检查是否安装应用：" + packageIOSName);
             return IsInstallAppTable[packageIOSName];
 #elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
             return true;
@@ -425,6 +431,7 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         else
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
+            Debug.Log("检查是否安装应用：" + packageAndroidName);
         try
         {
             using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
@@ -452,13 +459,13 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         }
         return false;
 #elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+            Debug.Log("检查是否安装应用：" + packageIOSName);
             bool isIos = _IOS_IsInstallApp(packageIOSName);
             IsInstallAppTable.Add(packageIOSName, isIos);
             return isIos;
-#elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
+#elif UNITY_EDITOR
             return true;
 #endif
-
         }
         return false;
     }
@@ -466,6 +473,8 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     public static void OpenApp(string packageAndroidName, string packageIOSName)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
+
+        Debug.Log("Android正在打开");
         using (AndroidJavaClass jcPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
         {
             using (AndroidJavaObject joActivity = jcPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
@@ -483,19 +492,24 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
             }
         }
 #elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
-        Application.OpenUrl("@weixin://");
-#elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
-        //return true;
+        Debug.Log("IOS正在打开");
+        Application.OpenURL(packageIOSName);
+#elif UNITY_EDITOR
+        Application.OpenURL("www.baidu.com");
 #endif
     }
 
-    public static void DownloadApp(string downloadAndroid,string downloadIOS)
+    public static void DownloadApp(string downloadAndroid, string downloadIOS)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
+            Debug.Log("Android前往下载");
         Application.OpenURL(downloadAndroid);
 #elif (UNITY_IOS || UNITY_IPHONE) && !UNITY_EDITOR
+            Debug.Log("Ios前往下载");
         Application.OpenURL(downloadIOS);
-#elif !UNITY_IOS && !UNITY_IPHONE && UNITY_EDITOR
+#elif UNITY_EDITOR
+        Debug.Log("编辑器前往下载");
+        Application.OpenURL("http://www.baidu.com");
 #endif
     }
 }

@@ -6,8 +6,8 @@ namespace Plugins.Scripts
         public static string Branch = "GameTrunk";
         public static string BuildId = "2013-10-11_14-47";
 
-        public static string BundleVersion = "1.0";
-        public static string BuildNumber = "45";
+        public static string BundleVersion = "2.0";
+        public static string BuildNumber = "1";
 
 
         public static string AppVersion

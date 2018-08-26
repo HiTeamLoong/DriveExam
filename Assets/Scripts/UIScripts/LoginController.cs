@@ -25,6 +25,7 @@ public class LoginController : MonoBehaviour
         public Button btnLogin;
         public Button btnWechat;
         public Button btnMobile;
+        public Button btnGetAct;
 
         public override void Hide()
         {
@@ -209,6 +210,7 @@ public class LoginController : MonoBehaviour
         loginLayer1.btnLogin.onClick.AddListener(LoginLayer1LoginBtn);
         loginLayer1.btnWechat.onClick.AddListener(LoginLayer1WechatBtn);
         loginLayer1.btnMobile.onClick.AddListener(LoginLayer1MobileBtn);
+        loginLayer1.btnGetAct.onClick.AddListener(loginLayer1GetActBtn);
 
         loginLayer2.btnLogin.onClick.AddListener(LoginLayer2LoginBtn);
         loginLayer2.btnSignup.onClick.AddListener(LoginLayer2SignupBtn);
@@ -230,7 +232,8 @@ public class LoginController : MonoBehaviour
         OpenLayer(loginLayer1);
     }
 
-    public void OnDispose(){
+    public void OnDispose()
+    {
         forgetLayer1.CountDown = 0;
         signupLayer.CountDown = 0;
     }
@@ -327,9 +330,10 @@ public class LoginController : MonoBehaviour
         {
             if (responseData.status == "200")
             {
-                Debug.Log("登录成功" + responseData.msg);
                 UITipsDialog.ShowTips("登录成功");
-                loginCallback(new ResponseLogin());
+
+                ResponseLogin response = new ResponseLogin() { userName = "驾考精灵" };
+                loginCallback(response);
             }
             else
             {
@@ -394,6 +398,11 @@ public class LoginController : MonoBehaviour
     {
         OpenLayer(loginLayer2);
     }
+    void loginLayer1GetActBtn()
+    {
+        GlobalManager.JumpToAPP();
+    }
+
 
     void LoginLayer2LoginBtn()
     {

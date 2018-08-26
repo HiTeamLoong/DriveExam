@@ -38,7 +38,8 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
             return audioPath;
         }
     }
-    public static string TexturePath{
+    public static string TexturePath
+    {
         get
         {
 #if UNITY_EDITOR
@@ -58,11 +59,13 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
     /// </summary>
     /// <returns>The UIP refab.</returns>
     /// <param name="assetName">Asset name.</param>
-    public GameObject LoadUIPrefab(string assetName){
+    public GameObject LoadUIPrefab(string assetName)
+    {
         return Resources.Load(assetName) as GameObject;
     }
 
-    public AudioClip LoadAudioClip(string clipName){
+    public AudioClip LoadAudioClip(string clipName)
+    {
         return Resources.Load<AudioClip>("Sound/" + clipName);
     }
 
@@ -83,7 +86,8 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
     /// </summary>
     /// <returns>The audio with URL.</returns>
     /// <param name="audioUrl">Audio URL.</param>
-    public AudioClip GetAudioWithURL(string audioUrl){
+    public AudioClip GetAudioWithURL(string audioUrl)
+    {
         string fileName = ConfigDataMgr.Instance.resourceDict[audioUrl];
         byte[] data = File.ReadAllBytes(Path.Combine(AudioPath, fileName));
         //AudioClip audioClip = WavUtility.ToAudioClip(data);
@@ -109,7 +113,7 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         texture2D.LoadImage(data);
         return texture2D;
     }
-    public void WriteTextureFile(string fileName,byte[] data)
+    public void WriteTextureFile(string fileName, byte[] data)
     {
         File.WriteAllBytes(Path.Combine(TexturePath, fileName), data);
     }
@@ -118,7 +122,7 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
     {
         if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(imgurl))
         {
-            LoadNetworkFile(imgurl, (result,data) =>
+            LoadNetworkFile(imgurl, (result, data) =>
             {
                 if (result)
                 {
@@ -145,7 +149,7 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         {
             callback(GetTextureWithName(imgurl));
         }
-             
+
     }
 
     /// <summary>
@@ -191,4 +195,78 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
             }
         });
     }
+
+
+
+    private Callback<bool, float> downloadCallback;
+    private List<string> downloadList;
+    private int downloadIndex = 0;
+
+    /// <summary>
+    /// 资源下载
+    /// </summary>
+    /// <returns>The question audio.</returns>
+    /// <param name="gameConfig">Game config.</param>
+    public void DownLoadAudioResource(GameConfig gameConfig, Callback<bool, float> callback)
+    {
+        downloadCallback = callback;
+        downloadList = new List<string>();
+        downloadIndex = 0;
+        //检查开始灯光考试的语音需要更新
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.examtip_old.exam_audio))
+        {
+            downloadList.Add(gameConfig.examtip_old.exam_audio);
+        }
+        //检查开始灯光考试的语音需要更新
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.examtip_new.exam_audio))
+        {
+            downloadList.Add(gameConfig.examtip_new.exam_audio);
+        }
+        //检查试题的语音是否需要更新
+        foreach (var item in gameConfig.questions)
+        {
+            QuestionData questionData = item.Value;
+            if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(questionData.audio))
+            {
+                downloadList.Add(questionData.audio);
+            }
+        }
+        if (downloadList.Count <= 0)
+        {
+            downloadCallback(true, 1f);
+        }
+        else
+        {
+            DownLoadFile();
+        }
+    }
+
+    private void DownLoadFile()
+    {
+        if (downloadIndex < downloadList.Count)
+        {
+            string fileUrl = downloadList[downloadIndex];
+            LoadNetworkFile(fileUrl, (result, data) =>
+            {
+                if (result)
+                {
+                    string fileName = System.Guid.NewGuid().ToString("N");
+                    ResourcesMgr.Instance.WriteAudioFile(fileName, data);
+                    ConfigDataMgr.Instance.resourceDict.Add(fileUrl, fileName);
+                    ConfigDataMgr.Instance.WriteResourceDictData();
+                    downloadIndex += 1;
+                    downloadCallback(result, (float)downloadIndex / downloadList.Count);
+                    if (downloadIndex < downloadList.Count)
+                    {
+                        DownLoadFile();
+                    }
+                }
+                else
+                {
+                    downloadCallback(result, (float)downloadIndex / downloadList.Count);
+                }
+                Debug.Log("result:" + result + "\t" + "prog:" + (float)downloadIndex / downloadList.Count);
+            });
+        }
+         }
 }

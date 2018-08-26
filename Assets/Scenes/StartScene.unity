@@ -221,7 +221,7 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 521285269}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Alpha: 0.11
   m_Interactable: 1
   m_BlocksRaycasts: 1
@@ -475,17 +475,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d266d8e8bcccf488686d3be61cf1fa24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  appKey: 26e83d145e058
+  appSecret: 0b77f55195b9ffc4e536523d14ae496b
   devInfo:
     qq:
       Enable: 1
+      app_id: 1106823651
+      app_key: aWkPdQrcrezrG9ji
+      auth_type: both
     qzone:
       Enable: 1
+      app_id: 1106823651
+      app_key: aWkPdQrcrezrG9ji
+      auth_type: both
     wechat:
       Enable: 1
+      app_id: wxb0872f4a07e0ffe3
+      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
     wechatMoments:
       Enable: 1
+      app_id: wxb0872f4a07e0ffe3
+      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
     wechatFavorites:
       Enable: 1
+      app_id: wxb0872f4a07e0ffe3
+      app_secret: f6eebae2f6a6e7035e98102f0f82ee17
 --- !u!114 &1564550667
 MonoBehaviour:
   m_ObjectHideFlags: 0

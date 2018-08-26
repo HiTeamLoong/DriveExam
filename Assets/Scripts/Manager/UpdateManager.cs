@@ -18,7 +18,7 @@ public class UpdateManager : MonoBehaviour
         ttsString2Audio = new Tts(APIKey, SecretKey);
 
         uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
-        uiLoginWindow.SetState("正在检查题库更新...");
+        uiLoginWindow.SetState("正在检查账号...");
 
         //没网跳过检测版本
         if (ConfigDataMgr.Instance.gameConfig == null || Application.internetReachability != NetworkReachability.NotReachable)
@@ -33,15 +33,15 @@ public class UpdateManager : MonoBehaviour
 
     void CheckLoginState()
     {
-        //if (GameDataMgr.Instance.ResponseLogin != null)
+        if (GameDataMgr.Instance.ResponseLogin != null)
         {
             //看是否更新数据进行网络交互
             UIManager.Instance.OpenUI<UIMainWindow>();
         }
-        //else
-        //{
-        //    uiLoginWindow.SetLoginList();
-        //}
+        else
+        {
+            uiLoginWindow.SetLoginList();
+        }
     }
 
     /// <summary>
@@ -114,12 +114,12 @@ public class UpdateManager : MonoBehaviour
     /// <param name="gameConfig">Game config.</param>
     IEnumerator UpdateResource(GameConfig gameConfig)
     {
-        yield return StartCoroutine(LoadQuestionAudio(gameConfig));
+        //yield return StartCoroutine(LoadQuestionAudio(gameConfig));
         //yield return StartCoroutine(TurnString2Audio(gameConfig));
         //yield return StartCoroutine(LoadVideoTexture(gameConfig));
-
+        yield return null;
         //记录文件映射表
-        ConfigDataMgr.Instance.WriteResourceDictData();
+        //ConfigDataMgr.Instance.WriteResourceDictData();
         //更新题库数据
         ConfigDataMgr.Instance.gameConfig = gameConfig;
         ConfigDataMgr.Instance.WriteGameConfigData();
