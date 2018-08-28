@@ -213,15 +213,26 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         downloadList = new List<string>();
         downloadIndex = 0;
         //检查开始灯光考试的语音需要更新
-        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.examtip_old.exam_audio))
+        ExamTipData examTip = gameConfig.examtip_old;
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(examTip.exam_audio))
         {
-            downloadList.Add(gameConfig.examtip_old.exam_audio);
+            downloadList.Add(examTip.exam_audio);
+        }
+        if (!string.IsNullOrEmpty(examTip.broadcast_end)&&!ConfigDataMgr.Instance.resourceDict.ContainsKey(examTip.broadcast_end))
+        {
+            downloadList.Add(examTip.broadcast_end);
         }
         //检查开始灯光考试的语音需要更新
-        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(gameConfig.examtip_new.exam_audio))
+        examTip = gameConfig.examtip_new;
+        if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(examTip.exam_audio))
         {
-            downloadList.Add(gameConfig.examtip_new.exam_audio);
+            downloadList.Add(examTip.exam_audio);
         }
+        if (!string.IsNullOrEmpty(examTip.broadcast_end) && !ConfigDataMgr.Instance.resourceDict.ContainsKey(examTip.broadcast_end))
+        {
+            downloadList.Add(examTip.broadcast_end);
+        }
+
         //检查试题的语音是否需要更新
         foreach (var item in gameConfig.questions)
         {

@@ -151,7 +151,7 @@ namespace cn.sharesdk.unity3d
         public string AppSecret = "f6eebae2f6a6e7035e98102f0f82ee17";
 		public string UserName = "gh_afb25ac019c9@app";
 		public string Path = "/page/API/pages/share/share";
-		public bool BypassApproval = true;
+        public bool BypassApproval = false;
 		public bool WithShareTicket = true;
 		public string MiniprogramType = "0";
 		#elif UNITY_IPHONE
@@ -169,7 +169,7 @@ namespace cn.sharesdk.unity3d
 		public const int type = (int) PlatformType.WeChatMoments;
         public string AppId = "wxb0872f4a07e0ffe3";
         public string AppSecret = "f6eebae2f6a6e7035e98102f0f82ee17";
-		public bool BypassApproval = true;
+        public bool BypassApproval = false;
 		#elif UNITY_IPHONE
 		public const int type = (int) PlatformType.WeChatMoments;
         public string app_id = "wxb0872f4a07e0ffe3";

@@ -93,6 +93,7 @@ public class ExamTipData : Data_Base
 {
     public string exam_tip;
     public string exam_audio;
+    public string broadcast_end;
 }
 
 /// <summary>

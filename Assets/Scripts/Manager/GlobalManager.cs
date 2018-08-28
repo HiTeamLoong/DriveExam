@@ -388,9 +388,9 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
 
 
     private static readonly string jumpAppPackage = "com.iningke.jiakaojl";
-    private static readonly string jumpAppAndroidDownload = "http://www.baidu.com";
+    private static readonly string jumpAppAndroidDownload = "http://a.app.qq.com/o/simple.jsp?pkgname=com.iningke.jiakaojl";
 
-    private static readonly string jumpAppURLSchemes = "weixin://";
+    private static readonly string jumpAppURLSchemes = "driverexam://";
     private static readonly string jumpAppIOSDownload = "https://itunes.apple.com/cn/app/jia-kao-jing-ling/id1159621754?mt=8";
 
     public static void JumpToAPP()

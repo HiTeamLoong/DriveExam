@@ -146,6 +146,8 @@ public abstract class UIExamWindowBase : UIWindow
         {
             Debug.LogError("ERROR:ILightController is lost");
         }
+
+        examTip = GameDataMgr.Instance.carVersion == CarVersion.NEW ? ConfigDataMgr.Instance.gameConfig.examtip_new : ConfigDataMgr.Instance.gameConfig.examtip_old;
     }
 
     #region BaseFunction
@@ -443,6 +445,10 @@ public abstract class UIExamWindowBase : UIWindow
     #endregion
 
     /// <summary>
+    /// 新旧版本的提示配置
+    /// </summary>
+    private ExamTipData examTip;
+    /// <summary>
     /// 考试试题列表
     /// </summary>
     private List<string> examList = new List<string>();
@@ -539,7 +545,6 @@ public abstract class UIExamWindowBase : UIWindow
 
     IEnumerator _BeginLightExam()
     {
-        ExamTipData examTip = GameDataMgr.Instance.carVersion == CarVersion.NEW ? ConfigDataMgr.Instance.gameConfig.examtip_new : ConfigDataMgr.Instance.gameConfig.examtip_old;
         textQuestion.text = examTip.exam_tip;
         textAnswer.text = "";
         audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.exam_audio));
@@ -550,7 +555,7 @@ public abstract class UIExamWindowBase : UIWindow
         for (int i = 0; i < examList.Count; i++)
         {
             QuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(examList[i]);
-            yield return StartCoroutine(BeginQuestion(question, true));
+            yield return StartCoroutine(BeginQuestion(question, true, i != 0));
         }
         //yield return StartCoroutine(BeginQuestion(ConfigDataMgr.ExamEnd, true));
         textAnswer.text = "恭喜你全部操作成功！！！";
@@ -576,7 +581,7 @@ public abstract class UIExamWindowBase : UIWindow
     /// </summary>
     /// <returns>The question.</returns>
     /// <param name="question">Question.</param>
-    IEnumerator BeginQuestion(QuestionData question, bool isExam)
+    IEnumerator BeginQuestion(QuestionData question, bool isExam,bool ding = true)
     {
         textQuestion.text = question.question;
         textAnswer.text = question.answer;
@@ -585,6 +590,13 @@ public abstract class UIExamWindowBase : UIWindow
         Debug.Log(audioObject.playTime);
         yield return new WaitForSeconds(audioObject.playTime);
         audioObject = null;
+
+        if (ding && !string.IsNullOrEmpty(examTip.broadcast_end))
+        {
+            AudioObject audioBroadcast = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.broadcast_end));
+            yield return new WaitForSeconds(audioBroadcast.playTime);
+        }
+
         LowToHigCount = 0;//防止抢先操作
         yield return new WaitForSeconds(4f);//操作时间
 
