@@ -335,6 +335,16 @@ platform :ios do
         assemble(options)
         deploy(options)
     end
+
+    lane :ex_project do |options|
+        options[:collection] = options[:collection] || :GenerateSystem
+        options[:streaming] = options[:streaming] || :StreamingSystem
+
+        info(options)
+        switch_platform(options)
+        export(options)
+        icon(options)
+    end
     ##########################################################
     #
     desc 'lane for teamcity'
