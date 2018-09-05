@@ -149,6 +149,11 @@ fastlane ios displayName
 fastlane ios beta
 ```
 Submit a new Beta Build
+### ios ex_project
+```
+fastlane ios ex_project
+```
+
 ### ios teamcity
 ```
 fastlane ios teamcity
@@ -233,6 +238,11 @@ fastlane android deploy
 fastlane android beta
 ```
 Submit a new Beta Build
+### android ex_project
+```
+fastlane android ex_project
+```
+
 ### android fork
 ```
 fastlane android fork

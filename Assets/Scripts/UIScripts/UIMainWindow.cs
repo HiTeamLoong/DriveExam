@@ -11,6 +11,7 @@ public class UIMainWindow : UIWindow
     public Button btnJieda_New;
     public Button btnAilishe_New;
 
+    public Button btnJump;
     public Button btnShare;
     public Button btnVow;
     public Button btnFlow;
@@ -25,6 +26,7 @@ public class UIMainWindow : UIWindow
         btnJieda_New.onClick.AddListener(OnClickJiedaNew);
         btnAilishe_New.onClick.AddListener(OnClickAilisheNew);
 
+        btnJump.onClick.AddListener(OnClickJump);
         btnShare.onClick.AddListener(OnClickShare);
         btnVow.onClick.AddListener(OnClickVow);
         btnFlow.onClick.AddListener(OnClickFlow);
@@ -84,7 +86,12 @@ public class UIMainWindow : UIWindow
         ShowDetailWindow();
     }
 
-
+    /// <summary>
+    /// 跳转驾考精灵
+    /// </summary>
+    void OnClickJump(){
+        GlobalManager.JumpToAPP();
+    }
     /// <summary>
     /// 开启分享界面
     /// </summary>

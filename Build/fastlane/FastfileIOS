@@ -330,7 +330,7 @@ platform :ios do
         #generate_asset(options)
         #copy_asset(options)
         export(options)
-        icon(options)
+        # icon(options)
         displayName(options)
         assemble(options)
         deploy(options)
