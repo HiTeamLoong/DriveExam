@@ -61,7 +61,7 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
     /// <param name="assetName">Asset name.</param>
     public GameObject LoadUIPrefab(string assetName)
     {
-        return Resources.Load(assetName) as GameObject;
+        return Resources.Load("Prefab/"+assetName) as GameObject;
     }
 
     public AudioClip LoadAudioClip(string clipName)
