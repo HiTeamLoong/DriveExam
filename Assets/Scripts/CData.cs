@@ -47,7 +47,6 @@ public class GameConfig : Data_Base
     /// <summary>
     /// 考试开始语音
     /// </summary>
-    public string exam_audio;
     public ExamTipData examtip_old;
     public ExamTipData examtip_new;
     /// <summary>
@@ -59,6 +58,7 @@ public class GameConfig : Data_Base
     /// 视频教学
     /// </summary>
     public Dictionary<string, List<VideoData>> video = new Dictionary<string, List<VideoData>>();
+    public bool ios_audit = false;
     public bool showShare = false;
     /// <summary>
     /// 分享的内容
