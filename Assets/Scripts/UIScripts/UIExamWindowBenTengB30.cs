@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIExamWindowBenTeng : UIExamWindowBase
+public class UIExamWindowBenTengB30 : UIExamWindowBase
 {
     [Space(20)]
     public Image imgOpenLight;

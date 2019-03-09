@@ -38,9 +38,9 @@ public class UIMainWindow : UIWindow
     void ShowDetailWindow()
     {
         List<VideoData> videoDatas;
-        if (ConfigDataMgr.Instance.gameConfig.video.ContainsKey(GameDataMgr.Instance.carType.ToString()))
+        if (ConfigDataMgr.Instance.gameConfig.video.ContainsKey(GameDataMgr.Instance.carType.ToString().ToUpper()))
         {
-            videoDatas = ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString()];
+            videoDatas = ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString().ToUpper()];
         }
         else
         {
@@ -58,12 +58,12 @@ public class UIMainWindow : UIWindow
     }
 
     void OnClickJiedaOld(){
-        GameDataMgr.Instance.carType = CarType.DAZHONG;
+        GameDataMgr.Instance.carType = CarType.DaZhong;
         GameDataMgr.Instance.carVersion = CarVersion.OLD;
         ShowDetailWindow();
     }
     void OnClickAilisheOld(){
-        GameDataMgr.Instance.carType = CarType.AILISHE;
+        GameDataMgr.Instance.carType = CarType.AiLiShe;
         GameDataMgr.Instance.carVersion = CarVersion.OLD;
         ShowDetailWindow();
     }
@@ -72,7 +72,7 @@ public class UIMainWindow : UIWindow
     /// </summary>
     void OnClickJiedaNew()
     {
-        GameDataMgr.Instance.carType = CarType.DAZHONG;
+        GameDataMgr.Instance.carType = CarType.DaZhong;
         GameDataMgr.Instance.carVersion = CarVersion.NEW;
         ShowDetailWindow();
     }
@@ -81,7 +81,7 @@ public class UIMainWindow : UIWindow
     /// </summary>
     void OnClickAilisheNew()
     {
-        GameDataMgr.Instance.carType = CarType.AILISHE;
+        GameDataMgr.Instance.carType = CarType.AiLiShe;
         GameDataMgr.Instance.carVersion = CarVersion.NEW;
         ShowDetailWindow();
     }

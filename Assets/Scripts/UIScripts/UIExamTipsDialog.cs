@@ -12,8 +12,8 @@ public class UIExamTipsDialog : UIDialog
     public override void OnCreate()
     {
         base.OnCreate();
-        tipsAilishe.SetActive(GameDataMgr.Instance.carType == CarType.AILISHE);
-        tipsDazhong.SetActive(GameDataMgr.Instance.carType == CarType.DAZHONG);
+        tipsAilishe.SetActive(GameDataMgr.Instance.carType == CarType.AiLiShe);
+        tipsDazhong.SetActive(GameDataMgr.Instance.carType == CarType.DaZhong);
 
         btnClose.onClick.AddListener(OnClickClose);
     }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class UIWaitDialog : UIDialog
 {
+    public GameObject rootWait;
     public RectTransform transWait;
 
-    private Sequence loopSequence;
     public void Start()
     {
         StartCoroutine(_ImageTurn());
@@ -19,9 +19,13 @@ public class UIWaitDialog : UIDialog
     }
 
     IEnumerator _ImageTurn(){
+        rootWait.SetActive(false);
+        yield return new WaitForSeconds(.2f);
+        rootWait.SetActive(true);
+
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.1f);
             Vector3 angle = transWait.localEulerAngles;
             angle.z -= 30;
             transWait.localEulerAngles = angle;

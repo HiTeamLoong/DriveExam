@@ -24,16 +24,22 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
         AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
         uiLoadingWindow.InitWith(async, () =>
         {
-            //大众
-            if (GameDataMgr.Instance.carType == CarType.DAZHONG)
+            switch (GameDataMgr.instance.carType)
             {
-                UIManager.Instance.OpenUI<UIExamWindowDaZhong>();
+                case CarType.DaZhong:
+                    UIManager.Instance.OpenUI<UIExamWindowDaZhong>();
+                    break;
+                case CarType.AiLiShe:
+                    UIManager.Instance.OpenUI<UIExamWindowAiLiShe>();
+                    break;
+                case CarType.BenTengB30:
+                    UIManager.Instance.OpenUI<UIExamWindowBenTengB30>();
+                    break;
+                case CarType.AiLiShe2015:
+                    //TODO --添加新款爱丽舍车型
+                    break;
             }
-            //爱丽舍
-            else
-            {
-                UIManager.Instance.OpenUI<UIExamWindowAiLiShe>();
-            }
+
             if (callback != null)
             {
                 callback();

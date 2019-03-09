@@ -512,7 +512,7 @@ public abstract class UIExamWindowBase : UIWindow
 
     private void RandomExamList()
     {
-        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString()];
+        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString().ToUpper()];
         int count = examData.exam.Count;
         if (examList != null)
         {
@@ -529,7 +529,7 @@ public abstract class UIExamWindowBase : UIWindow
 
     private string RandomExerIndex()
     {
-        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString()];
+        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString().ToUpper()];
         int count = examData.random.Count;
         exerList = new List<string>();
         for (int i = 0; i < count; i++)

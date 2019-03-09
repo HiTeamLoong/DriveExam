@@ -10,18 +10,22 @@ public class UIManager : XMonoSingleton<UIManager>
 
     private Canvas canvas;
     private CanvasScaler canvasScaler;
-    public Vector2 defaultResolution{
-        get{
-            if (canvasScaler==null)
+    public Vector2 defaultResolution
+    {
+        get
+        {
+            if (canvasScaler == null)
             {
                 canvasScaler = GetComponent<CanvasScaler>();
             }
             return canvasScaler.referenceResolution;
         }
     }
-    public Vector2 realResolution{
-        get{
-            if (canvas==null)
+    public Vector2 realResolution
+    {
+        get
+        {
+            if (canvas == null)
             {
                 canvas = GetComponent<Canvas>();
             }
@@ -42,7 +46,7 @@ public class UIManager : XMonoSingleton<UIManager>
 
     public override void OnInit()
     {
-        base.OnInit(); 
+        base.OnInit();
 
     }
 

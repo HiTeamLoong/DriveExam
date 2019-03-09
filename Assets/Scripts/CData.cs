@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public enum CarType
+/// <summary>
+/// 选择车型的枚举--【枚举类型不要随便更改】题库会使用字符串作为键来获取数据
+/// </summary>
+public enum CarType     //当前把字符串获取方式改为了大写--等服务器返回数据后可以修改
 {
-    DAZHONG = 1,
-    AILISHE = 2
+    DaZhong = 1,
+    AiLiShe = 2,
+    BenTengB30 = 3,
+    AiLiShe2015 = 4
 }
 public enum CarVersion
 {

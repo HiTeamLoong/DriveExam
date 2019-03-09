@@ -629,7 +629,7 @@ GameObject:
   - component: {fileID: 224277069072908354}
   - component: {fileID: 114925570003520126}
   m_Layer: 5
-  m_Name: UIExamWindowBenTeng
+  m_Name: UIExamWindowBenTengB30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

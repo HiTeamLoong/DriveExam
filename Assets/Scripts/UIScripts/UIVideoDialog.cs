@@ -9,6 +9,6 @@ public class UIVideoDialog : UIDialog
     public override void OnCreate()
     {
         base.OnCreate();
-        PlayVideoController.InitWith(ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString()]);
+        PlayVideoController.InitWith(ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString().ToUpper()]);
     }
 }

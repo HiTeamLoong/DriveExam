@@ -11,6 +11,7 @@ public class UILoadingWindow : UIDialog
     private Callback finishCallback;
     private bool isDownloadFail = false;
     private float downloadProg = 1f;
+    private UIWaitDialog uIWait = null;
 
     public void InitWith(AsyncOperation async, Callback callback, bool checkRes = false)
     {
@@ -22,6 +23,11 @@ public class UILoadingWindow : UIDialog
         {
             downloadProg = 0f;
             ResourcesMgr.Instance.DownLoadAudioResource(ConfigDataMgr.Instance.gameConfig, DownLoadCallback);
+        }
+        if (ConfigDataMgr.Instance.gameConfig.ios_audit)
+        {
+            progressBar.gameObject.SetActive(false);
+            uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
         }
     }
 
@@ -77,6 +83,10 @@ public class UILoadingWindow : UIDialog
             }
             else
             {
+                if (ConfigDataMgr.Instance.gameConfig.ios_audit)
+                {
+                    UIManager.Instance.CloseUI(uIWait);
+                }
                 if (finishCallback != null)
                 {
                     finishCallback();
