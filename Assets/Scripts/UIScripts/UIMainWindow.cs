@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class UIMainWindow : UIWindow
 {
+
+    public class BtnCarType{
+        public Button btnEnter;
+        public CarType carType;
+        public CarVersion carVersion;
+    }
+
     public Button btnJieda_Old;
     public Button btnAilishe_Old;
 
@@ -20,6 +27,7 @@ public class UIMainWindow : UIWindow
     public override void OnCreate()
     {
         base.OnCreate();
+
         btnJieda_Old.onClick.AddListener(OnClickJiedaOld);
         btnAilishe_Old.onClick.AddListener(OnClickAilisheOld);
 
