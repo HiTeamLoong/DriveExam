@@ -20,9 +20,7 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
             return;
         }
 
-        UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
-        AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
-        uiLoadingWindow.InitWith(async, () =>
+        Callback LoadFinish = () =>
         {
             switch (GameDataMgr.instance.carType)
             {
@@ -39,19 +37,39 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
                     //TODO --添加新款爱丽舍车型
                     break;
             }
-
             if (callback != null)
             {
                 callback();
             }
-        }, true);
+        };
+
+        if (!ConfigDataMgr.instance.gameConfig.ios_audit)
+        {
+            UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
+            AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
+
+            uiLoadingWindow.InitWith(async, LoadFinish, true);
+        }
+        else
+        {
+            UIWaitDialog uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
+            ResourcesMgr.Instance.DownLoadAudioResource(ConfigDataMgr.Instance.gameConfig, (result, prog) =>
+            {
+                if (result && prog >= 1.0f)
+                {
+                    UIManager.Instance.CloseUI(uIWait);
+                    SceneManager.LoadScene(ExamScene);
+                    LoadFinish();
+                }
+            });
+        }
     }
     /// <summary>
     /// 进入主场景
     /// </summary>
     public void SwitchToMain(bool loading = true, Callback callback = null)
     {
-        if (loading)
+        if (loading && !ConfigDataMgr.instance.gameConfig.ios_audit)
         {
             UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
             AsyncOperation async = SceneManager.LoadSceneAsync(MainScene);
@@ -68,7 +86,6 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
         else
         {
             SceneManager.LoadScene(MainScene);
-
             if (callback != null)
             {
                 callback();
