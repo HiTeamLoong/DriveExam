@@ -461,6 +461,21 @@ public abstract class UIExamWindowBase : UIWindow
     /// </summary>
     private AudioObject audioObject;
 
+
+    private bool isRight;//已经是正确的灯光
+    private bool isOperation;//正确后是否操作
+    /// <summary>
+    /// 操作触发检测
+    /// </summary>
+    private void TriggerState()
+    {
+        
+    }
+    private void CleanState()
+    {
+
+    }
+
     /// <summary>
     /// 关闭所有灯光
     /// </summary>
