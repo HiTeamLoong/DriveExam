@@ -7,42 +7,47 @@ using UnityEngine.UI;
 public class UIExamWindowAiLiShe2015 : UIExamWindowBase
 {
     [Space(20)]
-    public Image imgAnceLight;
-    public Image imgOpenLight;
-    public Image imgHeadFar;
-    public Image imgFrontFog;
+    public Image imgOpenLight;      //示廓灯标识
+    public Image imgHeadNear;       //近光灯标识
+    public Image imgHeadFar;        //远光灯标志
+    public Image imgFrontFog;       //前雾灯标识
+    public Image imgRearFog;        //后雾灯标志
 
-    public Button btnControlRight;
-    public Button btnControlClose;
-    public Button btnControlLeft;
+    public Button btnControlRight;  //右转向
+    public Button btnControlClose;  //关闭转向
+    public Button btnControlLeft;   //左转向
 
-    //public ButtonState btsControlForward;
-    //public ButtonState btsControlNormal;
-    //public ButtonState btsControlBackward;
+    public ButtonState btsCantrolState;   //--灯光状态显示
+    public ButtonState btsControlBackward1;  //远近切换
+    public ButtonState btsControlBackward2;  //切换灯光
 
     public ButtonState btsDoubleJump;
 
     public Transform transControlRod;
 
+
+    [System.Serializable]
     public class ControlRod
     {
         public GameObject objRoot;
 
         public Image imgHeadLight;
-        public Sprite sprHeadLight0;
+        //[HideInInspector]
+        public Sprite sprHeadLight0 = null;
         public Sprite sprHeadLight1;
         public Sprite sprHeadLight2;
 
         public Image imgFogLight;
-        public Sprite sprFogLight0;
-        public Sprite sprFogLight1;
-        public Sprite sprFogLight3;
+        //[HideInInspector]
+        public Sprite sprFogLoghtNormal = null;
+        public Sprite sprFogLightOpen;
+        public Sprite sprFogLightClose;
     }
 
 
     public ControlRod controlRodForward;
-    public ControlRod controlRodNormal;
-    public ControlRod controlRodBackward;
+    public ControlRod controlRodBackward1;
+    public ControlRod controlRodBackward2;
 
     public override bool FrontFogSwitch
     {

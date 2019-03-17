@@ -588,6 +588,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMain: 1
+  btnList:
+  - carType: 1
+    carVersion: 1
+    btnEnter: {fileID: 114769294084218306}
+  - carType: 1
+    carVersion: 2
+    btnEnter: {fileID: 114430647285196646}
+  - carType: 2
+    carVersion: 1
+    btnEnter: {fileID: 114930038522495540}
+  - carType: 2
+    carVersion: 2
+    btnEnter: {fileID: 114112870470818886}
+  - carType: 3
+    carVersion: 1
+    btnEnter: {fileID: 114350891258103076}
+  - carType: 3
+    carVersion: 2
+    btnEnter: {fileID: 114016492139236194}
+  - carType: 4
+    carVersion: 1
+    btnEnter: {fileID: 114599486634830672}
+  - carType: 4
+    carVersion: 2
+    btnEnter: {fileID: 114484224480215016}
   btnJieda_Old: {fileID: 114769294084218306}
   btnAilishe_Old: {fileID: 114930038522495540}
   btnJieda_New: {fileID: 114430647285196646}

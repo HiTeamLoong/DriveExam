@@ -45,46 +45,45 @@ public class TimeEventMgr:Singleton<TimeEventMgr>
         if (Time.realtimeSinceStartup - startTime >= 1.0f)
         {
             int count = serverList.Count;
-            try
+            for (int i = (count - 1); i >= 0; i--)
             {
-                for (int i = (count - 1); i >= 0; i--)
+                try
                 {
                     serverList[i].UpdateTime(Time.realtimeSinceStartup - startTime);
                 }
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogError("..............." + ex.Message);
+                catch (System.Exception ex)
+                {
+                    Debug.LogError("..............." + ex.Message);
+                }
             }
             count = clientList.Count;
-            try
+            for (int i = (count - 1); i >= 0; i--)
             {
-                for (int i = (count - 1); i >= 0; i--)
+                try
                 {
                     clientList[i].UpdateTime(Time.realtimeSinceStartup - startTime);
                 }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError("..............." + ex.Message);
+                }
             }
-            catch (System.Exception ex)
-            {
-                Debug.LogError( "..............." + ex.Message);
-            }
-
 
             startTime = Time.realtimeSinceStartup;
         }
     }
     public void UpdateTime(float interval)
     {
-        try
+        for (int i = normalList.Count - 1; i >= 0; i--)
         {
-            for (int i = normalList.Count-1; i >=0; i--)
+            try
             {
                 normalList[i].UpdateTime(interval);
             }
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError("及时更新异常"+ex.Message);
+            catch (System.Exception ex)
+            {
+                Debug.LogError("及时更新异常" + ex.Message);
+            }
         }
     }
 
@@ -229,13 +228,19 @@ public class NormalTimeEventWrap:TimeEventWrap
         lifeTime -= interval;
         for (int i = 0; i < updateList.Count; i++)
         {
-            updateList[i](lifeTime,totalTime);
+            if (updateList[i] != null)
+            {
+                updateList[i](lifeTime, totalTime);
+            }
         }
         if (lifeTime <= 0.0f)
         {
-            for (int i = 0; i <finishList.Count; i++)
+            for (int i = 0; i < finishList.Count; i++)
             {
-                finishList[i]();
+                if (finishList[i] != null)
+                {
+                    finishList[i]();
+                }
             }
             TimeEventMgr.Instance.remove(this);
         }

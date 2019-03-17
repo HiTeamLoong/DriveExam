@@ -14,7 +14,7 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
     public void SwitchToExam(Callback callback = null)
     {
         AuthorizeData auth = ConfigDataMgr.instance.authorizeData;
-        if (!auth.authorize||auth.authExpire)
+        if (!auth.authorize || auth.authExpire)
         {
             UITipsDialog.ShowTips("软件未授权或授权到期");
             return;
@@ -34,7 +34,7 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
                     UIManager.Instance.OpenUI<UIExamWindowBenTengB30>();
                     break;
                 case CarType.AiLiShe2015:
-                    //TODO --添加新款爱丽舍车型
+                    UIManager.Instance.OpenUI<UIExamWindowAiLiShe2015>();
                     break;
             }
             if (callback != null)
@@ -47,23 +47,16 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
         {
             UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
             AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
-
             uiLoadingWindow.InitWith(async, LoadFinish, true);
         }
         else
         {
-            UIWaitDialog uIWait = UIManager.Instance.OpenUI<UIWaitDialog>();
-            ResourcesMgr.Instance.DownLoadAudioResource(ConfigDataMgr.Instance.gameConfig, (result, prog) =>
-            {
-                if (result && prog >= 1.0f)
-                {
-                    UIManager.Instance.CloseUI(uIWait);
-                    SceneManager.LoadScene(ExamScene);
-                    LoadFinish();
-                }
-            });
+            UILoadingDialog uiLoadingDialog = UIManager.Instance.OpenUI<UILoadingDialog>();
+            AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
+            uiLoadingDialog.InitWith(async, LoadFinish, true);
         }
     }
+
     /// <summary>
     /// 进入主场景
     /// </summary>
@@ -86,6 +79,8 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
         else
         {
             SceneManager.LoadScene(MainScene);
+
+            UIManager.Instance.OpenUI<UIMainWindow>();
             if (callback != null)
             {
                 callback();

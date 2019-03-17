@@ -5,18 +5,14 @@ using UnityEngine.UI;
 
 public class UIMainWindow : UIWindow
 {
-
+    [System.Serializable]
     public class BtnCarType{
-        public Button btnEnter;
         public CarType carType;
         public CarVersion carVersion;
+        public Button btnEnter;
     }
 
-    public Button btnJieda_Old;
-    public Button btnAilishe_Old;
-
-    public Button btnJieda_New;
-    public Button btnAilishe_New;
+    public List<BtnCarType> btnList = new List<BtnCarType>();
 
     public Button btnJump;
     public Button btnShare;
@@ -24,20 +20,38 @@ public class UIMainWindow : UIWindow
     public Button btnFlow;
 
 
+
+
     public override void OnCreate()
     {
         base.OnCreate();
-
-        btnJieda_Old.onClick.AddListener(OnClickJiedaOld);
-        btnAilishe_Old.onClick.AddListener(OnClickAilisheOld);
-
-        btnJieda_New.onClick.AddListener(OnClickJiedaNew);
-        btnAilishe_New.onClick.AddListener(OnClickAilisheNew);
 
         btnJump.onClick.AddListener(OnClickJump);
         btnShare.onClick.AddListener(OnClickShare);
         btnVow.onClick.AddListener(OnClickVow);
         btnFlow.onClick.AddListener(OnClickFlow);
+
+
+        List<string> types = new List<string> { CarType.DaZhong.ToString(), CarType.AiLiShe.ToString(), CarType.BenTengB30.ToString(),CarType.AiLiShe2015.ToString() };
+        for (int i = 0; i < btnList.Count; i++)
+        {
+            var btnEnter = btnList[i];
+
+            if (!types.Contains(btnEnter.carType.ToString()))
+            {
+                btnEnter.btnEnter.gameObject.SetActive(false);
+            }
+            else
+            {
+                btnEnter.btnEnter.onClick.AddListener(() =>
+                {
+                    GameDataMgr.Instance.carType = btnEnter.carType;
+                    GameDataMgr.Instance.carVersion = btnEnter.carVersion;
+                    ShowDetailWindow();
+                });
+            }
+        }
+
     }
 
     /// <summary>
@@ -63,35 +77,6 @@ public class UIMainWindow : UIWindow
         {
             SwitchSceneMgr.Instance.SwitchToExam();
         }
-    }
-
-    void OnClickJiedaOld(){
-        GameDataMgr.Instance.carType = CarType.DaZhong;
-        GameDataMgr.Instance.carVersion = CarVersion.OLD;
-        ShowDetailWindow();
-    }
-    void OnClickAilisheOld(){
-        GameDataMgr.Instance.carType = CarType.AiLiShe;
-        GameDataMgr.Instance.carVersion = CarVersion.OLD;
-        ShowDetailWindow();
-    }
-    /// <summary>
-    /// Ons the click jieda.
-    /// </summary>
-    void OnClickJiedaNew()
-    {
-        GameDataMgr.Instance.carType = CarType.DaZhong;
-        GameDataMgr.Instance.carVersion = CarVersion.NEW;
-        ShowDetailWindow();
-    }
-    /// <summary>
-    /// Ons the click ailishe.
-    /// </summary>
-    void OnClickAilisheNew()
-    {
-        GameDataMgr.Instance.carType = CarType.AiLiShe;
-        GameDataMgr.Instance.carVersion = CarVersion.NEW;
-        ShowDetailWindow();
     }
 
     /// <summary>
