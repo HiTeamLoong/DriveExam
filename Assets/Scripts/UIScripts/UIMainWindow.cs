@@ -32,28 +32,28 @@ public class UIMainWindow : UIWindow
         btnShare.onClick.AddListener(OnClickShare);
         btnVow.onClick.AddListener(OnClickVow);
         btnFlow.onClick.AddListener(OnClickFlow);
-#if CHAPTER_ONE
-        List<string> types = new List<string> { CarType.DaZhong.ToString(), CarType.AiLiShe.ToString(), CarType.BenTengB30.ToString(),CarType.AiLiShe2015.ToString() };
-        for (int i = 0; i < btnList.Count; i++)
-        {
-            var btnEnter = btnList[i];
+//#if CHAPTER_ONE
+//        List<string> types = new List<string> { CarType.DaZhong.ToString(), CarType.AiLiShe.ToString(), CarType.BenTengB30.ToString(),CarType.AiLiShe2015.ToString() };
+//        for (int i = 0; i < btnList.Count; i++)
+//        {
+//            var btnEnter = btnList[i];
 
-            if (!types.Contains(btnEnter.carType.ToString()))
-            {
-                btnEnter.btnEnter.gameObject.SetActive(false);
-            }
-            else
-            {
-                btnEnter.btnEnter.gameObject.SetActive(true);
-                btnEnter.btnEnter.onClick.AddListener(() =>
-                {
-                    GameDataMgr.Instance.carType = btnEnter.carType;
-                    GameDataMgr.Instance.carVersion = btnEnter.carVersion;
-                    ShowDetailWindow();
-                });
-            }
-        }
-#elif CHAPTER_TWO
+//            if (!types.Contains(btnEnter.carType.ToString()))
+//            {
+//                btnEnter.btnEnter.gameObject.SetActive(false);
+//            }
+//            else
+//            {
+//                btnEnter.btnEnter.gameObject.SetActive(true);
+//                btnEnter.btnEnter.onClick.AddListener(() =>
+//                {
+//                    GameDataMgr.Instance.carType = btnEnter.carType;
+//                    GameDataMgr.Instance.carVersion = btnEnter.carVersion;
+//                    ShowDetailWindow();
+//                });
+//            }
+//        }
+//#elif CHAPTER_TWO
         CarTypeData[] cartypes = GameDataMgr.Instance.ResponseCarType.carType;
         GameObject prefab = ResourcesMgr.Instance.LoadUIPrefab("CarTypeItem");
         for (int i = 0; i < cartypes.Length; i++)
@@ -62,7 +62,7 @@ public class UIMainWindow : UIWindow
             CarTypeItem carType = go.GetComponent<CarTypeItem>();
             carType.InitWith(cartypes[i], OnClickCarType);
         }
-#endif
+//#endif
     }
 
     void OnClickCarType(CarTypeData typeData)
@@ -86,17 +86,17 @@ public class UIMainWindow : UIWindow
     /// </summary>
     void ShowDetailWindow()
     {
-#if CHAPTER_ONE
-        List<VideoData> videoDatas = ConfigDataMgr.Instance.GetVideoList(GameDataMgr.Instance.carType);
-        if (videoDatas.Count > 0)
-        {
-            UIDetailWindow uiDetailWindow = UIManager.Instance.OpenUI<UIDetailWindow>();
-        }
-        else
-        {
-            SwitchSceneMgr.Instance.SwitchToExam();
-        }
-#elif CHAPTER_TWO
+//#if CHAPTER_ONE
+//        List<VideoData> videoDatas = ConfigDataMgr.Instance.GetVideoList(GameDataMgr.Instance.carType);
+//        if (videoDatas.Count > 0)
+//        {
+//            UIDetailWindow uiDetailWindow = UIManager.Instance.OpenUI<UIDetailWindow>();
+//        }
+//        else
+//        {
+//            SwitchSceneMgr.Instance.SwitchToExam();
+//        }
+//#elif CHAPTER_TWO
         if (GameDataMgr.Instance.carInfo.listvideo.Count>0)
         {
             UIDetailWindow uiDetailWindow = UIManager.Instance.OpenUI<UIDetailWindow>();
@@ -105,7 +105,7 @@ public class UIMainWindow : UIWindow
         {
             SwitchSceneMgr.Instance.SwitchToExam();
         }
-#endif
+//#endif
     }
 
     /// <summary>

@@ -81,12 +81,12 @@ public class UILoginWindow : UIWindow
         {
 
             GameDataMgr.Instance.ResponseLogin = result;
-#if CHAPTER_ONE
-            SwitchSceneMgr.Instance.SwitchToMain(false, () =>
-            {
-                UIManager.Instance.OpenUI<UIMainWindow>();
-            });
-#elif CHAPTER_TWO
+//#if CHAPTER_ONE
+//            SwitchSceneMgr.Instance.SwitchToMain(false, () =>
+//            {
+//                UIManager.Instance.OpenUI<UIMainWindow>();
+//            });
+//#elif CHAPTER_TWO
             RequestCarType param = new RequestCarType
             {
                 loginAccount = result.loginAccount
@@ -99,7 +99,7 @@ public class UILoginWindow : UIWindow
                     UIManager.Instance.OpenUI<UIMainWindow>();
                 });
             });
-#endif
+//#endif
         }
     }
     //void OnClickLogin()

@@ -36,17 +36,17 @@ public class UpdateManager : MonoBehaviour
 
         uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
         uiLoginWindow.SetState("正在检查账号...");
-#if CHAPTER_ONE
-        //没网跳过检测版本
-        if (ConfigDataMgr.Instance.gameConfig == null || Application.internetReachability != NetworkReachability.NotReachable)
-        {
-            CheckConfigUpdate();
-        }
-        else
-        {
-            CheckLoginState();
-        }
-#elif CHAPTER_TWO
+//#if CHAPTER_ONE
+//        //没网跳过检测版本
+//        if (ConfigDataMgr.Instance.gameConfig == null || Application.internetReachability != NetworkReachability.NotReachable)
+//        {
+//            CheckConfigUpdate();
+//        }
+//        else
+//        {
+//            CheckLoginState();
+//        }
+//#elif CHAPTER_TWO
         //if (Application.internetReachability != NetworkReachability.NotReachable)
         //{
         //    CheckLoginState();
@@ -62,24 +62,24 @@ public class UpdateManager : MonoBehaviour
         //    });
         //}
         UINetworkDialog.CheckNetwork(CheckLoginState);
-#endif
+//#endif
     }
 
     void CheckLoginState()
     {
-#if CHAPTER_ONE
-        if (GameDataMgr.Instance.ResponseLogin != null)
-        {
-            //看是否更新数据进行网络交互
-            UIManager.Instance.OpenUI<UIMainWindow>();
-        }
-        else
-        {
+//#if CHAPTER_ONE
+//        if (GameDataMgr.Instance.ResponseLogin != null)
+//        {
+//            //看是否更新数据进行网络交互
+//            UIManager.Instance.OpenUI<UIMainWindow>();
+//        }
+//        else
+//        {
+//            uiLoginWindow.SetLoginList();
+//        }
+//#elif CHAPTER_TWO
             uiLoginWindow.SetLoginList();
-        }
-#elif CHAPTER_TWO
-            uiLoginWindow.SetLoginList();
-#endif
+//#endif
     }
 
     /// <summary>

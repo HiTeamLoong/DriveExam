@@ -19,11 +19,11 @@ public class UILoadingDialog : UIWaitDialog
         if (checkRes)
         {
             downloadProg = 0f;
-#if CHAPTER_ONE
-            ResourcesMgr.Instance.DownLoadAudioResource(ConfigDataMgr.Instance.gameConfig, DownLoadCallback);
-#elif CHAPTER_TWO
+//#if CHAPTER_ONE
+//            ResourcesMgr.Instance.DownLoadAudioResource(ConfigDataMgr.Instance.gameConfig, DownLoadCallback);
+//#elif CHAPTER_TWO
             ResourcesMgr.Instance.DownLoadAudioResource(GameDataMgr.Instance.carInfo, DownLoadCallback);
-#endif
+//#endif
         }
     }
 

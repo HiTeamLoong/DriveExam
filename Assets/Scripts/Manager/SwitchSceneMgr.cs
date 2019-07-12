@@ -19,43 +19,43 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
             UITipsDialog.ShowTips("软件未授权或授权到期");
             return;
         }
-#if CHAPTER_ONE
-        Callback LoadFinish = () =>
-        {
-            switch (GameDataMgr.instance.carType)
-            {
-                case CarType.DaZhong:
-                    UIManager.Instance.OpenUI<UIExamWindowDaZhong>();
-                    break;
-                case CarType.AiLiShe:
-                    UIManager.Instance.OpenUI<UIExamWindowAiLiShe>();
-                    break;
-                case CarType.BenTengB30:
-                    UIManager.Instance.OpenUI<UIExamWindowBenTengB30>();
-                    break;
-                case CarType.AiLiShe2015:
-                    UIManager.Instance.OpenUI<UIExamWindowAiLiShe2015>();
-                    break;
-            }
-            if (callback != null)
-            {
-                callback();
-            }
-        };
+//#if CHAPTER_ONE
+//        Callback LoadFinish = () =>
+//        {
+//            switch (GameDataMgr.instance.carType)
+//            {
+//                case CarType.DaZhong:
+//                    UIManager.Instance.OpenUI<UIExamWindowDaZhong>();
+//                    break;
+//                case CarType.AiLiShe:
+//                    UIManager.Instance.OpenUI<UIExamWindowAiLiShe>();
+//                    break;
+//                case CarType.BenTengB30:
+//                    UIManager.Instance.OpenUI<UIExamWindowBenTengB30>();
+//                    break;
+//                case CarType.AiLiShe2015:
+//                    UIManager.Instance.OpenUI<UIExamWindowAiLiShe2015>();
+//                    break;
+//            }
+//            if (callback != null)
+//            {
+//                callback();
+//            }
+//        };
 
-        if (!ConfigDataMgr.instance.gameConfig.ios_audit)
-        {
-            UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
-            AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
-            uiLoadingWindow.InitWith(async, LoadFinish, true);
-        }
-        else
-        {
-            UILoadingDialog uiLoadingDialog = UIManager.Instance.OpenUI<UILoadingDialog>();
-            AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
-            uiLoadingDialog.InitWith(async, LoadFinish, true);
-        }
-#elif CHAPTER_TWO
+//        if (!ConfigDataMgr.instance.gameConfig.ios_audit)
+//        {
+//            UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
+//            AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
+//            uiLoadingWindow.InitWith(async, LoadFinish, true);
+//        }
+//        else
+//        {
+//            UILoadingDialog uiLoadingDialog = UIManager.Instance.OpenUI<UILoadingDialog>();
+//            AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
+//            uiLoadingDialog.InitWith(async, LoadFinish, true);
+//        }
+//#elif CHAPTER_TWO
         Callback LoadFinish = () =>
         {
             switch ((CarUID)GameDataMgr.Instance.carTypeData.uid)
@@ -86,7 +86,7 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
         UILoadingDialog uiLoadingDialog = UIManager.Instance.OpenUI<UILoadingDialog>();
         AsyncOperation async = SceneManager.LoadSceneAsync(ExamScene);
         uiLoadingDialog.InitWith(async, LoadFinish, true);
-#endif
+//#endif
     }
 
     /// <summary>
@@ -94,11 +94,11 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
     /// </summary>
     public void SwitchToMain(bool loading = true, Callback callback = null)
     {
-#if CHAPTER_ONE
-        if (loading && !ConfigDataMgr.instance.gameConfig.ios_audit)
-#elif CHAPTER_TWO
+//#if CHAPTER_ONE
+//        if (loading && !ConfigDataMgr.instance.gameConfig.ios_audit)
+//#elif CHAPTER_TWO
         if (loading)
-#endif
+//#endif
         {
             UILoadingWindow uiLoadingWindow = UIManager.Instance.OpenUI<UILoadingWindow>();
             AsyncOperation async = SceneManager.LoadSceneAsync(MainScene);

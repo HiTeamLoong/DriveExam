@@ -115,7 +115,7 @@ private_lane :do_copy_asset do |options|
     teamcity_artifact(log_path("#{method}#{@platform}"))
 end
 ##########################################################
-#
+#根据平台导出项目工程
 private_lane :do_export do |options|
     export = (options[:export] || :Nothing).to_sym
     next if export == :Skip

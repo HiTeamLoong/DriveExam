@@ -17,25 +17,25 @@ public class UIExamTipsDialog : UIDialog
 
         GameObject helpPrefab = null;
 
-#if CHAPTER_ONE
-        switch (GameDataMgr.Instance.carType)
-        {
-            case CarType.DaZhong:
-                helpPrefab = help_Dazhong;
-                break;
-            case CarType.AiLiShe:
-                helpPrefab = help_Ailishe;
-                break;
-            case CarType.AiLiShe2015:
-                helpPrefab = help_Ailishe2015;
-                break;
-            case CarType.BenTengB30:
-                helpPrefab = help_BentengB30;
-                break;
-            default:
-                break;
-        }
-#elif CHAPTER_TWO 
+//#if CHAPTER_ONE
+//        switch (GameDataMgr.Instance.carType)
+//        {
+//            case CarType.DaZhong:
+//                helpPrefab = help_Dazhong;
+//                break;
+//            case CarType.AiLiShe:
+//                helpPrefab = help_Ailishe;
+//                break;
+//            case CarType.AiLiShe2015:
+//                helpPrefab = help_Ailishe2015;
+//                break;
+//            case CarType.BenTengB30:
+//                helpPrefab = help_BentengB30;
+//                break;
+//            default:
+//                break;
+//        }
+//#elif CHAPTER_TWO 
         switch ((CarUID)GameDataMgr.Instance.carTypeData.uid)
         {
             case CarUID.SangTaNa_Old:
@@ -55,7 +55,7 @@ public class UIExamTipsDialog : UIDialog
                 helpPrefab = help_Ailishe2015;
                 break;
         }
-#endif
+//#endif
         if (helpPrefab != null)
         {
             GameObject help = Instantiate(helpPrefab, transform);
