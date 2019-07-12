@@ -17,31 +17,33 @@ platform :android do
     end
     ############################################
     #
-    desc 'GenerateGameVersion from svn version'
-    lane :update_version do |options|
-        do_update_version(options)
-    end
+    # desc 'GenerateGameVersion from svn version'
+    # lane :update_version do |options|
+    #     do_update_version(options)
+    # end
     ############################################
     #
-    desc 'Generate Game Resources'
-    lane :generate_asset do |options|
-        do_generate_asset(options)
-    end
+    # desc 'Generate Game Resources'
+    # lane :generate_asset do |options|
+    #     do_generate_asset(options)
+    # end
     #############################################
     #
-    desc 'Copy asset bundles Game Resources'
-    lane :copy_asset do |options|
-        do_copy_asset(options)
-    end
-    #############################################
-    #
-    lane :export do |options|
-        do_export(options)
-    end
+    # desc 'Copy asset bundles Game Resources'
+    # lane :copy_asset do |options|
+    #     do_copy_asset(options)
+    # end
     #############################################
     #
     lane :switch_platform do |options|
         do_switch_platform(options)
+    end
+
+    #############################################
+    #
+    lane :export do |options|
+        UI.important "export project start ………………………………………………"
+        do_export(options)
     end
     ##########################################################
     #
@@ -53,26 +55,26 @@ platform :android do
     end
     #############################################
     #
-    lane :teamcity_export_parameter do
-        teamcity_export_parameter
-    end
+    # lane :teamcity_export_parameter do
+    #     teamcity_export_parameter
+    # end
     #############################################
     #
-    lane :teamcity_artifacts do
-        artifacts = [
-            "Build/Output/Android/Build-#{build_version}/loveworld/build/outputs/apk/release/loveworld-release.apk",
-            "Build/Output/Android/Build-#{build_version}/loveworld/build/outputs/apk/release/output.json",
-            "Build/Output/Android/Build-#{build_version}/*.log",
-            "Build/Output/Android/Build-#{build_version}/loveworld => loveworld",
-            "Build/Output/Android/Build-#{build_version}/index.html",
-            'Build/Template/Android/jquery.qrcode.min.js',
-            'Build/Template/Android/jquery-3.2.1.slim.min.js',
-            "AssetBundles/#{@platform} => AssetBundles/#{@platform}",
-            # "AssetBundles/Output/#{@platform} => AssetBundles/Output/#{@platform}",
-            "Config/#{@platform}/#{build_number} => Config/#{@platform}/#{build_number}"
-        ]
-        artifacts.each { |x| sh("echo \"##teamcity[publishArtifacts '#{x}']\"") }
-    end
+    # lane :teamcity_artifacts do
+    #     artifacts = [
+    #         "Build/Output/Android/Build-#{build_version}/loveworld/build/outputs/apk/release/loveworld-release.apk",
+    #         "Build/Output/Android/Build-#{build_version}/loveworld/build/outputs/apk/release/output.json",
+    #         "Build/Output/Android/Build-#{build_version}/*.log",
+    #         "Build/Output/Android/Build-#{build_version}/loveworld => loveworld",
+    #         "Build/Output/Android/Build-#{build_version}/index.html",
+    #         'Build/Template/Android/jquery.qrcode.min.js',
+    #         'Build/Template/Android/jquery-3.2.1.slim.min.js',
+    #         "AssetBundles/#{@platform} => AssetBundles/#{@platform}",
+    #         # "AssetBundles/Output/#{@platform} => AssetBundles/Output/#{@platform}",
+    #         "Config/#{@platform}/#{build_number} => Config/#{@platform}/#{build_number}"
+    #     ]
+    #     artifacts.each { |x| sh("echo \"##teamcity[publishArtifacts '#{x}']\"") }
+    # end
     #############################################
     #
     lane :assemble do |options|
@@ -109,25 +111,25 @@ platform :android do
     end
     ##########################################################
     #
-    lane :upload_assets do |options|
-        do_upload_assets(options)
-    end
+    # lane :upload_assets do |options|
+    #     do_upload_assets(options)
+    # end
     ##########################################################
     #
-    lane :upload_bugly do |options|
-        bugly = (options[:bugly] || :Nothing).to_sym
-        next if bugly == :Skip
+    # lane :upload_bugly do |options|
+    #     bugly = (options[:bugly] || :Nothing).to_sym
+    #     next if bugly == :Skip
 
-        sh("
-            java -jar ./../Tools/buglySymbolAndroid2.6.3/buglySymbolAndroid.jar\
-             -i #{build_path}\
-             -u\
-             -id #{ENV['BUGLY_ID']}\
-             -key #{ENV['BUGLY_KEY']}\
-             -package #{app_identifier}\
-             -version #{build_version}
-        ")
-    end
+    #     sh("
+    #         java -jar ./../Tools/buglySymbolAndroid2.6.3/buglySymbolAndroid.jar\
+    #          -i #{build_path}\
+    #          -u\
+    #          -id #{ENV['BUGLY_ID']}\
+    #          -key #{ENV['BUGLY_KEY']}\
+    #          -package #{app_identifier}\
+    #          -version #{build_version}
+    #     ")
+    # end
     ##########################################################
     #
     lane :manifest do |options|
@@ -182,49 +184,49 @@ platform :android do
     end
     ##########################################################
     #
-    desc 'lane for fork'
-    lane :fork do |options|
-        options[:collection] = options[:collection] || :GenerateAll
-        options[:streaming] = options[:streaming] || :StreamingSystem
-        options[:version] = options[:version] || :Commit
+    # desc 'lane for fork'
+    # lane :fork do |options|
+    #     options[:collection] = options[:collection] || :GenerateAll
+    #     options[:streaming] = options[:streaming] || :StreamingSystem
+    #     options[:version] = options[:version] || :Commit
 
-        info(options)
-        # https://stackoverflow.com/questions/4689592/how-to-run-multiple-external-commands-in-the-background-in-ruby?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-        fork { info(options) }
-        fork { info(options) }
-        fork { info(options) }
+    #     info(options)
+    #     # https://stackoverflow.com/questions/4689592/how-to-run-multiple-external-commands-in-the-background-in-ruby?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    #     fork { info(options) }
+    #     fork { info(options) }
+    #     fork { info(options) }
 
-        puts Process.waitall
-    end
+    #     puts Process.waitall
+    # end
     ##########################################################
     #
-    desc 'lane for teamcity'
-    lane :teamcity do |options|
-        options[:collection] = options[:collection] || :GenerateAll
-        options[:streaming] = options[:streaming] || :StreamingSystem
-        options[:version] = options[:version] || :Commit
+    # desc 'lane for teamcity'
+    # lane :teamcity do |options|
+    #     options[:collection] = options[:collection] || :GenerateAll
+    #     options[:streaming] = options[:streaming] || :StreamingSystem
+    #     options[:version] = options[:version] || :Commit
 
-        info(options)
-        next if update_version(options) == :VersionChanged
-        generate_asset(options)
-        copy_asset(options)
-        export(options)
-        # icon(options)
-        assemble(options)
-        teamcity_export_parameter
-        manifest(options)
-        # upload_assets(options)
-        # upload_bugly(options)
-        # teamcity_artifacts
+    #     info(options)
+    #     next if update_version(options) == :VersionChanged
+    #     generate_asset(options)
+    #     copy_asset(options)
+    #     export(options)
+    #     # icon(options)
+    #     assemble(options)
+    #     teamcity_export_parameter
+    #     manifest(options)
+    #     # upload_assets(options)
+    #     # upload_bugly(options)
+    #     # teamcity_artifacts
 
-        fork { upload_assets(options) }
-        fork { upload_bugly(options) }
-        fork { teamcity_artifacts }
+    #     fork { upload_assets(options) }
+    #     fork { upload_bugly(options) }
+    #     fork { teamcity_artifacts }
 
-        puts Process.waitall
+    #     puts Process.waitall
 
-        do_cleanup(options)
-    end
+    #     do_cleanup(options)
+    # end
     ##########################################################
     #
     after_all do |lane|

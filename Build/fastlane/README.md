@@ -34,21 +34,6 @@ fastlane upload_hockey
 fastlane ios info
 ```
 
-### ios update_version
-```
-fastlane ios update_version
-```
-GenerateGameVersion from svn version
-### ios generate_asset
-```
-fastlane ios generate_asset
-```
-Generate Game Resources
-### ios copy_asset
-```
-fastlane ios copy_asset
-```
-Copy asset bundles Game Resources
 ### ios export
 ```
 fastlane ios export
@@ -62,16 +47,6 @@ fastlane ios switch_platform
 ### ios icon
 ```
 fastlane ios icon
-```
-
-### ios teamcity_export_parameter
-```
-fastlane ios teamcity_export_parameter
-```
-
-### ios teamcity_artifacts
-```
-fastlane ios teamcity_artifacts
 ```
 
 ### ios entitlements
@@ -112,16 +87,6 @@ fastlane ios update_provisioning
 ### ios assemble
 ```
 fastlane ios assemble
-```
-
-### ios assemble_source
-```
-fastlane ios assemble_source
-```
-
-### ios upload_assets
-```
-fastlane ios upload_assets
 ```
 
 ### ios upload_testflight
@@ -168,29 +133,14 @@ lane for teamcity
 fastlane android info
 ```
 
-### android update_version
-```
-fastlane android update_version
-```
-GenerateGameVersion from svn version
-### android generate_asset
-```
-fastlane android generate_asset
-```
-Generate Game Resources
-### android copy_asset
-```
-fastlane android copy_asset
-```
-Copy asset bundles Game Resources
-### android export
-```
-fastlane android export
-```
-
 ### android switch_platform
 ```
 fastlane android switch_platform
+```
+
+### android export
+```
+fastlane android export
 ```
 
 ### android icon
@@ -198,29 +148,9 @@ fastlane android switch_platform
 fastlane android icon
 ```
 
-### android teamcity_export_parameter
-```
-fastlane android teamcity_export_parameter
-```
-
-### android teamcity_artifacts
-```
-fastlane android teamcity_artifacts
-```
-
 ### android assemble
 ```
 fastlane android assemble
-```
-
-### android upload_assets
-```
-fastlane android upload_assets
-```
-
-### android upload_bugly
-```
-fastlane android upload_bugly
 ```
 
 ### android manifest
@@ -243,104 +173,6 @@ Submit a new Beta Build
 fastlane android ex_project
 ```
 
-### android fork
-```
-fastlane android fork
-```
-lane for fork
-### android teamcity
-```
-fastlane android teamcity
-```
-lane for teamcity
-
-----
-
-## Mac
-### mac info
-```
-fastlane mac info
-```
-
-### mac update_version
-```
-fastlane mac update_version
-```
-GenerateGameVersion from svn version
-### mac generate_asset
-```
-fastlane mac generate_asset
-```
-Generate Game Resources
-### mac upload_assets
-```
-fastlane mac upload_assets
-```
-
-### mac teamcity_export_parameter
-```
-fastlane mac teamcity_export_parameter
-```
-
-### mac teamcity_artifacts
-```
-fastlane mac teamcity_artifacts
-```
-
-### mac beta
-```
-fastlane mac beta
-```
-build for develop
-### mac teamcity
-```
-fastlane mac teamcity
-```
-lane for teamcity
-
-----
-
-## windows
-### windows info
-```
-fastlane windows info
-```
-
-### windows update_version
-```
-fastlane windows update_version
-```
-GenerateGameVersion from svn version
-### windows generate_asset
-```
-fastlane windows generate_asset
-```
-Generate Game Resources
-### windows upload_assets
-```
-fastlane windows upload_assets
-```
-
-### windows teamcity_export_parameter
-```
-fastlane windows teamcity_export_parameter
-```
-
-### windows teamcity_artifacts
-```
-fastlane windows teamcity_artifacts
-```
-
-### windows beta
-```
-fastlane windows beta
-```
-build for develop
-### windows teamcity
-```
-fastlane windows teamcity
-```
-lane for teamcity
 
 ----
 

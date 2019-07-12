@@ -5,32 +5,57 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.002302">
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.010628">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: add_extra_platforms" time="0.002329">
+      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.00329">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: default_platform" time="0.001842">
+      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.002111">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: Switch to android do_export lane" time="0.010541">
+      <testcase classname="fastlane.lanes" name="03: Switch to android info lane" time="0.002279">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: Switch to android do_set_package_setting lane" time="0.002094">
+      <testcase classname="fastlane.lanes" name="04: Switch to android switch_platform lane" time="0.002357">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: unity" time="18.313177">
+      <testcase classname="fastlane.lanes" name="05: Switch to android do_switch_platform lane" time="0.002242">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: unity" time="13.307491">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: Switch to android export lane" time="0.002433">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: Switch to android do_export lane" time="0.002425">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: Switch to android do_set_package_setting lane" time="0.002258">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: unity" time="15.32008">
         
       </testcase>
     

@@ -250,8 +250,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 1
   androidSplashScreen: {fileID: 2800000, guid: 5b68cdb67b8a04e2da3d9a7702f9905a, type: 3}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: Build/Keys/light_exam.keystore
+  AndroidKeyaliasName: lightexam
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   AndroidEnableTango: 0

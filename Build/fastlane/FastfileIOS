@@ -14,22 +14,22 @@ platform :ios do
     end
     ##########################################################
     #
-    desc 'GenerateGameVersion from svn version'
-    lane :update_version do |options|
-        do_update_version(options)
-    end
+    # desc 'GenerateGameVersion from svn version'
+    # lane :update_version do |options|
+    #     do_update_version(options)
+    # end
     ############################################
     #
-    desc 'Generate Game Resources'
-    lane :generate_asset do |options|
-        do_generate_asset(options)
-    end
+    # desc 'Generate Game Resources'
+    # lane :generate_asset do |options|
+    #     do_generate_asset(options)
+    # end
     #############################################
     #
-    desc 'Copy asset bundles Game Resources'
-    lane :copy_asset do |options|
-        do_copy_asset(options)
-    end
+    # desc 'Copy asset bundles Game Resources'
+    # lane :copy_asset do |options|
+    #     do_copy_asset(options)
+    # end
     #############################################
     #
     lane :export do |options|
@@ -50,25 +50,25 @@ platform :ios do
     end
     #############################################
     #
-    lane :teamcity_export_parameter do
-        teamcity_export_parameter
-    end
+    # lane :teamcity_export_parameter do
+    #     teamcity_export_parameter
+    # end
     #############################################
     #
-    lane :teamcity_artifacts do
-        artifacts = [
-            "Build/Output/iOS/Build-#{build_version}/loveworld => loveworld",
-            "Build/Output/iOS/Build-#{build_version}/*.log",
-            "Build/Output/iOS/Build-#{build_version}/index.html",
-            "Build/Output/iOS/Build-#{build_version}/loveworld/cn.lemongrassmedia.loveworld.*",
-            'Build/Template/iOS/jquery.qrcode.min.js',
-            'Build/Template/iOS/jquery-3.2.1.slim.min.js',
-            "AssetBundles/#{@platform} => AssetBundles/#{@platform}",
-            # "AssetBundles/Output/#{@platform} => AssetBundles/Output/#{@platform}",
-            "Config/#{@platform}/#{build_number} => Config/#{@platform}/#{build_number}"
-        ]
-        artifacts.each { |x| sh("echo \"##teamcity[publishArtifacts '#{x}']\"") }
-    end
+    # lane :teamcity_artifacts do
+    #     artifacts = [
+    #         "Build/Output/iOS/Build-#{build_version}/loveworld => loveworld",
+    #         "Build/Output/iOS/Build-#{build_version}/*.log",
+    #         "Build/Output/iOS/Build-#{build_version}/index.html",
+    #         "Build/Output/iOS/Build-#{build_version}/loveworld/cn.lemongrassmedia.loveworld.*",
+    #         'Build/Template/iOS/jquery.qrcode.min.js',
+    #         'Build/Template/iOS/jquery-3.2.1.slim.min.js',
+    #         "AssetBundles/#{@platform} => AssetBundles/#{@platform}",
+    #         # "AssetBundles/Output/#{@platform} => AssetBundles/Output/#{@platform}",
+    #         "Config/#{@platform}/#{build_number} => Config/#{@platform}/#{build_number}"
+    #     ]
+    #     artifacts.each { |x| sh("echo \"##teamcity[publishArtifacts '#{x}']\"") }
+    # end
     ##########################################################
     #
     lane :entitlements do
@@ -193,73 +193,73 @@ platform :ios do
     end
 
 
-    lane :assemble_source do |options|
-        # AdHoc, AppStore
-        match = (options[:match] || :AdHoc).to_sym
+    # lane :assemble_source do |options|
+    #     # AdHoc, AppStore
+    #     match = (options[:match] || :AdHoc).to_sym
 
-        method = match == :AdHoc ? 'AdHoc' : 'AppStore'
+    #     method = match == :AdHoc ? 'AdHoc' : 'AppStore'
 
-        puts "path: #{xcodeproj_path}"
+    #     puts "path: #{xcodeproj_path}"
 
-        automatic_code_signing(
-            path: xcodeproj_path,
-            use_automatic_signing: false
-        )
+    #     automatic_code_signing(
+    #         path: xcodeproj_path,
+    #         use_automatic_signing: false
+    #     )
 
-        certificates(options)
+    #     certificates(options)
 
-        update_project_team(
-            path: xcodeproj_path,
-            teamid: ENV['IOS_TEAM_ID']
-        )
+    #     update_project_team(
+    #         path: xcodeproj_path,
+    #         teamid: ENV['IOS_TEAM_ID']
+    #     )
 
-        update_app_identifier(
-            xcodeproj: xcodeproj_path,
-            plist_path: 'Info.plist',
-            app_identifier: app_identifier
-        )
+    #     update_app_identifier(
+    #         xcodeproj: xcodeproj_path,
+    #         plist_path: 'Info.plist',
+    #         app_identifier: app_identifier
+    #     )
 
-        update_provisioning_profile_specifier(
-            xcodeproj: xcodeproj_path,
-            new_specifier: ENV['IOS_PROVISIONING_PROFILE_SPECIFIER']
-        )
+    #     update_provisioning_profile_specifier(
+    #         xcodeproj: xcodeproj_path,
+    #         new_specifier: ENV['IOS_PROVISIONING_PROFILE_SPECIFIER']
+    #     )
 
-        # entitlements
+    #     # entitlements
 
-        gym(
-            project: xcodeproj_path,
-            archive_path: build_path,
-            scheme: 'Unity-iPhone',
-            clean: true,
-            output_directory: build_path,
-            output_name: ipa_name,
-            xcargs: "CODE_SIGN_IDENTITY=\"#{ENV['IOS_CODE_SIGN_IDENTITY']}\""
-        )
+    #     gym(
+    #         project: xcodeproj_path,
+    #         archive_path: build_path,
+    #         scheme: 'Unity-iPhone',
+    #         clean: true,
+    #         output_directory: build_path,
+    #         output_name: ipa_name,
+    #         xcargs: "CODE_SIGN_IDENTITY=\"#{ENV['IOS_CODE_SIGN_IDENTITY']}\""
+    #     )
 
-        gym_log = "/Users/#{`whoami`.strip}/Library/Logs/gym/AvgMaker-Unity-iPhone.log"
+    #     gym_log = "/Users/#{`whoami`.strip}/Library/Logs/gym/AvgMaker-Unity-iPhone.log"
 
-        `
-        if [ -f #{gym_log} ]; then
-            mv #{gym_log} #{log_path('gym')}
-        fi
-        `
+    #     `
+    #     if [ -f #{gym_log} ]; then
+    #         mv #{gym_log} #{log_path('gym')}
+    #     fi
+    #     `
 
-        teamcity_artifact(log_path('gym'))
+    #     teamcity_artifact(log_path('gym'))
 
-        hash_md5 = `md5 -q #{ipa_path}`.strip
-        hash_sha1 = `shasum #{ipa_path} | cut -f 1 -d " "`.strip
+    #     hash_md5 = `md5 -q #{ipa_path}`.strip
+    #     hash_sha1 = `shasum #{ipa_path} | cut -f 1 -d " "`.strip
 
-        UI.message "
-            #{`stat -l #{ipa_path}`.strip}
-            md5:  #{hash_md5}
-            sha1: #{hash_sha1}
-        "
-    end
+    #     UI.message "
+    #         #{`stat -l #{ipa_path}`.strip}
+    #         md5:  #{hash_md5}
+    #         sha1: #{hash_sha1}
+    #     "
+    # end
     ##########################################################
     #
-    lane :upload_assets do |options|
-        do_upload_assets(options)
-    end
+    # lane :upload_assets do |options|
+    #     do_upload_assets(options)
+    # end
     ##########################################################
     #
     lane :upload_testflight do |options|
