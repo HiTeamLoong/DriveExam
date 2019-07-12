@@ -16,6 +16,8 @@ public class UIExamTipsDialog : UIDialog
         base.OnCreate();
 
         GameObject helpPrefab = null;
+
+#if CHAPTER_ONE
         switch (GameDataMgr.Instance.carType)
         {
             case CarType.DaZhong:
@@ -33,6 +35,27 @@ public class UIExamTipsDialog : UIDialog
             default:
                 break;
         }
+#elif CHAPTER_TWO 
+        switch ((CarUID)GameDataMgr.Instance.carTypeData.uid)
+        {
+            case CarUID.SangTaNa_Old:
+            case CarUID.SangTaNa_New:
+                helpPrefab = help_Dazhong;
+                break;
+            case CarUID.AiLiShe_Old:
+            case CarUID.AiLiShe_New:
+                helpPrefab = help_Ailishe;
+                break;
+            case CarUID.BenTengB30_Old:
+            case CarUID.BenTengB30_New:
+                helpPrefab = help_BentengB30;
+                break;
+            case CarUID.AiLiShe2_Old:
+            case CarUID.AiLiShe2_New:
+                helpPrefab = help_Ailishe2015;
+                break;
+        }
+#endif
         if (helpPrefab != null)
         {
             GameObject help = Instantiate(helpPrefab, transform);
@@ -41,7 +64,8 @@ public class UIExamTipsDialog : UIDialog
         btnClose.onClick.AddListener(OnClickClose);
     }
 
-    void OnClickClose(){
+    void OnClickClose()
+    {
         UIManager.Instance.CloseUI(this);
     }
 }

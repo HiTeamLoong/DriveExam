@@ -198,6 +198,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
                 LeftIndicatorSwitch = true;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
             }
+            OnSwitchChange();
         });
         btnControlClose.onClick.AddListener(() =>
         {
@@ -207,6 +208,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
                 LeftIndicatorSwitch = false;
                 RightIndicatorSwitch = false;
             }
+            OnSwitchChange();
         });
         btnControlRight.onClick.AddListener(() =>
         {
@@ -215,6 +217,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
                 RightIndicatorSwitch = true;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
             }
+            OnSwitchChange();
         });
 
         btsDoubleJump.button.onClick.AddListener(() =>
@@ -228,6 +231,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             {
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect WX02"));
             }
+            OnSwitchChange();
         });
 
         UIEventListener.Get(btsControlBackward1.button.gameObject).onDown += (go) =>
@@ -238,6 +242,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             controlRodBackward1.objRoot.SetActive(true);
             (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprSelect;
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
+            OnSwitchChange();
         };
         UIEventListener.Get(btsControlBackward1.button.gameObject).onUp += (go) =>
         {
@@ -247,6 +252,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             controlRodBackward1.objRoot.SetActive(false);
             (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprNormal;
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+            OnSwitchChange();
         };
 
         UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) =>
@@ -256,6 +262,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             controlRodBackward2.objRoot.SetActive(true);
             (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprSelect;
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
+            OnSwitchChange();
         };
         UIEventListener.Get(btsControlBackward2.button.gameObject).onUp += (go) =>
         {
@@ -264,6 +271,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             controlRodBackward2.objRoot.SetActive(false);
             (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprNormal;
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+            OnSwitchChange();
         };
 
 
@@ -310,6 +318,7 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
                 }
             }
         }
+        OnSwitchChange();
     }
 
 
@@ -370,10 +379,12 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             fogSwitchState = FogSwitchState.Normal;
             controlRodNormal.imgFogLight.sprite = controlRodNormal.sprFogLoghtNormal;
         }
+        //OnSwitchChange();
     }
     private void OnFogLightDragEnd(GameObject go, PointerEventData eventData)
     {
         fogSwitchState = FogSwitchState.Normal;
         controlRodNormal.imgFogLight.sprite = controlRodNormal.sprFogLoghtNormal;
+        OnSwitchChange();
     }
 }

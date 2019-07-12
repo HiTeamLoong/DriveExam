@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class UIMainWindow : UIWindow
 {
     [System.Serializable]
-    public class BtnCarType{
+    public class BtnCarType
+    {
+        public int uid;
         public CarType carType;
         public CarVersion carVersion;
         public Button btnEnter;
@@ -19,7 +21,7 @@ public class UIMainWindow : UIWindow
     public Button btnVow;
     public Button btnFlow;
 
-
+    public Transform typeList;
 
 
     public override void OnCreate()
@@ -30,8 +32,7 @@ public class UIMainWindow : UIWindow
         btnShare.onClick.AddListener(OnClickShare);
         btnVow.onClick.AddListener(OnClickVow);
         btnFlow.onClick.AddListener(OnClickFlow);
-
-
+#if CHAPTER_ONE
         List<string> types = new List<string> { CarType.DaZhong.ToString(), CarType.AiLiShe.ToString(), CarType.BenTengB30.ToString(),CarType.AiLiShe2015.ToString() };
         for (int i = 0; i < btnList.Count; i++)
         {
@@ -43,6 +44,7 @@ public class UIMainWindow : UIWindow
             }
             else
             {
+                btnEnter.btnEnter.gameObject.SetActive(true);
                 btnEnter.btnEnter.onClick.AddListener(() =>
                 {
                     GameDataMgr.Instance.carType = btnEnter.carType;
@@ -51,24 +53,41 @@ public class UIMainWindow : UIWindow
                 });
             }
         }
-
+#elif CHAPTER_TWO
+        CarTypeData[] cartypes = GameDataMgr.Instance.ResponseCarType.carType;
+        GameObject prefab = ResourcesMgr.Instance.LoadUIPrefab("CarTypeItem");
+        for (int i = 0; i < cartypes.Length; i++)
+        {
+            GameObject go = Instantiate(prefab, typeList);
+            CarTypeItem carType = go.GetComponent<CarTypeItem>();
+            carType.InitWith(cartypes[i], OnClickCarType);
+        }
+#endif
     }
+
+    void OnClickCarType(CarTypeData typeData)
+    {
+        RequestCarInfo param = new RequestCarInfo
+        {
+            cart_type = typeData.uid.ToString(),
+            loginAccount = GameDataMgr.Instance.ResponseLogin.loginAccount
+        };
+        LoginManager.Instance.SendGetCarInfo<ResponseCarInfo>(param, (ret) =>
+        {
+            GameDataMgr.Instance.carTypeData = typeData;
+            GameDataMgr.Instance.carInfo = ret.data;
+            ShowDetailWindow();
+        });
+    }
+
 
     /// <summary>
     /// 检测是是否进入视频界面
     /// </summary>
     void ShowDetailWindow()
     {
-        List<VideoData> videoDatas;
-        if (ConfigDataMgr.Instance.gameConfig.video.ContainsKey(GameDataMgr.Instance.carType.ToString().ToUpper()))
-        {
-            videoDatas = ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString().ToUpper()];
-        }
-        else
-        {
-            videoDatas = new List<VideoData>();
-        }
-
+#if CHAPTER_ONE
+        List<VideoData> videoDatas = ConfigDataMgr.Instance.GetVideoList(GameDataMgr.Instance.carType);
         if (videoDatas.Count > 0)
         {
             UIDetailWindow uiDetailWindow = UIManager.Instance.OpenUI<UIDetailWindow>();
@@ -77,12 +96,23 @@ public class UIMainWindow : UIWindow
         {
             SwitchSceneMgr.Instance.SwitchToExam();
         }
+#elif CHAPTER_TWO
+        if (GameDataMgr.Instance.carInfo.listvideo.Count>0)
+        {
+            UIDetailWindow uiDetailWindow = UIManager.Instance.OpenUI<UIDetailWindow>();
+        }
+        else
+        {
+            SwitchSceneMgr.Instance.SwitchToExam();
+        }
+#endif
     }
 
     /// <summary>
     /// 跳转驾考精灵
     /// </summary>
-    void OnClickJump(){
+    void OnClickJump()
+    {
         GlobalManager.JumpToAPP();
     }
     /// <summary>

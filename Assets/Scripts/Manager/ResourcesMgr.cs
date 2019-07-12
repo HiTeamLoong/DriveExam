@@ -61,12 +61,17 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
     /// <param name="assetName">Asset name.</param>
     public GameObject LoadUIPrefab(string assetName)
     {
-        return Resources.Load("Prefab/"+assetName) as GameObject;
+        return Resources.Load("Prefab/" + assetName) as GameObject;
     }
 
     public AudioClip LoadAudioClip(string clipName)
     {
         return Resources.Load<AudioClip>("Sound/" + clipName);
+    }
+
+    public Texture2D LoadTexture(string type, string assetName)
+    {
+        return Resources.Load<Texture2D>("UITexture/" + type + "/" + assetName);
     }
 
     /// <summary>
@@ -203,7 +208,7 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
     private int downloadIndex = 0;
 
     /// <summary>
-    /// 资源下载
+    /// json配置试题--资源下载
     /// </summary>
     /// <returns>The question audio.</returns>
     /// <param name="gameConfig">Game config.</param>
@@ -218,7 +223,7 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         {
             downloadList.Add(examTip.exam_audio);
         }
-        if (!string.IsNullOrEmpty(examTip.broadcast_end)&&!ConfigDataMgr.Instance.resourceDict.ContainsKey(examTip.broadcast_end))
+        if (!string.IsNullOrEmpty(examTip.broadcast_end) && !ConfigDataMgr.Instance.resourceDict.ContainsKey(examTip.broadcast_end))
         {
             downloadList.Add(examTip.broadcast_end);
         }
@@ -236,12 +241,68 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         //检查试题的语音是否需要更新
         foreach (var item in gameConfig.questions)
         {
-            QuestionData questionData = item.Value;
+            cQuestionData questionData = item.Value;
             if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(questionData.audio))
             {
                 downloadList.Add(questionData.audio);
             }
         }
+        if (downloadList.Count <= 0)
+        {
+            downloadCallback(true, 1f);
+        }
+        else
+        {
+            DownLoadFile();
+        }
+    }
+    /// <summary>
+    /// server试题--资源下载
+    /// </summary>
+    /// <param name="carInfo">Car info.</param>
+    /// <param name="callback">Callback.</param>
+    public void DownLoadAudioResource(ResponseCarInfo carInfo, Callback<bool, float> callback)
+    {
+        downloadCallback = callback;
+        downloadList = new List<string>();
+        downloadIndex = 0;
+
+        //检查开始灯光考试的语音需要更新
+        TypeModel model = carInfo.TypeModel;
+        //for (int i = 0; i < carInfo.listnewold.Count; i++)
+        //{
+        //    if (int.Parse(carInfo.listnewold[i].type) == GameDataMgr.Instance.carTypeData.type)
+        //    {
+        //        model = carInfo.listnewold[i];
+        //        break;
+        //    }
+        //}
+        if (model != null)
+        {
+            if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(model.examaudio))
+            {
+                downloadList.Add(model.examaudio);
+            }
+            if (!string.IsNullOrEmpty(model.broadcastend.Trim()) && !ConfigDataMgr.Instance.resourceDict.ContainsKey(model.broadcastend))
+            {
+                downloadList.Add(model.broadcastend);
+            }
+        }
+        else
+        {
+            Debug.LogError("version配置不正确");
+        }
+
+        //检查试题的语音是否需要更新
+        for (int i = 0; i < carInfo.questions.Count; i++)
+        {
+            sQuestionData question = carInfo.questions[i];
+            if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(question.audio))
+            {
+                downloadList.Add(question.audio);
+            }
+        }
+
         if (downloadList.Count <= 0)
         {
             downloadCallback(true, 1f);
@@ -257,6 +318,7 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
         if (downloadIndex < downloadList.Count)
         {
             string fileUrl = downloadList[downloadIndex];
+            Debug.Log(fileUrl);
             LoadNetworkFile(fileUrl, (result, data) =>
             {
                 if (result)
@@ -279,5 +341,5 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
                 Debug.Log("result:" + result + "\t" + "prog:" + (float)downloadIndex / downloadList.Count);
             });
         }
-         }
+    }
 }

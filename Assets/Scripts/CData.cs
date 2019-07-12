@@ -11,10 +11,21 @@ public enum CarType     //当前把字符串获取方式改为了大写--等服�
     BenTengB30 = 3,
     AiLiShe2015 = 4
 }
+public enum CarUID
+{
+    SangTaNa_Old = 1,
+    SangTaNa_New = 2,
+    AiLiShe_Old = 3,
+    AiLiShe_New = 4,
+    BenTengB30_Old = 5,
+    BenTengB30_New = 6,
+    AiLiShe2_Old = 7,
+    AiLiShe2_New = 8
+}
 public enum CarVersion
 {
-    OLD = 1,
-    NEW = 2
+    NEW = 1,
+    OLD = 2
 }
 
 public class Data_Base { }
@@ -57,7 +68,7 @@ public class GameConfig : Data_Base
     /// <summary>
     /// 试题列表
     /// </summary>
-    public Dictionary<string, QuestionData> questions = new Dictionary<string, QuestionData>();
+    public Dictionary<string, cQuestionData> questions = new Dictionary<string, cQuestionData>();
     public Dictionary<string, ExamData> examList = new Dictionary<string, ExamData>();
     /// <summary>
     /// 视频教学
@@ -104,7 +115,7 @@ public class ExamTipData : Data_Base
 /// <summary>
 /// 試題的數據結構
 /// </summary>
-public class QuestionData : Data_Base
+public class cQuestionData : Data_Base
 {
     /// <summary>
     /// 轉語音的文字描述
@@ -270,10 +281,10 @@ public class RequestLogin : RequestData_Base
 }
 public class ResponseLogin : ResponseData_Base
 {
+    public int uid;
+    public string userName;
     public string headImage;
     public string equitmentIdentity;
-    public string userName;
-    public int uid;
     public string phone;
     public int countyId;
     public string countyName;
@@ -285,7 +296,220 @@ public class ResponseLogin : ResponseData_Base
     public string provinceName;
     public int isOtherLogin;
     public int isNeedBind;
+    public string loginAccount;
 }
+
+//获取驾校车型
+public class RequestCarType : RequestData_Base
+{
+    public string loginAccount;
+}
+public class ResponseCarType : ResponseData_Base
+{
+    public CarTypeData[] carType;
+}
+
+/// <summary>
+/// 车型数据
+/// </summary>
+public class CarTypeData
+{
+    public int uid;
+    public int type;
+    public string image;
+    public string chexingname;
+    public string chexingcode;
+}
+
+/// <summary>
+/// 获取车型信息
+/// </summary>
+public class RequestCarInfo : RequestData_Base
+{
+    public string cart_type;
+    public string loginAccount;
+}
+public class ResponseCarInfo : ResponseData_Base
+{
+    public class examClass
+    {
+        public string subid;
+    }
+    //public Dictionary<string, List<examQuestion>> exam = new Dictionary<string, List<examQuestion>>();
+    //private List<examClass> _exam;
+    public List<examClass> exam;
+    public List<VideoData> listvideo;
+    public List<TypeModel> listnewold;
+    public List<sQuestionData> questions;
+    //public List<suijiQuestion> suiji;
+    public List<int> suiji;
+    private List<List<int>> exams;
+
+    private TypeModel typeModel;
+    public TypeModel TypeModel
+    {
+        get
+        {
+            if (typeModel == null)
+            {
+                for (int i = 0; i < listnewold.Count; i++)
+                {
+                    if (listnewold[i].type == GameDataMgr.Instance.carTypeData.type)
+                    {
+                        typeModel = listnewold[i];
+                        break;
+                    }
+                }
+            }
+            return typeModel;
+        }
+    }
+    public TypeModel GetTypeModel()
+    {
+        TypeModel model = null;
+        for (int i = 0; i < listnewold.Count; i++)
+        {
+            if (listnewold[i].type == GameDataMgr.Instance.carTypeData.type)
+            {
+                model = listnewold[i];
+                break;
+            }
+        }
+        return model;
+    }
+
+
+    /// <summary>
+    /// 获取一套考试题Id列表
+    /// </summary>
+    /// <returns>The exam list.</returns>
+    public List<int> GetExamList()
+    {
+        //exams = new List<List<int>>();
+        //exams.Add(new List<int>() { 7, 9, 15, 19, 21, 24 });
+        if (exams == null)
+        {
+            exams = new List<List<int>>();
+            for (int i = 0; i < exam.Count; i++)
+            {
+                string[] qids = exam[i].subid.Split(',');
+                exams.Add(new List<int>());
+                for (int j = 0; j < qids.Length; j++)
+                {
+                    if (!string.IsNullOrEmpty(qids[j]))
+                    {
+                        exams[i].Add(int.Parse(qids[j]));
+                    }
+                }
+            }
+        }
+        Random rd = new Random();
+        int index = rd.Next(0, exams.Count);
+        return exams[index];
+    }
+
+    /// <summary>
+    /// 通过试题Id获取试题
+    /// </summary>
+    /// <returns>The question with identifier.</returns>
+    /// <param name="qid">Qid.</param>
+    public sQuestionData GetQuestionWithId(int qid)
+    {
+        for (int i = 0; i < questions.Count; i++)
+        {
+            if (questions[i].uid == qid)
+            {
+                return questions[i];
+            }
+        }
+        Random rd = new Random();
+        int index = rd.Next(0, questions.Count);
+        return questions[index];
+    }
+}
+/// <summary>
+/// 考试题列表
+/// </summary>
+public class examData
+{
+    public Dictionary<string, List<examQuestion>> exam;
+}
+
+/// <summary>
+/// 考试题ID
+/// </summary>
+public class examQuestion
+{
+    public string timuid;
+}
+/// <summary>
+/// 随机题ID
+/// </summary>
+//public class suijiQuestion
+//{
+//    public int uid;
+//}
+///// <summary>
+///// 教程视频
+///// </summary>
+//public class examVideo: VideoData
+//{
+//    //public string imgurl;
+//    public int chexingId;
+//    //public string videourl;
+//    //public string videoname;
+//}
+/// <summary>
+/// 车型模式
+/// </summary>
+public class TypeModel
+{
+    public int uid;
+    public int type;
+    public string examaudio;
+    public string broadcastend;
+    public string addTime;
+    public string examtip;
+}
+public class sQuestionData
+{
+    public int uid;
+    public string question;
+    public string answer;
+    public string audio;
+    public int score;
+    public int RightIndicator;
+    public int DoubleJumpLamp;
+    public int HigBeamLight;
+    public int LeftIndicator;
+    public int FrontFogLamp;
+    public int RearFogLamp;
+    public int LowBeamLight;
+    public int ClearAnceLamp;
+    public int LowToHigLight;
+
+
+    public sQuestionData() { }
+    public sQuestionData(cQuestionData data)
+    {
+        this.uid = -1;
+        this.question = data.question;
+        this.answer = data.answer;
+        this.audio = data.audio;
+
+        this.RightIndicator = (data.RightIndicator ? 1 : 0);
+        this.DoubleJumpLamp = (data.DoubleJumpLamp ? 2 : 0);
+        this.HigBeamLight = (data.HigBeamLight ? 1 : 0);
+        this.LeftIndicator = (data.LeftIndicator ? 1 : 0);
+        this.FrontFogLamp = (data.FrontFogLamp ? 1 : 0);
+        this.RearFogLamp = (data.RearFogLamp ? 1 : 0);
+        this.LowBeamLight = (data.LowBeamLight ? 1 : 0);
+        this.ClearAnceLamp = (data.ClearAnceLamp ? 1 : 0);
+        this.LowToHigLight = (data.LowToHigLight ? 1 : 0);
+    }
+}
+
+
 //忘记密码
 public class RequestForgetPwd : RequestData_Base
 {

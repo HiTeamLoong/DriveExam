@@ -7,7 +7,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
 {
     public GameConfig gameConfig = new GameConfig();
     public AuthorizeData authorizeData = new AuthorizeData();
-    public Dictionary<string, QuestionData> questions { get { return gameConfig.questions; } }
+    public Dictionary<string, cQuestionData> questions { get { return gameConfig.questions; } }
     public ShareData shareData { get { return gameConfig.share; } }
     public Dictionary<string, string> resourceDict = new Dictionary<string, string>();
 
@@ -74,7 +74,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
     }
 
 
-    public QuestionData GetQuestionByIndex(int index)
+    public cQuestionData GetQuestionByIndex(int index)
     {
         //if (index >= 0 && index < questions.Count)
         //{
@@ -87,7 +87,7 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
         //}
         return null;
     }
-    public QuestionData GetQuestionByIndex(string index)
+    public cQuestionData GetQuestionByIndex(string index)
     {
         if (questions.ContainsKey(index))
         {
@@ -97,6 +97,20 @@ public class ConfigDataMgr : XSingleton<ConfigDataMgr>
         {
             return null;
         }
+    }
+
+    public List<VideoData> GetVideoList(CarType carType)
+    {
+        List<VideoData> videoDatas;
+        if (gameConfig.video.ContainsKey(carType.ToString().ToUpper()))
+        {
+            videoDatas = gameConfig.video[carType.ToString().ToUpper()];
+        }
+        else
+        {
+            videoDatas = new List<VideoData>();
+        }
+        return videoDatas;
     }
 
 }

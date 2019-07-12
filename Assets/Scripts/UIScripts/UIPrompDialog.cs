@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIPrompDialog : UIDialog
 {
-    public static void ShowPromp(PrompType type, string title, string content, Callback<bool> callback)
+    public static void ShowPromp(PrompType type, string title, string content, Callback<bool> callback,string confirm = "确定",string cancel="取消")
     {
         UIPrompDialog uIPrompDialog = UIManager.Instance.OpenUI<UIPrompDialog>();
         uIPrompDialog.InitWith(type, title, content, callback);
@@ -23,6 +23,9 @@ public class UIPrompDialog : UIDialog
     public Button btnCancel;
     public Button btnConfirm;
 
+    public Text textCancel;
+    public Text textConfirm;
+
     private Callback<bool> callback;
 
     private void Start()
@@ -31,13 +34,16 @@ public class UIPrompDialog : UIDialog
         btnConfirm.onClick.AddListener(OnClickConfirmBtn);
     }
 
-    public void InitWith(PrompType type, string title, string content, Callback<bool> callback)
+    public void InitWith(PrompType type, string title, string content, Callback<bool> callback, string confirm = "确定", string cancel = "取消")
     {
         btnCancel.gameObject.SetActive(type == PrompType.CancelAndConfirm);
         textTitle.text = title;
         textContent.text = content;
 
         this.callback = callback;
+
+        textCancel.text = cancel;
+        textConfirm.text = confirm;
     }
 
     void OnClickCancelBtn()

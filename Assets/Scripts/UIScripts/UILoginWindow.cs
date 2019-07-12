@@ -17,7 +17,7 @@ public class UILoginWindow : UIWindow
         public ProgressBar progressBar;
     }
     public ProgressGroup progressGroup;
-    
+
     public enum State
     {
         None,
@@ -79,11 +79,27 @@ public class UILoginWindow : UIWindow
     {
         if (result != null)
         {
+
             GameDataMgr.Instance.ResponseLogin = result;
+#if CHAPTER_ONE
             SwitchSceneMgr.Instance.SwitchToMain(false, () =>
-             {
-                 UIManager.Instance.OpenUI<UIMainWindow>();
-             });
+            {
+                UIManager.Instance.OpenUI<UIMainWindow>();
+            });
+#elif CHAPTER_TWO
+            RequestCarType param = new RequestCarType
+            {
+                loginAccount = result.loginAccount
+            };
+            LoginManager.Instance.SendGetCarType<ResponseCarType>(param, (ret) =>
+            {
+                GameDataMgr.Instance.ResponseCarType = ret.data;
+                SwitchSceneMgr.Instance.SwitchToMain(false, () =>
+                {
+                    UIManager.Instance.OpenUI<UIMainWindow>();
+                });
+            });
+#endif
         }
     }
     //void OnClickLogin()

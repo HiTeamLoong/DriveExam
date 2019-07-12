@@ -16,12 +16,15 @@ public class UIShareWindow : UIWindow
         btnShare.onClick.AddListener(OnClickShare);
     }
 
-    void OnClickLogout(){
+    void OnClickLogout()
+    {
         GameDataMgr.Instance.ResponseLogin = null;
+        GameDataMgr.Instance.ResponseCarType = null;
         UILoginWindow uILoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
         uILoginWindow.SetLoginList();
     }
-    void OnClickReturn(){
+    void OnClickReturn()
+    {
         UIManager.Instance.CloseUI(this);
     }
     void OnClickShare()
@@ -30,7 +33,8 @@ public class UIShareWindow : UIWindow
         {
             ShareData shareData = ConfigDataMgr.Instance.shareData;
             GlobalManager.Instance.ShareWebpage(shareData.title, shareData.content, shareData.url, shareData.image);
-        }else
+        }
+        else
         {
             UITipsDialog.ShowTips("此功能暂未开放");
         }

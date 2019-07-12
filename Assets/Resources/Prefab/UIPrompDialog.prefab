@@ -351,6 +351,8 @@ MonoBehaviour:
   textContent: {fileID: 114359294541021136}
   btnCancel: {fileID: 114816946018517092}
   btnConfirm: {fileID: 114535951154657182}
+  textCancel: {fileID: 114829975993739920}
+  textConfirm: {fileID: 114908136438190904}
 --- !u!114 &114535951154657182
 MonoBehaviour:
   m_ObjectHideFlags: 1

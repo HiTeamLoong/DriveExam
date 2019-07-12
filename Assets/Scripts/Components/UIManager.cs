@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class UIManager : XMonoSingleton<UIManager>
 {
+    [TextArea]
+    public string testContent;
+
+
     public Transform wndParent;
     public Transform dlgParent;
 
@@ -119,6 +123,9 @@ public class UIManager : XMonoSingleton<UIManager>
         else if (uiPanel.GetType().IsSubclassOf(typeof(UIDialog)))
         {
             UIDialog tempDlg = dialogsStack.Peek();
+
+            Debug.Log(tempDlg.gameObject.name + "  " + uiPanel.gameObject.name);
+
             if (tempDlg == uiPanel)
             {
                 tempDlg = dialogsStack.Pop();

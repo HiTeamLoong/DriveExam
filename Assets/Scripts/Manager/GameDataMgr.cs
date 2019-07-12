@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class GameDataMgr : XSingleton<GameDataMgr>
 {
+
+    public bool NeedLogin
+    {
+        get
+        {
+            return (ResponseLogin != null && responseCarType != null);
+        }
+    }
+
+    /// <summary>
+    /// 缓存登录信息
+    /// </summary>
     private ResponseLogin responseLogin;
     public ResponseLogin ResponseLogin
     {
@@ -34,7 +46,40 @@ public class GameDataMgr : XSingleton<GameDataMgr>
             }
         }
     }
-    
+    /// <summary>
+    /// 缓存车型信息
+    /// </summary>
+    private ResponseCarType responseCarType;
+    public ResponseCarType ResponseCarType
+    {
+        get
+        {
+            if(responseCarType == null)
+            {
+                string json = PlayerPrefs.GetString("ResponseCarType");
+                if (json != null)
+                {
+                    responseCarType = LitJson.JsonMapper.ToObject<ResponseCarType>(json);
+                }
+            }
+            return responseCarType;
+        }
+        set
+        {
+            if (value != null)
+            {
+                responseCarType = value;
+                string json = LitJson.JsonMapper.ToJson(responseCarType);
+                PlayerPrefs.SetString("ResponseCarType", json);
+            }
+            else
+            {
+                PlayerPrefs.DeleteKey("ResponseCarType");
+                responseCarType = value;
+            }
+        }
+    }
+
     private string accessToken;
     public string AcceccToken
     {
@@ -51,7 +96,12 @@ public class GameDataMgr : XSingleton<GameDataMgr>
             accessToken = value; 
         }
     }
-    
-    public CarType carType = CarType.DaZhong;
-    public CarVersion carVersion = CarVersion.NEW;
+
+    public CarType carType;
+    public CarVersion carVersion;
+
+    public CarUID carUID;
+    public CarTypeData carTypeData = null;
+    public ResponseCarInfo carInfo = null;
+    public TypeModel typeModel = null;
 }

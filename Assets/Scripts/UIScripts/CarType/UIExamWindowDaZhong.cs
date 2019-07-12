@@ -185,6 +185,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
             {
                 LeftIndicatorSwitch = true;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+                OnSwitchChange();
             }
         });
         btnControlClose.onClick.AddListener(() =>
@@ -195,6 +196,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 LeftIndicatorSwitch = false;
                 RightIndicatorSwitch = false;
             }
+            OnSwitchChange();
         });
         btnControlRigth.onClick.AddListener(() =>
         {
@@ -203,6 +205,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 RightIndicatorSwitch = true;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
             }
+            OnSwitchChange();
         });
         btsCantrolForward.button.onClick.AddListener(() => {
             if (!FarHeadlightSwitch)
@@ -210,6 +213,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 FarHeadlightSwitch = true;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
             }
+            OnSwitchChange();
         });
         btsControlNormal.button.onClick.AddListener(() => {
             if (FarHeadlightSwitch)
@@ -217,20 +221,24 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 FarHeadlightSwitch = false;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
             }
+            OnSwitchChange();
         });
         UIEventListener.Get(btsControlBackward.button.gameObject).onDown += (go) =>
         {
             ToggleHeadlightSwitch = true; FarHeadlightSwitch = true;
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
+            OnSwitchChange();
         };
         UIEventListener.Get(btsControlBackward.button.gameObject).onUp += (go) =>
         {
             ToggleHeadlightSwitch = false; FarHeadlightSwitch = false;
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+            OnSwitchChange();
         };
         btsDoubleJump.button.onClick.AddListener(() =>
         {
-            DoubleJumpSwitch = !DoubleJumpSwitch; if (DoubleJumpSwitch)
+            DoubleJumpSwitch = !DoubleJumpSwitch; 
+            if (DoubleJumpSwitch)
             {
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect WX01"));
             }
@@ -238,6 +246,7 @@ public class UIExamWindowDaZhong : UIExamWindowBase
             {
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect WX02"));
             }
+            OnSwitchChange();
         });
 
     }
@@ -256,10 +265,12 @@ public class UIExamWindowDaZhong : UIExamWindowBase
                 HeadlightSwitch = true;
                 break;
         }
+        OnSwitchChange();
     }
     void OnChangeKnobSwitch(bool value)
     {
         FrontFogSwitch = value;
         RearFogSwitch = value;
+        OnSwitchChange();
     }
 }

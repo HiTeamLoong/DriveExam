@@ -32,6 +32,9 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         shareSDK.followFriendHandler = OnFollowFriendResultHandler;
     }
 
+
+
+
     /// <summary>
     /// 授权回调
     /// </summary>

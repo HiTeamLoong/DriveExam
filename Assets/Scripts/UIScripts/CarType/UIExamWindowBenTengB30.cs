@@ -5,46 +5,46 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIExamWindowAiLiShe : UIExamWindowBase
+public class UIExamWindowBenTengB30 : UIExamWindowBase
 {
     [Space(20)]
-    public Image imgOpenLight;
-    public Image imgHeadNear;
-    public Image imgHeadFar;
-    public Image imgFrontFog;
-    public Image imgRearFog;
+    public Image imgOpenLight;      //示廓灯标识
+    public Image imgHeadFar;        //远光灯标志
+    public Image imgFrontFog;       //雾灯标识
 
-    public Button btnControlRigth;      //右转向
-    public Button btnControlClose;      //关闭转向
-    public Button btnControlLeft;       //左转向
+    public Button btnControlRight;
+    public Button btnControlClose;
+    public Button btnControlLeft;
 
-    public ButtonState btsCantrolState;   //--灯光状态显示
-    public ButtonState btsControlBackward1;  //远近切换
-    public ButtonState btsControlBackward2;  //切换灯光
+    public ButtonState btsControlForward;
+    public ButtonState btsControlNormal;
+    public ButtonState btsControlBackward;
 
-    public ButtonState btsDoubleJump;       //双闪灯
+    public ButtonState btsDoubleJump;
 
-    public Transform transControlRod;       //角度控制杆
+    public Transform transControlRod;
 
+    
     [System.Serializable]
     public class ControlRod
     {
         public GameObject objRoot;
 
         public Image imgHeadLight;
+        //[HideInInspector]
         public Sprite sprHeadLight0;
         public Sprite sprHeadLight1;
         public Sprite sprHeadLight2;
 
         public Image imgFogLight;
-        public Sprite sprFogLight0;
-        public Sprite sprFogLight1;
-        public Sprite sprFoglight2;
+        //[HideInInspector]
+        public Sprite sprFogLightNormal;
+        public Sprite sprFogLightOpen;
     }
-    public ControlRod controlRodNormal;    //默认状态
-    public ControlRod controlRodBackward;   //后掰状态
 
-    #region SwitchModule
+    public ControlRod controlRodForward;
+    public ControlRod controlRodNormal;
+    public ControlRod controlRodBackward;
 
     public override bool ClearanceSwitch
     {
@@ -53,13 +53,14 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             if (ClearanceSwitch != value)
             {
                 base.ClearanceSwitch = value;
+                controlRodForward.imgHeadLight.sprite = value ? controlRodForward.sprHeadLight1 : HeadlightSwitch ? controlRodForward.sprHeadLight2 : controlRodForward.sprHeadLight0;
                 controlRodNormal.imgHeadLight.sprite = value ? controlRodNormal.sprHeadLight1 : HeadlightSwitch ? controlRodNormal.sprHeadLight2 : controlRodNormal.sprHeadLight0;
                 controlRodBackward.imgHeadLight.sprite = value ? controlRodBackward.sprHeadLight1 : HeadlightSwitch ? controlRodBackward.sprHeadLight2 : controlRodBackward.sprHeadLight0;
 
                 imgOpenLight.DOFade((ClearanceSwitch || HeadlightSwitch) ? 1f : 0f, 0);
 
                 imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
-                imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
+                //imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
             }
         }
     }
@@ -70,15 +71,16 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             if (HeadlightSwitch != value)
             {
                 base.HeadlightSwitch = value;
+                controlRodForward.imgHeadLight.sprite = value ? controlRodForward.sprHeadLight2 : ClearanceLamp ? controlRodForward.sprHeadLight1 : controlRodForward.sprHeadLight0;
                 controlRodNormal.imgHeadLight.sprite = value ? controlRodNormal.sprHeadLight2 : ClearanceSwitch ? controlRodNormal.sprHeadLight1 : controlRodNormal.sprHeadLight0;
                 controlRodBackward.imgHeadLight.sprite = value ? controlRodBackward.sprHeadLight2 : ClearanceSwitch ? controlRodBackward.sprHeadLight1 : controlRodBackward.sprHeadLight0;
 
                 imgOpenLight.DOFade((ClearanceSwitch || HeadlightSwitch) ? 1f : 0f, 0);
-                imgHeadNear.DOFade(LowBeamLight ? 1f : 0f, 0);
+                //imgHeadNear.DOFade(LowBeamLight ? 1f : 0f, 0);
                 imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);
 
                 imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
-                imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
+                //imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
             }
         }
     }
@@ -89,24 +91,11 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             if (FrontFogSwitch != value)
             {
                 base.FrontFogSwitch = value;
-                controlRodNormal.imgFogLight.sprite = RearFogSwitch ? controlRodNormal.sprFoglight2 : value ? controlRodNormal.sprFogLight1 : controlRodNormal.sprFogLight0;
-                controlRodBackward.imgFogLight.sprite = RearFogSwitch ? controlRodBackward.sprFoglight2 : value ? controlRodBackward.sprFogLight1 : controlRodBackward.sprFogLight0;
 
+                controlRodForward.imgFogLight.sprite = value ? controlRodForward.sprFogLightOpen :  controlRodForward.sprFogLightNormal;
+                controlRodNormal.imgFogLight.sprite = value ? controlRodNormal.sprFogLightOpen :  controlRodNormal.sprFogLightNormal;
+                controlRodBackward.imgFogLight.sprite = value ? controlRodBackward.sprFogLightOpen : controlRodBackward.sprFogLightNormal;
                 imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
-            }
-        }
-    }
-    public override bool RearFogSwitch
-    {
-        set
-        {
-            if (RearFogSwitch != value)
-            {
-                base.RearFogSwitch = value;
-                controlRodNormal.imgFogLight.sprite = value ? controlRodNormal.sprFoglight2 : FrontFogSwitch ? controlRodNormal.sprFogLight1 : controlRodNormal.sprFogLight0;
-                controlRodBackward.imgFogLight.sprite = value ? controlRodBackward.sprFoglight2 : FrontFogSwitch ? controlRodBackward.sprFogLight1 : controlRodBackward.sprFogLight0;
-
-                imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
             }
         }
     }
@@ -164,10 +153,20 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             if (FarHeadlightSwitch != value)
             {
                 base.FarHeadlightSwitch = value;
-                (btsCantrolState.button.targetGraphic as Image).sprite = value ? btsCantrolState.sprSelect : btsCantrolState.sprNormal;
 
-                imgHeadNear.DOFade(LowBeamLight ? 1f : 0f, 0);
-                imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);
+                bool isSetFar = (value && !ToggleHeadlightSwitch);
+                //更新按键
+                (btsControlForward.button.targetGraphic as Image).sprite = (value && !ToggleHeadlightSwitch) ? btsControlForward.sprSelect : btsControlForward.sprNormal;
+                (btsControlNormal.button.targetGraphic as Image).sprite = (!value && !ToggleHeadlightSwitch) ? btsControlNormal.sprSelect : btsControlNormal.sprNormal;
+                //更新摇杆
+                controlRodForward.objRoot.SetActive(value && !ToggleHeadlightSwitch);
+                //更新仪表
+                imgHeadFar.DOFade(HigBeamLight ? 1f : 0f, 0);//此车型没有近光标志
+
+                //控制显示摇杆
+                controlRodForward.objRoot.SetActive(value&&!ToggleHeadlightSwitch);
+                controlRodNormal.objRoot.SetActive(!value&&!ToggleHeadlightSwitch);
+                //controlRodBackward.objRoot.SetActive(!value);
             }
         }
     }
@@ -178,11 +177,19 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             if (ToggleHeadlightSwitch != value)
             {
                 base.ToggleHeadlightSwitch = value;
+
+                (btsControlForward.button.targetGraphic as Image).sprite = value ? btsControlForward.sprNormal : FarHeadlightSwitch ? btsControlForward.sprSelect : btsControlForward.sprNormal;
+                (btsControlNormal.button.targetGraphic as Image).sprite = value ? btsControlNormal.sprNormal : FarHeadlightSwitch ? btsControlNormal.sprNormal : btsControlNormal.sprSelect;
+                (btsControlBackward.button.targetGraphic as Image).sprite = value ? btsControlBackward.sprSelect : btsControlBackward.sprNormal;
+
+
+                controlRodForward.objRoot.SetActive(!value);
+                controlRodNormal.objRoot.SetActive(!value);
+                controlRodBackward.objRoot.SetActive(value);
             }
         }
     }
-    #endregion
-
+    private bool isSwitching = false;
     public override void OnCreate()
     {
         base.OnCreate();
@@ -194,6 +201,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 LeftIndicatorSwitch = true;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
             }
+            OnSwitchChange();
         });
         btnControlClose.onClick.AddListener(() =>
         {
@@ -203,14 +211,16 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 LeftIndicatorSwitch = false;
                 RightIndicatorSwitch = false;
             }
+            OnSwitchChange();
         });
-        btnControlRigth.onClick.AddListener(() =>
+        btnControlRight.onClick.AddListener(() =>
         {
             if (!RightIndicatorSwitch)
             {
                 RightIndicatorSwitch = true;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
             }
+            OnSwitchChange();
         });
 
         btsDoubleJump.button.onClick.AddListener(() =>
@@ -224,51 +234,66 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
             {
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect WX02"));
             }
+            OnSwitchChange();
         });
 
-        UIEventListener.Get(btsControlBackward1.button.gameObject).onDown += (go) =>
+        btsControlForward.button.onClick.AddListener(() =>
+        {
+            if (!FarHeadlightSwitch && !ToggleHeadlightSwitch)
+            {
+                FarHeadlightSwitch = true;
+                //controlRodForward.objRoot.SetActive(true);
+                //controlRodNormal.objRoot.SetActive(false);
+                //controlRodBackward.objRoot.SetActive(false);
+                //TODO：UI标识
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
+            }
+            OnSwitchChange();
+        });
+        btsControlNormal.button.onClick.AddListener(() =>
+        {
+            if (FarHeadlightSwitch && !ToggleHeadlightSwitch)
+            {
+                FarHeadlightSwitch = false;
+                //controlRodForward.objRoot.SetActive(false);
+                //controlRodNormal.objRoot.SetActive(true);
+                //controlRodBackward.objRoot.SetActive(false);
+                //TODO：UI标识
+                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+            }
+            OnSwitchChange();
+        });
+        UIEventListener.Get(btsControlBackward.button.gameObject).onDown += (go) =>
         {
             ToggleHeadlightSwitch = true;
-            FarHeadlightSwitch = !FarHeadlightSwitch;
-            controlRodBackward.objRoot.SetActive(true);
-            controlRodNormal.objRoot.SetActive(false);
-            (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprSelect;
+            FarHeadlightSwitch = true;
+            //controlRodForward.objRoot.SetActive(false);
+            //controlRodNormal.objRoot.SetActive(false);
+            //controlRodBackward.objRoot.SetActive(true);
+            //TODO：UI标识
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
+            OnSwitchChange();
         };
-        UIEventListener.Get(btsControlBackward1.button.gameObject).onUp += (go) =>
+        UIEventListener.Get(btsControlBackward.button.gameObject).onUp += (go) =>
         {
             ToggleHeadlightSwitch = false;
-            FarHeadlightSwitch = !FarHeadlightSwitch;
-            controlRodBackward.objRoot.SetActive(false);
-            controlRodNormal.objRoot.SetActive(true);
-            (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprNormal;
+            FarHeadlightSwitch = false;
+            //controlRodForward.objRoot.SetActive(false);
+            //controlRodNormal.objRoot.SetActive(true);
+            //controlRodBackward.objRoot.SetActive(false);
+            //TODO：UI标识
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
+            OnSwitchChange();
         };
 
-        UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) =>
-        {
-            FarHeadlightSwitch = !FarHeadlightSwitch;
-            controlRodBackward.objRoot.SetActive(true);
-            controlRodNormal.objRoot.SetActive(false);
-            (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprSelect;
-            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
-        };
-        UIEventListener.Get(btsControlBackward2.button.gameObject).onUp += (go) =>
-        {
-            /*处理效果*/
-            controlRodBackward.objRoot.SetActive(false);
-            controlRodNormal.objRoot.SetActive(true);
-            (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprNormal;
-            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect jin"));
-        };
-
+        UIEventListener.Get(controlRodForward.imgHeadLight.gameObject).onDragEnd += OnHeadLightDragEnd;
         UIEventListener.Get(controlRodNormal.imgHeadLight.gameObject).onDragEnd += OnHeadLightDragEnd;
         UIEventListener.Get(controlRodBackward.imgHeadLight.gameObject).onDragEnd += OnHeadLightDragEnd;
 
+        UIEventListener.Get(controlRodForward.imgFogLight.gameObject).onDragEnd += OnFogLightDragEnd;
         UIEventListener.Get(controlRodNormal.imgFogLight.gameObject).onDragEnd += OnFogLightDragEnd;
         UIEventListener.Get(controlRodBackward.imgFogLight.gameObject).onDragEnd += OnFogLightDragEnd;
     }
-
 
     private void OnHeadLightDragEnd(GameObject go, PointerEventData eventData)
     {
@@ -278,6 +303,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
         {
             if (currPos.x > passPos.x && currPos.y > passPos.y)//右上
             {
+                //示廓灯是否开启/前照灯是否开启
                 if (!ClearanceSwitch && !HeadlightSwitch)
                 {
                     ClearanceSwitch = true;
@@ -290,7 +316,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                     AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
-            else if (currPos.x < passPos.x && currPos.y < passPos.y)
+            else if (/*currPos.x < passPos.x &&*/ currPos.y < passPos.y)//左下
             {
                 if (HeadlightSwitch)
                 {
@@ -301,10 +327,12 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 else if (ClearanceSwitch)
                 {
                     ClearanceSwitch = false;
+                    FrontFogSwitch = false;
                     AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
         }
+        OnSwitchChange();
     }
 
     private void OnFogLightDragEnd(GameObject go, PointerEventData eventData)
@@ -313,32 +341,26 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
         Vector2 currPos = eventData.position;
         if (Vector2.Distance(passPos, currPos) > 10f)//滑动小了不触发
         {
-            if (currPos.x > passPos.x && currPos.y > passPos.y)//右上
+            if (/*currPos.x > passPos.x &&*/ currPos.y > passPos.y)//右上
             {
-                if (!FrontFogSwitch && !RearFogSwitch)
+                if (ClearanceSwitch || HeadlightSwitch)
                 {
-                    FrontFogSwitch = true;
-                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
-                }
-                else if (FrontFogSwitch)
-                {
-                    RearFogSwitch = true;
-                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
+                    if (!FrontFogSwitch)
+                    {
+                        FrontFogSwitch = true;
+                        AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
+                    }
                 }
             }
-            else if (currPos.x < passPos.x && currPos.y < passPos.y)
+            else if (/*currPos.x < passPos.x &&*/ currPos.y < passPos.y)
             {
-                if (RearFogSwitch)
-                {
-                    RearFogSwitch = false;
-                    AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
-                }
-                else if (FrontFogSwitch && !RearFogSwitch)
+                if (FrontFogSwitch)
                 {
                     FrontFogSwitch = false;
                     AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
         }
+        OnSwitchChange();
     }
 }

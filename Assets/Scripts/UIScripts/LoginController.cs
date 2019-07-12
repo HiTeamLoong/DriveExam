@@ -166,8 +166,7 @@ public class LoginController : MonoBehaviour
         }
 
         public override void Hide()
-        {
-        }
+        { }
 
         public override void Show()
         {
@@ -312,16 +311,21 @@ public class LoginController : MonoBehaviour
 
     void LoginLayer1LoginBtn()
     {
+        loginLayer1.inputAccount.text = "10000001";
+        loginLayer1.inputPwd.text = "782109";
+
         if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
         {
             UITipsDialog.ShowTips("请输入灯光练习账号");
             return;
         }
+
         if (string.IsNullOrEmpty(loginLayer1.inputPwd.text))
         {
             UITipsDialog.ShowTips("请输入灯光练习密码");
             return;
         }
+
         RequestLightLogin requestLogin = new RequestLightLogin();
         requestLogin.loginAccount = loginLayer1.inputAccount.text;
         requestLogin.password = loginLayer1.inputPwd.text;
@@ -332,7 +336,7 @@ public class LoginController : MonoBehaviour
             {
                 UITipsDialog.ShowTips("登录成功");
 
-                ResponseLogin response = new ResponseLogin() { userName = "驾考精灵" };
+                ResponseLogin response = new ResponseLogin() { userName = "驾考精灵", loginAccount = requestLogin.loginAccount };
                 loginCallback(response);
             }
             else
@@ -340,6 +344,12 @@ public class LoginController : MonoBehaviour
                 UITipsDialog.ShowTips(responseData.msg);
             }
         });
+
+
+
+
+
+
         //return;
         //if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
         //{

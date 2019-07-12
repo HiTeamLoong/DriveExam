@@ -19,7 +19,11 @@ public class UILoadingDialog : UIWaitDialog
         if (checkRes)
         {
             downloadProg = 0f;
+#if CHAPTER_ONE
             ResourcesMgr.Instance.DownLoadAudioResource(ConfigDataMgr.Instance.gameConfig, DownLoadCallback);
+#elif CHAPTER_TWO
+            ResourcesMgr.Instance.DownLoadAudioResource(GameDataMgr.Instance.carInfo, DownLoadCallback);
+#endif
         }
     }
 
@@ -58,11 +62,11 @@ public class UILoadingDialog : UIWaitDialog
             }
             else
             {
+                UIManager.Instance.CloseUI(this);
                 if (finishCallback != null)
                 {
                     finishCallback();
                 }
-                UIManager.Instance.CloseUI(this);
             }
 
         }

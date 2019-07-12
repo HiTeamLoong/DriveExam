@@ -17,7 +17,12 @@ public class UIDetailWindow : UIWindow
         btnReturn.onClick.AddListener(OnClickReturn);
         btnStart.onClick.AddListener(OnClickStart);
 
+#if CHAPTER_ONE
         playVideoController.InitWith(ConfigDataMgr.Instance.gameConfig.video[GameDataMgr.Instance.carType.ToString().ToUpper()]);
+#elif CHAPTER_TWO
+        playVideoController.InitWith(GameDataMgr.Instance.carInfo.listvideo);
+#endif
+
     }
 
     /// <summary>
