@@ -324,26 +324,27 @@ platform :ios do
         options[:collection] = options[:collection] || :GenerateSystem
         options[:streaming] = options[:streaming] || :StreamingSystem
 
-        info(options)
-        switch_platform(options)
+        info(options)               #查看项目信息和参数信息
+        switch_platform(options)    #切换到ios平台
         #update_version(options)
         #generate_asset(options)
         #copy_asset(options)
-        export(options)
-        # icon(options)
-        displayName(options)
-        assemble(options)
-        deploy(options)
+        export(options)             #导出ios-xcode项目
+        icon(options)               #设置项目图标版本
+        displayName(options)        #修改显示的名称
+        assemble(options)           #编译ios-xcode项目
+        deploy(options)             #部署ios项目
     end
 
     lane :ex_project do |options|
         options[:collection] = options[:collection] || :GenerateSystem
         options[:streaming] = options[:streaming] || :StreamingSystem
 
-        info(options)
-        switch_platform(options)
-        export(options)
-        icon(options)
+        info(options)               #查看项目信息和参数信息
+        switch_platform(options)    #切换到ios平台
+        export(options)             #导出ios-xcode项目
+        displayName(options)        #修改显示的名称
+        icon(options)               #设置项目图标版本
     end
     ##########################################################
     #

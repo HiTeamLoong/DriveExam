@@ -7,7 +7,7 @@ namespace Plugins.Scripts
         public static string BuildId = "2013-10-11_14-47";
 
         public static string BundleVersion = "2.2";
-        public static string BuildNumber = "7";
+        public static string BuildNumber = "8";
 
 
         public static string AppVersion

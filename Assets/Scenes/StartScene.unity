@@ -478,17 +478,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d266d8e8bcccf488686d3be61cf1fa24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  appKey: 26e83d145e058
+  appSecret: 0b77f55195b9ffc4e536523d14ae496b
   devInfo:
     qq:
       Enable: 1
+      SortId: 2
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     qzone:
       Enable: 1
+      SortId: 1
+      AppId: 1107389581
+      AppKey: 7dqRE1nL2uIVBVAu
+      ShareByAppClient: 1
     wechat:
       Enable: 1
+      SortId: 5
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      UserName: gh_afb25ac019c9@app
+      Path: /page/API/pages/share/share
+      BypassApproval: 0
+      WithShareTicket: 1
+      MiniprogramType: 0
     wechatMoments:
       Enable: 1
+      SortId: 6
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
+      BypassApproval: 0
     wechatFavorites:
       Enable: 1
+      SortId: 7
+      AppId: wxb0872f4a07e0ffe3
+      AppSecret: f6eebae2f6a6e7035e98102f0f82ee17
 --- !u!114 &1564550667
 MonoBehaviour:
   m_ObjectHideFlags: 0

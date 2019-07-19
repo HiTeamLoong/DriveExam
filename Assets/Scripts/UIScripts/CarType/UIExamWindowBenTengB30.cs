@@ -299,7 +299,7 @@ public class UIExamWindowBenTengB30 : UIExamWindowBase
     {
         Vector2 passPos = eventData.pressPosition;
         Vector2 currPos = eventData.position;
-        if (Vector2.Distance(passPos, currPos) > 10f)//滑动小了不触发
+        if (Vector2.Distance(passPos, currPos) > 6f)//滑动小了不触发
         {
             if (currPos.x > passPos.x && currPos.y > passPos.y)//右上
             {
@@ -339,7 +339,7 @@ public class UIExamWindowBenTengB30 : UIExamWindowBase
     {
         Vector2 passPos = eventData.pressPosition;
         Vector2 currPos = eventData.position;
-        if (Vector2.Distance(passPos, currPos) > 10f)//滑动小了不触发
+        if (Vector2.Distance(passPos, currPos) > 6f)//滑动小了不触发
         {
             if (/*currPos.x > passPos.x &&*/ currPos.y > passPos.y)//右上
             {

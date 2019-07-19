@@ -378,15 +378,12 @@ public class ResponseCarInfo : ResponseData_Base
         return model;
     }
 
-
     /// <summary>
-    /// 获取一套考试题Id列表
+    /// 获取所有试题
     /// </summary>
-    /// <returns>The exam list.</returns>
-    public List<int> GetExamList()
+    /// <returns></returns>
+    public List<List<int>> GetExams()
     {
-        //exams = new List<List<int>>();
-        //exams.Add(new List<int>() { 7, 9, 15, 19, 21, 24 });
         if (exams == null)
         {
             exams = new List<List<int>>();
@@ -403,9 +400,37 @@ public class ResponseCarInfo : ResponseData_Base
                 }
             }
         }
+
+        List<List<int>> examList = new List<List<int>>(exams);
+        return examList;
+    }
+    /// <summary>
+    /// 获取一套考试题Id列表
+    /// </summary>
+    /// <returns>The exam list.</returns>
+    public List<int> GetExamList()
+    {
+        List<List<int>> examList = GetExams();
         Random rd = new Random();
-        int index = rd.Next(0, exams.Count);
-        return exams[index];
+        int index = rd.Next(0, examList.Count);
+        return examList[index];
+    }
+    /// <summary>
+    /// 获取某套试题的列表
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public List<int> GetExamList(int index)
+    {
+        List<List<int>> examList = GetExams();
+        if (index >= 0 && index < examList.Count)
+        {
+            return examList[index];
+        }
+        else
+        {
+            return examList[0];
+        }
     }
 
     /// <summary>

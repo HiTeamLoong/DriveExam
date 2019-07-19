@@ -16,6 +16,7 @@ public abstract class UIExamWindowBase : UIWindow
     }
 
     public ButtonState btsAnswer;   //显示答案
+    public ButtonState btsChioce;   //试题练习
     public ButtonState btsRandom;   //随机题目
     public ButtonState btsVideo;    //视频讲解
     public ButtonState btsLightExam;//灯光考试
@@ -75,9 +76,24 @@ public abstract class UIExamWindowBase : UIWindow
         }
     }
 
+    private bool isChioce;      //试题练习
     private bool isRandom;      //随机题目
     private bool isLightExam;   //灯光考试
     private bool isShowAnswer;  //显示答案
+
+
+    public bool IsChioce
+    {
+        get { return isChioce; }
+        set
+        {
+            if (isChioce != value)
+            {
+                isChioce = value;
+                btsChioce.image.sprite = value ? btsChioce.sprSelect : btsChioce.sprNormal;
+            }
+        }
+    }
     public bool IsRandom
     {
         get { return isRandom; }
@@ -126,6 +142,8 @@ public abstract class UIExamWindowBase : UIWindow
     {
         base.OnCreate();
         btsAnswer.button.onClick.AddListener(OnClickAnswer);
+        btsRandom.button.gameObject.SetActive(false);
+        btsChioce.button.onClick.AddListener(OnClickChioce);
         btsRandom.button.onClick.AddListener(OnClickRandom);
         btsVideo.button.onClick.AddListener(OnClickVideo);
         btsLightExam.button.onClick.AddListener(OnClickExam);
@@ -146,11 +164,11 @@ public abstract class UIExamWindowBase : UIWindow
         {
             Debug.LogError("ERROR:ILightController is lost");
         }
-//#if CHAPTER_ONE
-//        List<VideoData> videoDatas = ConfigDataMgr.Instance.GetVideoList(GameDataMgr.Instance.carType);
-//        btsVideo.button.gameObject.SetActive(videoDatas.Count > 0);
-//        examTip = GameDataMgr.Instance.carVersion == CarVersion.NEW ? ConfigDataMgr.Instance.gameConfig.examtip_new : ConfigDataMgr.Instance.gameConfig.examtip_old;
-//#elif CHAPTER_TWO
+        //#if CHAPTER_ONE
+        //        List<VideoData> videoDatas = ConfigDataMgr.Instance.GetVideoList(GameDataMgr.Instance.carType);
+        //        btsVideo.button.gameObject.SetActive(videoDatas.Count > 0);
+        //        examTip = GameDataMgr.Instance.carVersion == CarVersion.NEW ? ConfigDataMgr.Instance.gameConfig.examtip_new : ConfigDataMgr.Instance.gameConfig.examtip_old;
+        //#elif CHAPTER_TWO
         btsVideo.button.gameObject.SetActive(GameDataMgr.Instance.carInfo.listvideo.Count > 0);
 
         examTip = new ExamTipData()
@@ -159,7 +177,7 @@ public abstract class UIExamWindowBase : UIWindow
             broadcast_end = GameDataMgr.Instance.carInfo.TypeModel.broadcastend.Trim(),
             exam_tip = GameDataMgr.Instance.carInfo.TypeModel.examtip
         };
-//#endif
+        //#endif
     }
 
     #region BaseFunction
@@ -185,11 +203,40 @@ public abstract class UIExamWindowBase : UIWindow
     {
         IsShowAnswer = !IsShowAnswer;
     }
+
+    /// <summary>
+    /// 试题选择
+    /// </summary>
+    void OnClickChioce()
+    {
+        IsRandom = false;
+        IsLightExam = false;
+        IsChioce = !IsChioce;
+        if (IsChioce)
+        {
+            UIChoiceDialog dialog = UIManager.Instance.OpenUI<UIChoiceDialog>();
+            dialog.InitWith(
+                (index) =>
+                {
+                    StartChoiceExam(index);
+                },
+                () =>
+                {
+                    IsChioce = false;
+                });
+        }
+        else
+        {
+            CleanQuestion();
+        }
+    }
+
     /// <summary>
     /// 点击随机题目
     /// </summary>
     void OnClickRandom()
     {
+        IsChioce = false;
         IsLightExam = false;
         IsRandom = !IsRandom;
         if (IsRandom)
@@ -201,11 +248,13 @@ public abstract class UIExamWindowBase : UIWindow
             CleanQuestion();
         }
     }
+
     /// <summary>
     /// 点击灯光考试
     /// </summary>
     void OnClickExam()
     {
+        IsChioce = false;
         IsRandom = false;
         IsLightExam = !IsLightExam;
         if (IsLightExam)
@@ -440,8 +489,6 @@ public abstract class UIExamWindowBase : UIWindow
 
     #endregion
 
-
-    private bool isRight;//已经是正确的灯光
     private bool isOperation;//正确后是否操作
     /// <summary>
     /// 进行了开关变更操作--
@@ -595,158 +642,158 @@ public abstract class UIExamWindowBase : UIWindow
 
 
 
-//#if CHAPTER_ONE
+    //#if CHAPTER_ONE
 
-//    /// <summary>
-//    /// 考试试题列表
-//    /// </summary>
-//    private List<string> examList = new List<string>();
-//    /// <summary>
-//    /// 随机练习列表
-//    /// </summary>
-//    private List<string> exerList = new List<string>();
-
-
-//    /// <summary>
-//    /// 开始随机练习
-//    /// </summary>
-//    private void StartExercise()
-//    {
-//        CleanQuestion();
-//        CloseAllLight();
-//        string index = RandomExerIndex();
-//        cQuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(index);
-//        StartCoroutine(BeginQuestion(question, false));
-//    }
-
-//    /// <summary>
-//    /// 开始灯光考试
-//    /// </summary>
-//    private void StartLightExam()
-//    {
-//        CleanQuestion();
-//        CloseAllLight();
-//        //生成试题列表
-//        RandomExamList();
-//        StartCoroutine(_BeginLightExam());
-//    }
-
-//    private void RandomExamList()
-//    {
-//        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString().ToUpper()];
-//        int count = examData.exam.Count;
-//        if (examList != null)
-//        {
-//            int index = examData.exam.IndexOf(examList);
-//            index++;
-//            index %= examData.exam.Count;
-//            examList = examData.exam[index];
-//        }
-//        else
-//        {
-//            examList = examData.exam[Random.Range(0, examData.exam.Count)];
-//        }
-//    }
-
-//    private string RandomExerIndex()
-//    {
-//        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString().ToUpper()];
-//        int count = examData.random.Count;
-//        exerList = new List<string>();
-//        for (int i = 0; i < count; i++)
-//        {
-//            exerList.Add(examData.random[i]);
-//        }
-//        int random = Random.Range(0, count / 2);
-//        string index = exerList[random];
-//        exerList.Remove(index);
-//        exerList.Add(index);
-//        return index;
-//    }
+    //    /// <summary>
+    //    /// 考试试题列表
+    //    /// </summary>
+    //    private List<string> examList = new List<string>();
+    //    /// <summary>
+    //    /// 随机练习列表
+    //    /// </summary>
+    //    private List<string> exerList = new List<string>();
 
 
-//    IEnumerator _BeginLightExam()
-//    {
-//        textQuestion.text = examTip.exam_tip;
-//        textAnswer.text = "";
-//        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.exam_audio));
-//        Debug.Log(audioObject.playTime);
-//        yield return new WaitForSeconds(audioObject.playTime);
-//        audioObject = null;
-//        yield return new WaitForSeconds(3f);
-//        for (int i = 0; i < examList.Count; i++)
-//        {
-//            cQuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(examList[i]);
-//            yield return StartCoroutine(BeginQuestion(question, true, i != 0));
-//        }
-//        //yield return StartCoroutine(BeginQuestion(ConfigDataMgr.ExamEnd, true));
-//        textAnswer.text = "恭喜你全部操作成功！！！";
-//        imgResult.gameObject.SetActive(true);
-//        imgResult.sprite = sprRight;
-//        AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
-//    }
+    //    /// <summary>
+    //    /// 开始随机练习
+    //    /// </summary>
+    //    private void StartExercise()
+    //    {
+    //        CleanQuestion();
+    //        CloseAllLight();
+    //        string index = RandomExerIndex();
+    //        cQuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(index);
+    //        StartCoroutine(BeginQuestion(question, false));
+    //    }
 
-//    /// <summary>
-//    /// Begins the question.
-//    /// </summary>
-//    /// <returns>The question.</returns>
-//    /// <param name="question">Question.</param>
-//    IEnumerator BeginQuestion(cQuestionData question, bool isExam, bool ding = true)
-//    {
-//        textQuestion.text = question.question;
-//        textAnswer.text = question.answer;
-//        textAnswer.gameObject.SetActive(false || IsShowAnswer);
-//        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(question.audio));
-//        Debug.Log(audioObject.playTime);
-//        yield return new WaitForSeconds(audioObject.playTime);
-//        audioObject = null;
+    //    /// <summary>
+    //    /// 开始灯光考试
+    //    /// </summary>
+    //    private void StartLightExam()
+    //    {
+    //        CleanQuestion();
+    //        CloseAllLight();
+    //        //生成试题列表
+    //        RandomExamList();
+    //        StartCoroutine(_BeginLightExam());
+    //    }
 
-//        if (ding && !string.IsNullOrEmpty(examTip.broadcast_end))
-//        {
-//            AudioObject audioBroadcast = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.broadcast_end));
-//            yield return new WaitForSeconds(audioBroadcast.playTime);
-//        }
+    //    private void RandomExamList()
+    //    {
+    //        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString().ToUpper()];
+    //        int count = examData.exam.Count;
+    //        if (examList != null)
+    //        {
+    //            int index = examData.exam.IndexOf(examList);
+    //            index++;
+    //            index %= examData.exam.Count;
+    //            examList = examData.exam[index];
+    //        }
+    //        else
+    //        {
+    //            examList = examData.exam[Random.Range(0, examData.exam.Count)];
+    //        }
+    //    }
 
-//        LowToHigCount = 0;//防止抢先操作
-//        yield return new WaitForSeconds(4f);//操作时间
+    //    private string RandomExerIndex()
+    //    {
+    //        ExamData examData = ConfigDataMgr.Instance.gameConfig.examList[GameDataMgr.Instance.carType.ToString().ToUpper()];
+    //        int count = examData.random.Count;
+    //        exerList = new List<string>();
+    //        for (int i = 0; i < count; i++)
+    //        {
+    //            exerList.Add(examData.random[i]);
+    //        }
+    //        int random = Random.Range(0, count / 2);
+    //        string index = exerList[random];
+    //        exerList.Remove(index);
+    //        exerList.Add(index);
+    //        return index;
+    //    }
 
-//        bool result = true;
-//        result &= (question.DoubleJumpLamp == DoubleJumpLamp);
-//        result &= (question.ClearAnceLamp == ClearanceLamp);
-//        result &= (question.LowBeamLight == LowBeamLight);
-//        result &= (question.HigBeamLight == HigBeamLight);
-//        result &= (question.FrontFogLamp == FrontFogLamp);
-//        result &= (question.RearFogLamp == RearFogLamp);
-//        result &= (question.LeftIndicator == LeftIndicator);
-//        result &= (question.RightIndicator == RightIndicator);
-//        result &= (question.LowToHigLight == (LowToHigCount >= 2));
 
-//        result &= !(!question.LowToHigLight && lowToHigCount > 0);
-//        textAnswer.gameObject.SetActive(true);
+    //    IEnumerator _BeginLightExam()
+    //    {
+    //        textQuestion.text = examTip.exam_tip;
+    //        textAnswer.text = "";
+    //        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.exam_audio));
+    //        Debug.Log(audioObject.playTime);
+    //        yield return new WaitForSeconds(audioObject.playTime);
+    //        audioObject = null;
+    //        yield return new WaitForSeconds(3f);
+    //        for (int i = 0; i < examList.Count; i++)
+    //        {
+    //            cQuestionData question = ConfigDataMgr.Instance.GetQuestionByIndex(examList[i]);
+    //            yield return StartCoroutine(BeginQuestion(question, true, i != 0));
+    //        }
+    //        //yield return StartCoroutine(BeginQuestion(ConfigDataMgr.ExamEnd, true));
+    //        textAnswer.text = "恭喜你全部操作成功！！！";
+    //        imgResult.gameObject.SetActive(true);
+    //        imgResult.sprite = sprRight;
+    //        AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
+    //    }
 
-//        imgResult.gameObject.SetActive(true);
-//        imgResult.sprite = result ? sprRight : sprError;
-//        if (result)
-//        {
-//            if (!isExam)
-//            {
-//                imgResult.gameObject.SetActive(true);
-//                imgResult.sprite = result ? sprRight : sprError;
-//                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
-//            }
-//            yield return new WaitForSeconds(3.0f);
-//            imgResult.gameObject.SetActive(false);
-//        }
-//        else
-//        {
-//            imgResult.gameObject.SetActive(true);
-//            imgResult.sprite = result ? sprRight : sprError;
-//            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("error"));
-//            PauseQuestion();
-//        }
-//    }
+    //    /// <summary>
+    //    /// Begins the question.
+    //    /// </summary>
+    //    /// <returns>The question.</returns>
+    //    /// <param name="question">Question.</param>
+    //    IEnumerator BeginQuestion(cQuestionData question, bool isExam, bool ding = true)
+    //    {
+    //        textQuestion.text = question.question;
+    //        textAnswer.text = question.answer;
+    //        textAnswer.gameObject.SetActive(false || IsShowAnswer);
+    //        audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(question.audio));
+    //        Debug.Log(audioObject.playTime);
+    //        yield return new WaitForSeconds(audioObject.playTime);
+    //        audioObject = null;
 
-//#elif CHAPTER_TWO
+    //        if (ding && !string.IsNullOrEmpty(examTip.broadcast_end))
+    //        {
+    //            AudioObject audioBroadcast = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.broadcast_end));
+    //            yield return new WaitForSeconds(audioBroadcast.playTime);
+    //        }
+
+    //        LowToHigCount = 0;//防止抢先操作
+    //        yield return new WaitForSeconds(4f);//操作时间
+
+    //        bool result = true;
+    //        result &= (question.DoubleJumpLamp == DoubleJumpLamp);
+    //        result &= (question.ClearAnceLamp == ClearanceLamp);
+    //        result &= (question.LowBeamLight == LowBeamLight);
+    //        result &= (question.HigBeamLight == HigBeamLight);
+    //        result &= (question.FrontFogLamp == FrontFogLamp);
+    //        result &= (question.RearFogLamp == RearFogLamp);
+    //        result &= (question.LeftIndicator == LeftIndicator);
+    //        result &= (question.RightIndicator == RightIndicator);
+    //        result &= (question.LowToHigLight == (LowToHigCount >= 2));
+
+    //        result &= !(!question.LowToHigLight && lowToHigCount > 0);
+    //        textAnswer.gameObject.SetActive(true);
+
+    //        imgResult.gameObject.SetActive(true);
+    //        imgResult.sprite = result ? sprRight : sprError;
+    //        if (result)
+    //        {
+    //            if (!isExam)
+    //            {
+    //                imgResult.gameObject.SetActive(true);
+    //                imgResult.sprite = result ? sprRight : sprError;
+    //                AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("right"));
+    //            }
+    //            yield return new WaitForSeconds(3.0f);
+    //            imgResult.gameObject.SetActive(false);
+    //        }
+    //        else
+    //        {
+    //            imgResult.gameObject.SetActive(true);
+    //            imgResult.sprite = result ? sprRight : sprError;
+    //            AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("error"));
+    //            PauseQuestion();
+    //        }
+    //    }
+
+    //#elif CHAPTER_TWO
     /// <summary>
     /// 开始随机练习
     /// </summary>
@@ -766,6 +813,18 @@ public abstract class UIExamWindowBase : UIWindow
         CleanQuestion();
         CloseAllLight();
         List<int> examList = GameDataMgr.Instance.carInfo.GetExamList();
+        StartCoroutine(BeginLightExam(examList));
+    }
+
+    /// <summary>
+    /// 开始某套试题练习
+    /// </summary>
+    /// <param name="index">试题的索引</param>
+    void StartChoiceExam(int index)
+    {
+        CleanQuestion();
+        CloseAllLight();
+        List<int> examList = GameDataMgr.Instance.carInfo.GetExamList(index);
         StartCoroutine(BeginLightExam(examList));
     }
 
@@ -850,7 +909,7 @@ public abstract class UIExamWindowBase : UIWindow
         Debug.Log(audioObject.playTime);
         yield return new WaitForSeconds(audioObject.playTime);
         audioObject = null;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < examList.Count; i++)
         {
             sQuestionData question = GameDataMgr.Instance.carInfo.GetQuestionWithId(examList[i]);
@@ -912,7 +971,7 @@ public abstract class UIExamWindowBase : UIWindow
                 {
                     Debug.LogWarning("答题时间：" + delay);
                     isOperation = false;
-                    delay = Mathf.Clamp(delay, 0f, 2f);
+                    delay = Mathf.Clamp(delay, 0f, 1f);
                     while (delay > 0f)
                     {
                         yield return null;
@@ -971,6 +1030,7 @@ public abstract class UIExamWindowBase : UIWindow
 
                     Debug.LogWarning("放弃考试");
                     IsLightExam = false;
+                    IsChioce = false;
                     yield break;
                 }
             }
@@ -1030,5 +1090,5 @@ public abstract class UIExamWindowBase : UIWindow
         return result;
     }
 
-//#endif
+    //#endif
 }

@@ -373,7 +373,7 @@ end
 
 # fastlane reports which actions are used. No personal data is recorded.
 # Learn more at https://github.com/fastlane/fastlane#metrics
-#
+#输出环境信息
 
 def print_info
     params = Hash[

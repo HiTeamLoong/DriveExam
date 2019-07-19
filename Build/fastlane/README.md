@@ -153,6 +153,11 @@ fastlane android icon
 fastlane android assemble
 ```
 
+### android assemble1
+```
+fastlane android assemble1
+```
+
 ### android manifest
 ```
 fastlane android manifest

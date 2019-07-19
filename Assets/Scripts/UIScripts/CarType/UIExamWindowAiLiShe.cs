@@ -232,8 +232,11 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
 
         UIEventListener.Get(btsControlBackward1.button.gameObject).onDown += (go) =>
         {
-            ToggleHeadlightSwitch = true;
-            FarHeadlightSwitch = !FarHeadlightSwitch;
+            if (ClearanceSwitch || HeadlightSwitch)
+            {
+                ToggleHeadlightSwitch = true;
+                FarHeadlightSwitch = !FarHeadlightSwitch;
+            }
             controlRodBackward.objRoot.SetActive(true);
             controlRodNormal.objRoot.SetActive(false);
             (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprSelect;
@@ -242,8 +245,11 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
         };
         UIEventListener.Get(btsControlBackward1.button.gameObject).onUp += (go) =>
         {
-            ToggleHeadlightSwitch = false;
-            FarHeadlightSwitch = !FarHeadlightSwitch;
+            if (ClearanceSwitch || HeadlightSwitch)
+            {
+                ToggleHeadlightSwitch = false;
+                FarHeadlightSwitch = !FarHeadlightSwitch;
+            }
             controlRodBackward.objRoot.SetActive(false);
             controlRodNormal.objRoot.SetActive(true);
             (btsControlBackward1.button.targetGraphic as Image).sprite = btsControlBackward1.sprNormal;
@@ -253,10 +259,14 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
 
         UIEventListener.Get(btsControlBackward2.button.gameObject).onDown += (go) =>
         {
-            FarHeadlightSwitch = !FarHeadlightSwitch;
+            if (ClearanceSwitch|| HeadlightSwitch)
+            {
+                FarHeadlightSwitch = !FarHeadlightSwitch;
+            }
             controlRodBackward.objRoot.SetActive(true);
             controlRodNormal.objRoot.SetActive(false);
             (btsControlBackward2.button.targetGraphic as Image).sprite = btsControlBackward2.sprSelect;
+
             AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect yuan"));
             OnSwitchChange();
         };
@@ -304,11 +314,13 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                 {
                     HeadlightSwitch = false;
                     ClearanceSwitch = true;
+                    RearFogSwitch = false;
                     AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
                 else if (ClearanceSwitch)
                 {
                     ClearanceSwitch = false;
+                    FarHeadlightSwitch = false;
                     AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
             }
@@ -329,7 +341,7 @@ public class UIExamWindowAiLiShe : UIExamWindowBase
                     FrontFogSwitch = true;
                     AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
                 }
-                else if (FrontFogSwitch)
+                else if (FrontFogSwitch && HeadlightSwitch)
                 {
                     RearFogSwitch = true;
                     AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
