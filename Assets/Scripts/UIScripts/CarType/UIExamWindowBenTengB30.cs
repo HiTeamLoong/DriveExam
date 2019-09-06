@@ -301,7 +301,7 @@ public class UIExamWindowBenTengB30 : UIExamWindowBase
         Vector2 currPos = eventData.position;
         if (Vector2.Distance(passPos, currPos) > 6f)//滑动小了不触发
         {
-            if (currPos.x > passPos.x && currPos.y > passPos.y)//右上
+            if (/*currPos.x > passPos.x && */currPos.y > passPos.y)//右上
             {
                 //示廓灯是否开启/前照灯是否开启
                 if (!ClearanceSwitch && !HeadlightSwitch)

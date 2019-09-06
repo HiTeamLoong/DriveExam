@@ -5,109 +5,109 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.003136">
+      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.00634">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.00292">
+      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.005787">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.002628">
+      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.004667">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: Switch to android info lane" time="0.002412">
+      <testcase classname="fastlane.lanes" name="03: Switch to android info lane" time="0.0039">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: Switch to android switch_platform lane" time="0.002272">
+      <testcase classname="fastlane.lanes" name="04: Switch to android switch_platform lane" time="0.003672">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: Switch to android do_switch_platform lane" time="0.002204">
+      <testcase classname="fastlane.lanes" name="05: Switch to android do_switch_platform lane" time="0.003067">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: unity" time="7.584976">
+      <testcase classname="fastlane.lanes" name="06: unity" time="17.764531">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: Switch to android export lane" time="0.002693">
+      <testcase classname="fastlane.lanes" name="07: Switch to android export lane" time="0.004408">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: Switch to android do_export lane" time="0.001946">
+      <testcase classname="fastlane.lanes" name="08: Switch to android do_export lane" time="0.004146">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: Switch to android do_set_package_setting lane" time="0.002294">
+      <testcase classname="fastlane.lanes" name="09: Switch to android do_set_package_setting lane" time="0.003351">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: unity" time="34.297016">
+      <testcase classname="fastlane.lanes" name="10: unity" time="58.551419">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: echo &quot;##teamcity[publishArtifacts 'Build/Output/Android/Build-2.2.8/Unity.BuildAndroid-2.2.8-Export.log']&quot;" time="0.009936">
+      <testcase classname="fastlane.lanes" name="11: echo &quot;##teamcity[publishArtifacts 'Build/Output/Android/Build-2.2.9/Unity.BuildAndroid-2.2.9-Export.log']&quot;" time="0.053117">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: Switch to android icon lane" time="0.001912">
+      <testcase classname="fastlane.lanes" name="12: Switch to android icon lane" time="0.0208">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="13: Switch to android do_icon lane" time="0.002599">
+      <testcase classname="fastlane.lanes" name="13: Switch to android do_icon lane" time="0.008561">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="14: add_badge" time="4.695687">
+      <testcase classname="fastlane.lanes" name="14: add_badge" time="10.267805">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="15: Switch to android assemble lane" time="0.002345">
+      <testcase classname="fastlane.lanes" name="15: Switch to android assemble lane" time="0.00414">
         
       </testcase>
     
       
       <testcase classname="fastlane.lanes" name="16: 
-            sed -i &quot;&quot; &quot;s/applicationId '.*'/applicationId 'com.loongx.DriveExam'/g&quot; /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.8/DriveExam/build.gradle
-        " time="0.01571">
+            sed -i &quot;&quot; &quot;s/applicationId '.*'/applicationId 'com.loongx.DriveExam'/g&quot; /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.9/DriveExam/build.gradle
+        " time="0.023221">
         
       </testcase>
     
       
       <testcase classname="fastlane.lanes" name="17: 
-            cp /Users/xuelong/Development/DriveExam/Assets/Plugins/Android/gradle.properties /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.8/DriveExam/
-            gradle wrapper --distribution-type=bin --project-dir /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.8/DriveExam
-        " time="8.467614">
+            cp /Users/xuelong/Development/DriveExam/Assets/Plugins/Android/gradle.properties /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.9/DriveExam/
+            gradle wrapper --distribution-type=bin --project-dir /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.9/DriveExam
+        " time="2.564293">
         
       </testcase>
     
       
       <testcase classname="fastlane.lanes" name="18: 
-            /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.8/DriveExam/gradlew assembleRelease -p /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.8/DriveExam &gt; /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.8/Unity.BuildAndroid-2.2.8-gradle-Release.log
-        " time="9.674591">
+            /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.9/DriveExam/gradlew assembleRelease -p /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.9/DriveExam &gt; /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.9/Unity.BuildAndroid-2.2.9-gradle-Release.log
+        " time="13.409264">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="19: aapt dump badging /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.8/DriveExam/build/outputs/apk/release/DriveExam-release.apk" time="0.011916">
+      <testcase classname="fastlane.lanes" name="19: aapt dump badging /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.9/DriveExam/build/outputs/apk/release/DriveExam-release.apk" time="0.016214">
         
           <failure message="/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/actions/actions_helper.rb:48:in `execute_action'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/fast_file.rb:191:in `sh'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/fast_file.rb:186:in `sh'&#10;FastfileAndroid:114:in `block (2 levels) in parsing_binding'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:204:in `try_switch_to_lane'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:146:in `trigger_action_by_name'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/fast_file.rb:154:in `method_missing'&#10;FastfileAndroid:229:in `block (2 levels) in parsing_binding'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:45:in `chdir'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:45:in `execute'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/lane_manager.rb:56:in `cruise_lane'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/commands_generator.rb:108:in `block (2 levels) in run'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:178:in `call'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:153:in `run'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/runner.rb:476:in `run_active_command'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:76:in `run!'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/delegates.rb:15:in `run!'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/commands_generator.rb:333:in `run'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/commands_generator.rb:41:in `start'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/cli_tools_distributor.rb:108:in `take_off'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/bin/fastlane:23:in `&lt;top (required)&gt;'&#10;/usr/local/bin/fastlane:22:in `load'&#10;/usr/local/bin/fastlane:22:in `&lt;main&gt;'&#10;&#10;No such file or directory - aapt" />
         

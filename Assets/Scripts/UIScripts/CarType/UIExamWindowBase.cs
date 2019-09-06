@@ -427,7 +427,7 @@ public abstract class UIExamWindowBase : UIWindow
                     LowToHigCount += 1;
                 }
             }
-            Debug.Log("lightChange :\t" + lowToHigCount);
+            //Debug.Log("lightChange :\t" + lowToHigCount);
         }
     }
     /// <summary>
@@ -439,12 +439,12 @@ public abstract class UIExamWindowBase : UIWindow
         get { return lowToHigCount; }
         set
         {
-            Debug.Log("lightChange :\t" + value + "       " + lowToHigCount);
+            //Debug.Log("lightChange :\t" + value + "       " + lowToHigCount);
             if (value == 0 || (value - 1) == lowToHigCount)
             {
                 lowToHigCount = value;
             }
-            Debug.Log("lightChange :\t" + value + "       " + lowToHigCount);
+            //Debug.Log("lightChange :\t" + value + "       " + lowToHigCount);
         }
     }
     #endregion
@@ -897,7 +897,7 @@ public abstract class UIExamWindowBase : UIWindow
 
     IEnumerator BeginLightExam(List<int> examList)
     {
-        bool isPass = true;     //是否通过考试
+        bool isPass  = true;     //是否通过考试
         //bool isBreak = false;   //是否中断考试
         int totalScore = 100;       //考试总成绩
         float totalTime = 5f;       //考试总时长  
@@ -918,6 +918,7 @@ public abstract class UIExamWindowBase : UIWindow
             textQuestion.text = question.question;
             textAnswer.text = question.answer;
             textAnswer.gameObject.SetActive(IsShowAnswer);
+            imgResult.gameObject.SetActive(false);
             audioObject = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(question.audio));
             Debug.Log(audioObject.playTime);
             float playTime = Mathf.Clamp(audioObject.playTime - 0.2f, 0.2f, audioObject.playTime);
@@ -971,7 +972,7 @@ public abstract class UIExamWindowBase : UIWindow
                 {
                     Debug.LogWarning("答题时间：" + delay);
                     isOperation = false;
-                    delay = Mathf.Clamp(delay, 0f, 1f);
+                    delay = Mathf.Clamp(delay, 0f, (i + 1) == examList.Count ? 0.5f : 1f);
                     while (delay > 0f)
                     {
                         yield return null;
@@ -992,17 +993,15 @@ public abstract class UIExamWindowBase : UIWindow
             if (result)
             {
                 Debug.LogWarning("答题----正确");
-                yield return new WaitForSeconds(3.0f);
+                yield return new WaitForSeconds(2.0f);
                 imgResult.gameObject.SetActive(false);
             }
             else
             {
                 Debug.LogWarning("答题----错误");
-                imgResult.gameObject.SetActive(true);
-                imgResult.sprite = result ? sprRight : sprError;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("error"));
+                yield return new WaitForSeconds(2.0f);
                 totalScore -= question.score;
-                //PauseQuestion();
             }
 
             //未通过考试，进行首次提示

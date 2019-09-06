@@ -36,17 +36,18 @@ public class UpdateManager : MonoBehaviour
 
         uiLoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
         uiLoginWindow.SetState("正在检查账号...");
-//#if CHAPTER_ONE
-//        //没网跳过检测版本
-//        if (ConfigDataMgr.Instance.gameConfig == null || Application.internetReachability != NetworkReachability.NotReachable)
-//        {
-//            CheckConfigUpdate();
-//        }
-//        else
-//        {
-//            CheckLoginState();
-//        }
-//#elif CHAPTER_TWO
+        //#if CHAPTER_ONE
+        //        //没网跳过检测版本
+        //        if (ConfigDataMgr.Instance.gameConfig == null || Application.internetReachability != NetworkReachability.NotReachable)
+        //        {
+        //            CheckConfigUpdate();
+        //CheckAuthorizeData();
+        //        }
+        //        else
+        //        {
+        //            CheckLoginState();
+        //        }
+        //#elif CHAPTER_TWO
         //if (Application.internetReachability != NetworkReachability.NotReachable)
         //{
         //    CheckLoginState();
@@ -61,6 +62,7 @@ public class UpdateManager : MonoBehaviour
         //        }
         //    });
         //}
+        CheckAuthorizeData();
         UINetworkDialog.CheckNetwork(CheckLoginState);
 //#endif
     }
@@ -128,23 +130,26 @@ public class UpdateManager : MonoBehaviour
                 UITipsDialog.ShowTips("题库缺失，请链接网络后重新进入", true);
             }
         }));
-
-
-        StartCoroutine(RequestNetworkFile(GlobalManager.Instance.loongAuthUrl, (result, content, data) =>
-         {
-             if (result)
-             {
-                 try
-                 {
-                     ConfigDataMgr.Instance.authorizeData = LitJson.JsonMapper.ToObject<AuthorizeData>(content);
-                 }
-                 catch
-                 {
-                     ConfigDataMgr.Instance.authorizeData = new AuthorizeData();
-                 }
-             }
-         }));
     }
+
+    void CheckAuthorizeData()
+    {
+        StartCoroutine(RequestNetworkFile(GlobalManager.Instance.loongAuthUrl, (result, content, data) =>
+        {
+            if (result)
+            {
+                try
+                {
+                    ConfigDataMgr.Instance.authorizeData = LitJson.JsonMapper.ToObject<AuthorizeData>(content);
+                }
+                catch
+                {
+                    ConfigDataMgr.Instance.authorizeData = new AuthorizeData();
+                }
+            }
+        }));
+    }
+
     /// <summary>
     /// 更新流程  1.转换语音  2.更新Video图片
     /// </summary>

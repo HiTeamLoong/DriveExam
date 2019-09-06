@@ -36,26 +36,41 @@ public class UIExamTipsDialog : UIDialog
 //                break;
 //        }
 //#elif CHAPTER_TWO 
-        switch ((CarUID)GameDataMgr.Instance.carTypeData.uid)
+        //switch ((CarUID)GameDataMgr.Instance.carTypeData.uid)
+        //{
+        //    case CarUID.SangTaNa_Old:
+        //    case CarUID.SangTaNa_New:
+        //        helpPrefab = help_Dazhong;
+        //        break;
+        //    case CarUID.AiLiShe_Old:
+        //    case CarUID.AiLiShe_New:
+        //        helpPrefab = help_Ailishe;
+        //        break;
+        //    case CarUID.BenTengB30_Old:
+        //    case CarUID.BenTengB30_New:
+        //        helpPrefab = help_BentengB30;
+        //        break;
+        //    case CarUID.AiLiShe2_Old:
+        //    case CarUID.AiLiShe2_New:
+        //        helpPrefab = help_Ailishe2015;
+        //        break;
+        //}
+        switch (GameDataMgr.Instance.carTypeData.chexingcode)
         {
-            case CarUID.SangTaNa_Old:
-            case CarUID.SangTaNa_New:
+            case "sangtana":
                 helpPrefab = help_Dazhong;
                 break;
-            case CarUID.AiLiShe_Old:
-            case CarUID.AiLiShe_New:
+            case "ailishe":
                 helpPrefab = help_Ailishe;
                 break;
-            case CarUID.BenTengB30_Old:
-            case CarUID.BenTengB30_New:
+            case "bentengb30":
                 helpPrefab = help_BentengB30;
                 break;
-            case CarUID.AiLiShe2_Old:
-            case CarUID.AiLiShe2_New:
+            case "ailishe2":
                 helpPrefab = help_Ailishe2015;
                 break;
         }
-//#endif
+        //#endif
         if (helpPrefab != null)
         {
             GameObject help = Instantiate(helpPrefab, transform);

@@ -333,6 +333,7 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
         {
             if (request.responseCode == 200 || request.responseCode == 0)
             {
+                Debug.Log(url);
                 Debug.Log(request.downloadHandler.text);
                 callback(true, request.downloadHandler.text, request.downloadHandler.data);
             }

@@ -58,22 +58,37 @@ public class SwitchSceneMgr : XSingleton<SwitchSceneMgr>
 //#elif CHAPTER_TWO
         Callback LoadFinish = () =>
         {
-            switch ((CarUID)GameDataMgr.Instance.carTypeData.uid)
+            //switch ((CarUID)GameDataMgr.Instance.carTypeData.uid)
+            //{
+            //    case CarUID.SangTaNa_Old:
+            //    case CarUID.SangTaNa_New:
+            //        UIManager.Instance.OpenUI<UIExamWindowDaZhong>();
+            //        break;
+            //    case CarUID.AiLiShe_Old:
+            //    case CarUID.AiLiShe_New:
+            //        UIManager.Instance.OpenUI<UIExamWindowAiLiShe>();
+            //        break;
+            //    case CarUID.BenTengB30_Old:
+            //    case CarUID.BenTengB30_New:
+            //        UIManager.Instance.OpenUI<UIExamWindowBenTengB30>();
+            //        break;
+            //    case CarUID.AiLiShe2_Old:
+            //    case CarUID.AiLiShe2_New:
+            //        UIManager.Instance.OpenUI<UIExamWindowAiLiShe2015>();
+            //        break;
+            //}
+            switch (GameDataMgr.Instance.carTypeData.chexingcode)
             {
-                case CarUID.SangTaNa_Old:
-                case CarUID.SangTaNa_New:
+                case "sangtana":
                     UIManager.Instance.OpenUI<UIExamWindowDaZhong>();
                     break;
-                case CarUID.AiLiShe_Old:
-                case CarUID.AiLiShe_New:
+                case "ailishe":
                     UIManager.Instance.OpenUI<UIExamWindowAiLiShe>();
                     break;
-                case CarUID.BenTengB30_Old:
-                case CarUID.BenTengB30_New:
+                case "bentengb30":
                     UIManager.Instance.OpenUI<UIExamWindowBenTengB30>();
                     break;
-                case CarUID.AiLiShe2_Old:
-                case CarUID.AiLiShe2_New:
+                case "ailishe2":
                     UIManager.Instance.OpenUI<UIExamWindowAiLiShe2015>();
                     break;
             }

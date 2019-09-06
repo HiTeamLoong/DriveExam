@@ -34,28 +34,29 @@ public class CarTypeItem : MonoBehaviour {
                 }
             });
         }
-        else if(!string.IsNullOrEmpty(Enum.GetName(typeof(CarUID),typeData.uid)))
+        //else if(!string.IsNullOrEmpty(Enum.GetName(typeof(CarUID),typeData.uid)))
+        else
         {
-            string imageName = "";
-            switch ((CarUID)typeData.uid)
-            {
-                case CarUID.SangTaNa_Old:
-                case CarUID.SangTaNa_New:
-                    imageName = "sangtana";
-                    break;
-                case CarUID.AiLiShe_Old:
-                case CarUID.AiLiShe_New:
-                    imageName = "ailishe";
-                    break;
-                case CarUID.BenTengB30_Old:
-                case CarUID.BenTengB30_New:
-                    imageName = "bentengb30";
-                    break;
-                case CarUID.AiLiShe2_Old:
-                case CarUID.AiLiShe2_New:
-                    imageName = "ailishe2";
-                    break;
-            }
+            string imageName = typeData.chexingcode;
+            //switch ((CarUID)typeData.uid)
+            //{
+            //    case CarUID.SangTaNa_Old:
+            //    case CarUID.SangTaNa_New:
+            //        imageName = "sangtana";
+            //        break;
+            //    case CarUID.AiLiShe_Old:
+            //    case CarUID.AiLiShe_New:
+            //        imageName = "ailishe";
+            //        break;
+            //    case CarUID.BenTengB30_Old:
+            //    case CarUID.BenTengB30_New:
+            //        imageName = "bentengb30";
+            //        break;
+            //    case CarUID.AiLiShe2_Old:
+            //    case CarUID.AiLiShe2_New:
+            //        imageName = "ailishe2";
+            //        break;
+            //}
             Texture2D texture = ResourcesMgr.Instance.LoadTexture("CarType", imageName);
             image.sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
             isNew.gameObject.SetActive(typeData.type == 1);

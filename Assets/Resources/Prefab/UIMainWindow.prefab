@@ -625,6 +625,7 @@ MonoBehaviour:
   btnShare: {fileID: 114769381015826218}
   btnVow: {fileID: 114711391449035924}
   btnFlow: {fileID: 114708511732003734}
+  scrollView: {fileID: 114067050358079020}
   typeList: {fileID: 224863325222327424}
 --- !u!114 &114016492139236194
 MonoBehaviour:

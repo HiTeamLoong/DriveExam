@@ -146,14 +146,17 @@ public class KnobSwitch : MonoBehaviour
     }
     
     Vector2 beginPosition;
-
+    bool isChange;
 
     void OnTriggerDragBegin(GameObject go, PointerEventData eventData)
     {
         beginPosition = eventData.pressPosition;
+        isChange = false;
     }
     void OnTriggerDrag(GameObject go, PointerEventData eventData)
     {
+        if (!isChange)
+        {
         Vector2 curScreenPosition = RectTransformUtility.WorldToScreenPoint(eventData.pressEventCamera, transform.position);
         Vector2 directionTo = curScreenPosition - eventData.position;
         Vector2 directionFrom = curScreenPosition - beginPosition;
@@ -166,9 +169,12 @@ public class KnobSwitch : MonoBehaviour
             if (curLevelIdx != i && angle > tempLevel.MaxAngle && angle <= tempLevel.MinAngle)
             {
                 CurLevelIdx = i;
+                isChange = true;
                 beginPosition = eventData.position;
                 AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.LoadAudioClip("L Effect01"));
             }
+            }
+
         }
     }
     
