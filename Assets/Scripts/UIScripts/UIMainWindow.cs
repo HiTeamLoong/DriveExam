@@ -106,7 +106,7 @@ public class UIMainWindow : UIWindow
 //#elif CHAPTER_TWO
         if (GameDataMgr.Instance.carInfo.listvideo.Count>0)
         {
-            UIDetailWindow uiDetailWindow = UIManager.Instance.OpenUI<UIDetailWindow>();
+            /*UIDetailWindow uiDetailWindow = */UIManager.Instance.OpenUI<UIDetailWindow>();
         }
         else
         {

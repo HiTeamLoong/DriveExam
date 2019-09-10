@@ -299,10 +299,15 @@ public abstract class UIExamWindowBase : UIWindow
         get { return clearanceSwitch; }
         set
         {
-            clearanceSwitch = value;
-            HeadlightSwitch &= !value;
-            lightController.SetClearanc(ClearanceLamp);
-            lightController.SetFogLight(FrontFogLamp);
+            if (ClearanceSwitch != value)
+            {
+                clearanceSwitch = value;
+                HeadlightSwitch &= !value;
+                lightController.SetClearanc(ClearanceLamp);
+                lightController.SetFogLight(FrontFogLamp);
+
+                OnLightChange();
+            }
         }
     }
     /// <summary>
@@ -314,12 +319,16 @@ public abstract class UIExamWindowBase : UIWindow
         get { return headlightSwitch; }
         set
         {
-            headlightSwitch = value;
-            ClearanceSwitch &= !value;
-            lightController.SetClearanc(ClearanceLamp);
-            lightController.SetHeadFar(HigBeamLight);
-            lightController.SetHeadNear(LowBeamLight);
-            lightController.SetFogLight(FrontFogLamp);
+            if (HeadlightSwitch != value)
+            {
+                headlightSwitch = value;
+                ClearanceSwitch &= !value;
+                lightController.SetClearanc(ClearanceLamp);
+                lightController.SetHeadFar(HigBeamLight);
+                lightController.SetHeadNear(LowBeamLight);
+                lightController.SetFogLight(FrontFogLamp);
+                OnLightChange();
+            }
         }
     }
     /// <summary>
@@ -331,8 +340,12 @@ public abstract class UIExamWindowBase : UIWindow
         get { return frontFogSwitch; }
         set
         {
-            frontFogSwitch = value;
-            lightController.SetFogLight(FrontFogLamp);
+            if (FrontFogSwitch != value)
+            {
+                frontFogSwitch = value;
+                lightController.SetFogLight(FrontFogLamp);
+                OnLightChange();
+            }
         }
     }
     /// <summary>
@@ -344,7 +357,11 @@ public abstract class UIExamWindowBase : UIWindow
         get { return rearFogSwitch; }
         set
         {
-            rearFogSwitch = value;
+            if (RearFogSwitch != value)
+            {
+                rearFogSwitch = value;
+                OnLightChange();
+            }
         }
     }
     /// <summary>
@@ -361,6 +378,7 @@ public abstract class UIExamWindowBase : UIWindow
                 leftIndicatorSwitch = value;
                 RightIndicatorSwitch &= !value;
                 SetLeftIndicator();
+                OnLightChange();
             }
         }
     }
@@ -390,10 +408,15 @@ public abstract class UIExamWindowBase : UIWindow
         get { return doubleJumpSwitch; }
         set
         {
-            doubleJumpSwitch = value;
-            SetLeftIndicator();
-            SetRightIndicator();
-            SetDoubleJumpLamp();
+            if (DoubleJumpSwitch != value)
+            {
+                doubleJumpSwitch = value;
+                SetLeftIndicator();
+                SetRightIndicator();
+                SetDoubleJumpLamp();
+
+                OnLightChange();
+            }
         }
     }
     /// <summary>
@@ -405,9 +428,14 @@ public abstract class UIExamWindowBase : UIWindow
         get { return farHeadlightSwitch; }
         set
         {
-            farHeadlightSwitch = value;
-            lightController.SetHeadFar(HigBeamLight);
-            lightController.SetHeadNear(LowBeamLight);
+            if (FarHeadlightSwitch != value)
+            {
+                farHeadlightSwitch = value;
+                lightController.SetHeadFar(HigBeamLight);
+                lightController.SetHeadNear(LowBeamLight);
+
+                OnLightChange();
+            }
         }
     }
     /// <summary>
@@ -496,7 +524,14 @@ public abstract class UIExamWindowBase : UIWindow
     protected void OnSwitchChange()
     {
         //正确性检测
+        //isOperation = true;
+        //灯光变更修正
+    }
+    protected void OnLightChange()
+    {
+        //正确性检测
         isOperation = true;
+        Debug.Log("有操作…………………………");
         //灯光变更修正
     }
 
@@ -926,7 +961,9 @@ public abstract class UIExamWindowBase : UIWindow
             yield return new WaitForSeconds(playTime);
             audioObject = null;
             Debug.LogWarning("开始答题：" + question.question);
-            if (!string.IsNullOrEmpty(examTip.broadcast_end))
+            if (!string.IsNullOrEmpty(examTip.broadcast_end)&&
+                i!=0&&                      //第一道题不提示ding
+                i!=(examList.Count-1))      //最后一道题不提示ding
             {
                 Debug.LogWarning("Ding ^^^^^^^^^^^^ ");
                 AudioObject audioBroadcast = AudioSystemMgr.Instance.PlaySoundByClip(ResourcesMgr.Instance.GetAudioWithURL(examTip.broadcast_end));
@@ -1080,7 +1117,7 @@ public abstract class UIExamWindowBase : UIWindow
         result &= ((question.RearFogLamp == 1) == RearFogLamp);
         result &= ((question.LeftIndicator == 1) == LeftIndicator);
         result &= ((question.RightIndicator == 1) == RightIndicator);
-        result &= (question.LowToHigLight == lowToHigCount);
+        result &= (question.LowToHigLight <= lowToHigCount);
 
         Debug.Log("DoubleJumpLamp:" + DoubleJumpLamp + "\nClearanceLamp:" + ClearanceLamp + "\nLowBeamLight:" + LowBeamLight + "\nHigBeamLight:" + HigBeamLight + "\nFrontFogLamp:" + FrontFogLamp + "\nRearFogLamp:" + RearFogLamp + "\nlowToHigCount:" + lowToHigCount);
 

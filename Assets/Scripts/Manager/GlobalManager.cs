@@ -314,6 +314,7 @@ public class GlobalManager : XMonoSingleton<GlobalManager>
     /// <param name="callback">Callback.</param>
     IEnumerator IRequestNetworkFile(string url, Action<bool, string, byte[]> callback)
     {
+        url = url.Replace("http:", "https:");
         UnityWebRequest request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
 

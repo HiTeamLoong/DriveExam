@@ -314,8 +314,8 @@ public class LoginController : MonoBehaviour
         //loginLayer1.inputAccount.text = "10000001";
         //loginLayer1.inputPwd.text = "782109";
 
-        //loginLayer1.inputAccount.text = "10046698";
-        //loginLayer1.inputPwd.text = "768412";
+        loginLayer1.inputAccount.text = "10046698";
+        loginLayer1.inputPwd.text = "768412";
 
         //loginLayer1.inputAccount.text = "10000015";
         //loginLayer1.inputPwd.text = "530648";

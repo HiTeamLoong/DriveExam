@@ -98,7 +98,6 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             if (FrontFogSwitch != value)
             {
                 base.FrontFogSwitch = value;
-
                 imgFrontFog.DOFade(FrontFogLamp ? 1f : 0f, 0);
             }
         }
@@ -110,7 +109,6 @@ public class UIExamWindowAiLiShe2015 : UIExamWindowBase
             if (RearFogSwitch != value)
             {
                 base.RearFogSwitch = value;
-
                 imgRearFog.DOFade(RearFogLamp ? 1f : 0f, 0);
             }
         }
