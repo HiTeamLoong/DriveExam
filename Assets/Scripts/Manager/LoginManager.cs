@@ -195,6 +195,7 @@ public class LoginManager : XSingleton<LoginManager>
                  if (retObject != null)
                  {
                      UIManager.Instance.CloseUI(uIWait);
+                     Debug.Log("关闭等待界面");
                      callback(retObject);
                  }
              });

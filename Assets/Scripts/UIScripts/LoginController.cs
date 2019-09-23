@@ -211,6 +211,26 @@ public class LoginController : MonoBehaviour
         loginLayer1.btnMobile.onClick.AddListener(LoginLayer1MobileBtn);
         loginLayer1.btnGetAct.onClick.AddListener(loginLayer1GetActBtn);
 
+        string account = PlayerPrefs.GetString(GameDataMgr.AccountKey, "");
+        string passwrd = PlayerPrefs.GetString(GameDataMgr.PassWrdKey, "");
+
+
+        if (!string.IsNullOrEmpty(account) && !string.IsNullOrEmpty(passwrd))
+        {
+            loginLayer1.inputAccount.text = account;
+            loginLayer1.inputPwd.text = passwrd;
+            RequestLogin(account, passwrd);
+        }
+
+        loginLayer1.inputAccount.onValueChanged.AddListener(delegate
+        {
+            if (!string.IsNullOrEmpty(loginLayer1.inputPwd.text))
+            {
+                loginLayer1.inputPwd.text = "";
+            }
+        });
+
+
         loginLayer2.btnLogin.onClick.AddListener(LoginLayer2LoginBtn);
         loginLayer2.btnSignup.onClick.AddListener(LoginLayer2SignupBtn);
         loginLayer2.btnForget.onClick.AddListener(LoginLayer2ForgetBtn);
@@ -314,8 +334,8 @@ public class LoginController : MonoBehaviour
         //loginLayer1.inputAccount.text = "10000001";
         //loginLayer1.inputPwd.text = "782109";
 
-        loginLayer1.inputAccount.text = "10046698";
-        loginLayer1.inputPwd.text = "768412";
+        //loginLayer1.inputAccount.text = "10046698";
+        //loginLayer1.inputPwd.text = "768412";
 
         //loginLayer1.inputAccount.text = "10000015";
         //loginLayer1.inputPwd.text = "530648";
@@ -332,29 +352,7 @@ public class LoginController : MonoBehaviour
             return;
         }
 
-        RequestLightLogin requestLogin = new RequestLightLogin();
-        requestLogin.loginAccount = loginLayer1.inputAccount.text;
-        requestLogin.password = loginLayer1.inputPwd.text;
-
-        LoginManager.Instance.SendLightLoginMessage<ResponseLightLogin>(requestLogin, (responseData) =>
-        {
-            if (responseData.status == "200")
-            {
-                UITipsDialog.ShowTips("登录成功");
-
-                ResponseLogin response = new ResponseLogin() { userName = "驾考精灵", loginAccount = requestLogin.loginAccount };
-                loginCallback(response);
-            }
-            else
-            {
-                UITipsDialog.ShowTips(responseData.msg);
-            }
-        });
-
-
-
-
-
+        RequestLogin(loginLayer1.inputAccount.text, loginLayer1.inputPwd.text);
 
         //return;
         //if (string.IsNullOrEmpty(loginLayer1.inputAccount.text))
@@ -387,6 +385,32 @@ public class LoginController : MonoBehaviour
         //    }
         //});
     }
+
+    void RequestLogin(string account,string passwrd)
+    {
+        RequestLightLogin requestLogin = new RequestLightLogin();
+        requestLogin.loginAccount = account;
+        requestLogin.password = passwrd;
+
+        LoginManager.Instance.SendLightLoginMessage<ResponseLightLogin>(requestLogin, (responseData) =>
+        {
+            if (responseData.status == "200")
+            {
+                UITipsDialog.ShowTips("登录成功");
+
+                PlayerPrefs.SetString(GameDataMgr.AccountKey, requestLogin.loginAccount);
+                PlayerPrefs.SetString(GameDataMgr.PassWrdKey, requestLogin.password);
+
+                ResponseLogin response = new ResponseLogin() { userName = "驾考精灵", loginAccount = requestLogin.loginAccount };
+                loginCallback(response);
+            }
+            else
+            {
+                UITipsDialog.ShowTips(responseData.msg);
+            }
+        });
+    }
+
     void LoginLayer1WechatBtn()
     {
         GlobalManager.Instance.AuthWechat((requestOther) =>

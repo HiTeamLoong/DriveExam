@@ -1934,7 +1934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -0.00007513155, y: -0.00002271156}
+  m_AnchoredPosition: {x: -0.0000530041, y: -0.00002271156}
   m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &224360052431018702
@@ -2340,7 +2340,7 @@ VideoPlayer:
   - {fileID: 82143976354247868}
   m_DirectAudioVolumes:
   - 1
-  m_Url: http://downloads.renderheads.com/2016/BigBuckBunny_360p30_Streaming.mp4
+  m_Url: 
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1

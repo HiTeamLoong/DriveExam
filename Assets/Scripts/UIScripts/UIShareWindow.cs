@@ -20,6 +20,8 @@ public class UIShareWindow : UIWindow
     {
         GameDataMgr.Instance.ResponseLogin = null;
         GameDataMgr.Instance.ResponseCarType = null;
+        PlayerPrefs.DeleteKey(GameDataMgr.AccountKey);
+        PlayerPrefs.DeleteKey(GameDataMgr.PassWrdKey);
         UILoginWindow uILoginWindow = UIManager.Instance.OpenUI<UILoginWindow>();
         uILoginWindow.SetLoginList();
     }

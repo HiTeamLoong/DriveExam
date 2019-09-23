@@ -10,7 +10,7 @@ public class UIWaitDialog : UIDialog
 
     public void Start()
     {
-        Debug.Log("     " + gameObject.name);
+        Debug.Log("  --------   " + gameObject.name);
         StartCoroutine(_ImageTurn());
     }
     public override void OnDispose()

@@ -299,9 +299,8 @@ public class ResourcesMgr : Singleton<ResourcesMgr>
             sQuestionData question = carInfo.questions[i];
             if (!ConfigDataMgr.Instance.resourceDict.ContainsKey(question.audio))
             {
-                downloadList.Add(question.audio.Replace("http:", "https:"));
-
-                //downloadList.Add(question.audio);
+                //downloadList.Add(question.audio.Replace("http:", "https:"));
+                downloadList.Add(question.audio);
             }
         }
 

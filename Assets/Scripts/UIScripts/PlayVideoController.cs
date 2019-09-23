@@ -130,7 +130,7 @@ public class PlayVideoController : MonoBehaviour
             }
         });
 
-        videoPlayer.url = videoData.videourl;
+        videoPlayer.url = videoData.videourl.Replace("http:","https:");
         videoPlayer.Prepare();
     }
 

@@ -105,6 +105,7 @@ public class UIManager : XMonoSingleton<UIManager>
         if (uiPanel.GetType().IsSubclassOf(typeof(UIWindow)))
         {
             UIWindow tempWnd = windowsStack.Peek();
+            Debug.Log(tempWnd.name);
             if (!(uiPanel as UIWindow).isMain && tempWnd == uiPanel)
             {
                 tempWnd = windowsStack.Pop();

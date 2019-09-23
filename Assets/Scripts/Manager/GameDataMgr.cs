@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameDataMgr : XSingleton<GameDataMgr>
 {
+    public static readonly string AccountKey = "Login_Account";
+    public static readonly string PassWrdKey = "Login_PassWrd";
+
 
     public bool NeedLogin
     {
