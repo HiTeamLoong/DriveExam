@@ -344,7 +344,7 @@ platform :ios do
         switch_platform(options)    #切换到ios平台
         export(options)             #导出ios-xcode项目
         displayName(options)        #修改显示的名称
-        icon(options)               #设置项目图标版本
+        # icon(options)               #设置项目图标版本
     end
     ##########################################################
     #

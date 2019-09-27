@@ -5,92 +5,46 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying fastlane version" time="0.004354">
+      <testcase classname="fastlane.lanes" name="0: Verifying fastlane version" time="0.002428">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: add_extra_platforms" time="0.006177">
+      <testcase classname="fastlane.lanes" name="1: add_extra_platforms" time="0.002044">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: default_platform" time="0.006054">
+      <testcase classname="fastlane.lanes" name="2: default_platform" time="0.002023">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: Switch to ios info lane" time="0.01156">
+      <testcase classname="fastlane.lanes" name="3: 
+            sed -i &quot;&quot; &quot;s/applicationId '.*'/applicationId 'com.loongx.DriveExam'/g&quot; /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.10/DriveExam/build.gradle
+        " time="0.011461">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: Switch to ios switch_platform lane" time="0.00231">
+      <testcase classname="fastlane.lanes" name="4: 
+            cp /Users/xuelong/Development/DriveExam/Assets/Plugins/Android/gradle.properties /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.10/DriveExam/
+            gradle wrapper --distribution-type=bin --project-dir /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.10/DriveExam
+        " time="2.486712">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: Switch to ios do_switch_platform lane" time="0.001791">
+      <testcase classname="fastlane.lanes" name="5: 
+            /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.10/DriveExam/gradlew assembleRelease -p /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.10/DriveExam &gt; /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.10/Unity.BuildAndroid-2.2.10-gradle-Release.log
+        " time="32.784708">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: unity" time="156.357177">
+      <testcase classname="fastlane.lanes" name="6: aapt dump badging /Users/xuelong/Development/DriveExam/Build/Output/Android/Build-2.2.10/DriveExam/build/outputs/apk/release/DriveExam-release.apk" time="0.011426">
         
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="07: Switch to ios export lane" time="0.00421">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="08: Switch to ios do_export lane" time="0.002594">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="09: Switch to ios do_set_package_setting lane" time="0.001776">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="10: unity" time="76.515444">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="11: echo &quot;##teamcity[publishArtifacts 'Build/Output/iOS/Build-2.2.9/DriveExam/Unity.BuildiOS-2.2.9-Export.log']&quot;" time="0.014286">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="12: Switch to ios displayName lane" time="0.002535">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="13: set_info_plist_value" time="0.021305">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="14: set_info_plist_value" time="0.01272">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="15: Switch to ios icon lane" time="0.002385">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="16: Switch to ios do_icon lane" time="0.003607">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="17: add_badge" time="80.926618">
+          <failure message="/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/actions/actions_helper.rb:48:in `execute_action'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/fast_file.rb:191:in `sh'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/fast_file.rb:186:in `sh'&#10;FastfileAndroid:114:in `block (2 levels) in parsing_binding'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/lane.rb:33:in `call'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:45:in `chdir'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/runner.rb:45:in `execute'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/lane_manager.rb:56:in `cruise_lane'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/command_line_handler.rb:36:in `handle'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/commands_generator.rb:108:in `block (2 levels) in run'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:178:in `call'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/command.rb:153:in `run'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/runner.rb:476:in `run_active_command'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:76:in `run!'&#10;/Library/Ruby/Gems/2.3.0/gems/commander-fastlane-4.4.6/lib/commander/delegates.rb:15:in `run!'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/commands_generator.rb:333:in `run'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/commands_generator.rb:41:in `start'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/fastlane/lib/fastlane/cli_tools_distributor.rb:108:in `take_off'&#10;/Library/Ruby/Gems/2.3.0/gems/fastlane-2.113.0/bin/fastlane:23:in `&lt;top (required)&gt;'&#10;/usr/local/bin/fastlane:22:in `load'&#10;/usr/local/bin/fastlane:22:in `&lt;main&gt;'&#10;&#10;No such file or directory - aapt" />
         
       </testcase>
     
