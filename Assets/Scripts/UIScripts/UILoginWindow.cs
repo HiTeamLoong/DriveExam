@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UILoginWindow : UIWindow
 {
     public Text textState;
+	public Text textPolicy;
 
     public LoginController loginController;
 
@@ -56,7 +57,16 @@ public class UILoginWindow : UIWindow
     public override void OnCreate()
     {
         base.OnCreate();
-    }
+        if (!PlayerPrefs.HasKey("POLICY"))
+        {
+            UIManager.Instance.OpenUI<UIPolicyDialog>();
+        }
+        textPolicy.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            UIManager.Instance.OpenUI<UIPolicyDetialDialog>();
+        });
+
+	}
 
 
     public void SetLoginList()

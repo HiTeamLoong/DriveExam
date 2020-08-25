@@ -20,6 +20,7 @@ public class UIMainWindow : UIWindow
     public Button btnShare;
     public Button btnVow;
     public Button btnFlow;
+    public Button btnPolicy;
 
     public ScrollRect scrollView;
     public Transform typeList;
@@ -33,6 +34,7 @@ public class UIMainWindow : UIWindow
         btnShare.onClick.AddListener(OnClickShare);
         btnVow.onClick.AddListener(OnClickVow);
         btnFlow.onClick.AddListener(OnClickFlow);
+        btnPolicy.onClick.AddListener(OnClickPolicy);
         //#if CHAPTER_ONE
         //List<string> types = new List<string> { CarType.DaZhong.ToString(), CarType.AiLiShe.ToString(), CarType.BenTengB30.ToString(),CarType.AiLiShe2015.ToString() };
         //for (int i = 0; i < btnList.Count; i++)
@@ -142,5 +144,12 @@ public class UIMainWindow : UIWindow
     void OnClickFlow()
     {
         UIManager.Instance.OpenUI<UIFlowDialog>();
+    }
+     /// <summary>
+     /// 查看隐私政策
+     /// </summary>
+    void OnClickPolicy()
+    {
+        UIManager.Instance.OpenUI<UIPolicyDetialDialog>();
     }
 }
